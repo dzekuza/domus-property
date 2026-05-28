@@ -90,10 +90,26 @@ export default function LoginPage() {
             <Btn variant="primary" type="submit" style={{ width: '100%', justifyContent: 'center', marginTop: 4 }}>
               Prisijungti
             </Btn>
-            <p style={{ textAlign: 'center', fontSize: 12, color: 'var(--color-muted-ash-2)', marginTop: 4 }}>
-              Demo: slaptažodis — <strong>demo</strong>
-            </p>
           </form>
+        </div>
+
+        {/* Quick sign-in */}
+        <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <p style={{ textAlign: 'center', fontSize: 12, color: 'var(--color-muted-ash-2)', marginBottom: 2 }}>Greitas prisijungimas</p>
+          <button
+            onClick={() => { const ok = signIn('andrius@mail.lt', 'demo', 'owner'); if (ok) router.push('/portal/pagrindinis'); }}
+            style={{ width: '100%', padding: '11px 16px', fontSize: 13, fontWeight: 500, background: 'var(--color-paper-white)', border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-pill)', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+          >
+            <span>Savininkas — Andrius Kazlauskas</span>
+            <span style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', background: 'var(--color-cloud-canvas)', padding: '2px 8px', borderRadius: 100 }}>andrius@mail.lt</span>
+          </button>
+          <button
+            onClick={() => { const ok = signIn('tomas@domus.lt', 'demo', 'admin'); if (ok) router.push('/admin/estates'); }}
+            style={{ width: '100%', padding: '11px 16px', fontSize: 13, fontWeight: 500, background: 'var(--color-paper-white)', border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-pill)', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+          >
+            <span>Administratorius — Tomas Domus</span>
+            <span style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', background: 'var(--color-cloud-canvas)', padding: '2px 8px', borderRadius: 100 }}>tomas@domus.lt</span>
+          </button>
         </div>
       </div>
     </div>
