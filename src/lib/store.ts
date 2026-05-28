@@ -5,8 +5,9 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import type {
   User, Estate, Unit, Defect, Contact, PhotoSection,
   Role, DefectStatus, ServiceKind, PurchaseStepId, DocumentFile, DefectRoom,
+  ScheduleEvent, ScheduleEventType, ChatMessage,
 } from './types';
-import { SEED_USERS, SEED_ESTATES, SEED_UNITS, SEED_DEFECTS, SEED_CONTACTS, SEED_PHOTO_SECTIONS } from './seed';
+import { SEED_USERS, SEED_ESTATES, SEED_UNITS, SEED_DEFECTS, SEED_CONTACTS, SEED_PHOTO_SECTIONS, SEED_SCHEDULE_EVENTS, SEED_CHAT_MESSAGES } from './seed';
 import { toDataURL, generateId } from './files';
 
 interface Session {
@@ -23,6 +24,8 @@ interface DomusStore {
   defects: Defect[];
   contacts: Contact[];
   photoSections: PhotoSection[];
+  scheduleEvents: ScheduleEvent[];
+  chatMessages: ChatMessage[];
 
   // auth
   signIn: (email: string, _password: string, role: Role) => boolean;
@@ -57,6 +60,11 @@ interface DomusStore {
   removeEstatePhoto: (estateId: string, url: string) => void;
   removeUnitPhoto: (unitId: string, url: string) => void;
   deleteDocument: (unitId: string, stepId: PurchaseStepId, docId: string) => void;
+  // schedule
+  createScheduleEvent: (input: Omit<ScheduleEvent, 'id' | 'createdAt' | 'createdBy'>) => ScheduleEvent;
+  deleteScheduleEvent: (id: string) => void;
+  // chat
+  sendChatMessage: (estateId: string, body: string) => void;
 }
 
 let defectSeq = 204;
@@ -71,6 +79,8 @@ export const useStore = create<DomusStore>()(
       defects: SEED_DEFECTS,
       contacts: SEED_CONTACTS,
       photoSections: SEED_PHOTO_SECTIONS,
+      scheduleEvents: SEED_SCHEDULE_EVENTS,
+      chatMessages: SEED_CHAT_MESSAGES,
 
       // ── Auth ──────────────────────────────────────────────────────────────
       signIn(email, _password, role) {
@@ -268,6 +278,22 @@ export const useStore = create<DomusStore>()(
       removeUnitPhoto(unitId, url) {
         set(s => ({ units: s.units.map(u => u.id === unitId ? { ...u, photoUrls: u.photoUrls.filter(p => p !== url) } : u) }));
       },
+
+      // ── Schedule mutations ────────────────────────────────────────────────
+      createScheduleEvent(input) {
+        const event: ScheduleEvent = { ...input, id: `se-${generateId()}`, createdBy: get().session.userId ?? 'u2', createdAt: new Date().toISOString() };
+        set(s => ({ scheduleEvents: [...s.scheduleEvents, event].sort((a, b) => a.date.localeCompare(b.date)) }));
+        return event;
+      },
+      deleteScheduleEvent(id) {
+        set(s => ({ scheduleEvents: s.scheduleEvents.filter(e => e.id !== id) }));
+      },
+
+      // ── Chat mutations ────────────────────────────────────────────────────
+      sendChatMessage(estateId, body) {
+        const msg: ChatMessage = { id: `cm-${generateId()}`, estateId, authorUserId: get().session.userId ?? '', body, createdAt: new Date().toISOString() };
+        set(s => ({ chatMessages: [...s.chatMessages, msg] }));
+      },
     }),
     {
       name: 'domus.store.v1',
@@ -280,6 +306,8 @@ export const useStore = create<DomusStore>()(
         defects: s.defects,
         contacts: s.contacts,
         photoSections: s.photoSections,
+        scheduleEvents: s.scheduleEvents,
+        chatMessages: s.chatMessages,
       }),
     }
   )

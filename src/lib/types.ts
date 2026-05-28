@@ -122,3 +122,25 @@ export interface PhotoSection {
   date: string;
   photoUrls: string[];
 }
+
+export type ScheduleEventType = 'Žolės pjovimas' | 'Valymas' | 'Remontas' | 'Apžiūra' | 'Kita';
+
+export interface ScheduleEvent {
+  id: string;
+  estateId: string;
+  title: string;
+  description?: string;
+  type: ScheduleEventType;
+  date: string;    // ISO date "YYYY-MM-DD"
+  time?: string;   // "HH:MM"
+  createdBy: string; // userId
+  createdAt: string;
+}
+
+export interface ChatMessage {
+  id: string;
+  estateId: string;
+  authorUserId: string;
+  body: string;
+  createdAt: string;
+}

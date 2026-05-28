@@ -1,4 +1,4 @@
-import type { User, Estate, Unit, Defect, Contact, PhotoSection, PurchaseStepId } from './types';
+import type { User, Estate, Unit, Defect, Contact, PhotoSection, PurchaseStepId, ScheduleEvent, ChatMessage } from './types';
 import { PURCHASE_STEPS, SERVICE_KINDS } from './constants';
 
 const ALL_STEP_IDS = PURCHASE_STEPS.map(s => s.id) as PurchaseStepId[];
@@ -391,4 +391,26 @@ export const SEED_PHOTO_SECTIONS: PhotoSection[] = [
       'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&q=80',
     ],
   },
+];
+
+// ─── Schedule events ──────────────────────────────────────────────────────────
+
+export const SEED_SCHEDULE_EVENTS: ScheduleEvent[] = [
+  { id: 'se1', estateId: 'e1', title: 'Žolės pjovimas', description: 'Reguliarus žolės pjovimas visoje teritorijoje. Prašome nestatyti automobilių ant vejos.', type: 'Žolės pjovimas', date: '2026-06-03', time: '09:00', createdBy: 'u2', createdAt: '2026-05-20T10:00:00Z' },
+  { id: 'se2', estateId: 'e1', title: 'Laiptinių valymas', description: 'Mėnesinis laiptinių ir bendrų patalpų valymas.', type: 'Valymas', date: '2026-06-10', time: '08:00', createdBy: 'u2', createdAt: '2026-05-20T10:00:00Z' },
+  { id: 'se3', estateId: 'e1', title: 'Lifto techninė apžiūra', description: 'Metinė lifto techninė apžiūra. Liftas bus išjungtas nuo 10:00 iki 14:00.', type: 'Apžiūra', date: '2026-06-15', time: '10:00', createdBy: 'u2', createdAt: '2026-05-21T09:00:00Z' },
+  { id: 'se4', estateId: 'e1', title: 'Stogo remonto darbai', description: 'Planuojami stogo remonto darbai. Tikimasi triukšmo.', type: 'Remontas', date: '2026-06-22', time: '07:30', createdBy: 'u2', createdAt: '2026-05-22T11:00:00Z' },
+  { id: 'se5', estateId: 'e1', title: 'Žolės pjovimas', description: 'Eilinis žolės pjovimas.', type: 'Žolės pjovimas', date: '2026-07-01', time: '09:00', createdBy: 'u2', createdAt: '2026-05-22T11:00:00Z' },
+  { id: 'se6', estateId: 'e1', title: 'Vandentiekio patikrinimas', description: 'Profilaktinis vandentiekio sistemos patikrinimas. Vanduo gali būti išjungtas 1–2 val.', type: 'Apžiūra', date: '2026-05-15', time: '11:00', createdBy: 'u2', createdAt: '2026-05-01T10:00:00Z' },
+  { id: 'se7', estateId: 'e2', title: 'Žolės pjovimas', type: 'Žolės pjovimas', date: '2026-06-05', time: '09:00', createdBy: 'u2', createdAt: '2026-05-20T10:00:00Z' },
+];
+
+// ─── Chat messages ────────────────────────────────────────────────────────────
+
+export const SEED_CHAT_MESSAGES: ChatMessage[] = [
+  { id: 'cm1', estateId: 'e1', authorUserId: 'u2', body: 'Sveiki, gyventojai! Primename, kad birželio 3 d. bus pjaunama žolė. Prašome nestatyti automobilių ant vejos.', createdAt: '2026-05-20T10:05:00Z' },
+  { id: 'cm2', estateId: 'e1', authorUserId: 'u1', body: 'Ačiū už informaciją! Ar žinote, kada planuojama tvarkyti vaikų žaidimų aikštelę?', createdAt: '2026-05-20T11:30:00Z' },
+  { id: 'cm3', estateId: 'e1', authorUserId: 'u2', body: 'Žaidimų aikštelės atnaujinimas planuojamas rugpjūčio mėnesį. Detalesnė informacija bus paskelbta vėliau.', createdAt: '2026-05-20T12:00:00Z' },
+  { id: 'cm4', estateId: 'e1', authorUserId: 'u3', body: 'Labas! Ar kas nors žino, ar yra galimybė gauti papildomą rūsio dėžę?', createdAt: '2026-05-21T09:15:00Z' },
+  { id: 'cm5', estateId: 'e1', authorUserId: 'u2', body: 'Laura, prašome kreiptis į administraciją el. paštu — peržiūrėsime galimybes.', createdAt: '2026-05-21T10:00:00Z' },
 ];

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   Home, AlertTriangle, Image, FileText, UserRoundCog, Settings,
-  Building2, Bug, Users, LogOut, HelpCircle, Eye, X,
+  Building2, Bug, Users, LogOut, HelpCircle, Eye, X, Calendar, MessageSquare,
 } from 'lucide-react';
 import { useStore } from '@/lib/store';
 import { initials } from '@/lib/fmt';
@@ -14,14 +14,17 @@ const ownerNav = [
   { href: '/portal/defektai',    label: 'Defektai',    icon: AlertTriangle },
   { href: '/portal/nuotraukos',  label: 'Nuotraukos',  icon: Image },
   { href: '/portal/sutartys',    label: 'Paslaugų sutartys', icon: FileText },
-  { href: '/portal/kontaktai',   label: 'Kontaktai',   icon: UserRoundCog },
-  { href: '/portal/nustatymai',  label: 'Nustatymai',  icon: Settings },
+  { href: '/portal/kontaktai',     label: 'Kontaktai',     icon: UserRoundCog },
+  { href: '/portal/tvarkarastis', label: 'Tvarkaraštis', icon: Calendar },
+  { href: '/portal/bendruomene',  label: 'Bendruomenė',  icon: MessageSquare },
+  { href: '/portal/nustatymai',   label: 'Nustatymai',   icon: Settings },
 ];
 
 const adminNav = [
-  { href: '/admin/estates',  label: 'Objektai',  icon: Building2 },
-  { href: '/admin/defects',  label: 'Defektai',  icon: Bug },
-  { href: '/admin/contacts', label: 'Kontaktai', icon: Users },
+  { href: '/admin/estates',       label: 'Objektai',     icon: Building2 },
+  { href: '/admin/defects',       label: 'Defektai',     icon: Bug },
+  { href: '/admin/contacts',      label: 'Kontaktai',    icon: Users },
+  { href: '/admin/tvarkarastis',  label: 'Tvarkaraštis', icon: Calendar },
 ];
 
 export default function Sidebar() {
