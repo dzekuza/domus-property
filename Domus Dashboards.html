@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="UTF-8">
+<title>Domus — savininkų ir administratorių valdymo sistema</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  html, body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background: #f5f5f5; }
+  body { overflow: hidden; }
+  /* Artboard host: every screen lives inside one of these */
+  .screen-host {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    background: var(--color-cloud-canvas);
+  }
+  /* Override design canvas board chrome slightly */
+  .dc-artboard__board { background: var(--color-cloud-canvas) !important; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="screens-shared.jsx"></script>
+<script type="text/babel" src="screens-owner.jsx"></script>
+<script type="text/babel" src="screens-admin.jsx"></script>
+
+<script type="text/babel" data-presets="env,react">
+const { useState } = React;
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "view": "both",
+  "accent": "#5757f8",
+  "density": "comfortable"
+}/*EDITMODE-END*/;
+
+const OWNER_BOARDS = [
+  { id: 'o-pagrindinis', label: 'Pagrindinis · Pirkimo eiga',     route: 'pagrindinis' },
+  { id: 'o-defektai',    label: 'Defektai · Pranešimai',          route: 'defektai' },
+  { id: 'o-nuotraukos',  label: 'Nuotraukos · Buto perdavimas',   route: 'nuotraukos' },
+  { id: 'o-sutartys',    label: 'Paslaugų sutartys',              route: 'sutartys' },
+  { id: 'o-kontaktai',   label: 'Kontaktai · Specialistai',       route: 'kontaktai' },
+  { id: 'o-nustatymai',  label: 'Nustatymai · Paskyra',           route: 'nustatymai' },
+];
+
+const ADMIN_BOARDS = [
+  { id: 'a-estates',      label: 'Objektai · Sąrašas',               route: 'estates' },
+  { id: 'a-estate-det',   label: 'Objekto kortelė · 3 skirtukai',    route: 'estate-detail' },
+  { id: 'a-unit-editor',  label: 'Buto redaktorius · 5 skirtukai',   route: 'unit-editor' },
+  { id: 'a-defects',      label: 'Defektai · Visi pranešimai',       route: 'defects' },
+  { id: 'a-defect-thread',label: 'Defekto pokalbis',                 route: 'defect-thread' },
+  { id: 'a-contacts',     label: 'Kontaktai · Biblioteka',           route: 'contacts' },
+];
+
+const W = 1320;
+const H = 880;
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  // Apply accent color globally
+  React.useEffect(() => {
+    document.documentElement.style.setProperty('--color-electric-violet', t.accent);
+    // Derive tint colors from accent if needed
+    document.documentElement.style.setProperty('--color-violet-tint',  t.accent + '12');
+    document.documentElement.style.setProperty('--color-violet-tint-2', t.accent + '22');
+  }, [t.accent]);
+
+  const showOwner = t.view === 'both' || t.view === 'owner';
+  const showAdmin = t.view === 'both' || t.view === 'admin';
+
+  return (
+    <>
+      <DesignCanvas title="Domus — savininkų ir administratorių valdymo sistema"
+                    subtitle="Vienos sistemos projektas: kairysis šoninės naršymo modelis · šviesi tema · Electric Violet akcentas">
+        {showOwner && (
+          <DCSection id="owner"
+            title="Savininkų portalas"
+            subtitle="Šeši pirkėjo ekranai · interaktyvūs (akordionai, modalai, filtrai, vaizdo peržiūra)">
+            {OWNER_BOARDS.map(b => (
+              <DCArtboard key={b.id} id={b.id} label={b.label} width={W} height={H}>
+                <div className="screen-host">
+                  <OwnerApp initialRoute={b.route}/>
+                </div>
+              </DCArtboard>
+            ))}
+          </DCSection>
+        )}
+        {showAdmin && (
+          <DCSection id="admin"
+            title="Administratoriaus panelė"
+            subtitle="Šeši ekranai vystytojui · objektai, butai, defektai, kontaktai">
+            {ADMIN_BOARDS.map(b => (
+              <DCArtboard key={b.id} id={b.id} label={b.label} width={W} height={H}>
+                <div className="screen-host">
+                  <AdminApp initialRoute={b.route}/>
+                </div>
+              </DCArtboard>
+            ))}
+          </DCSection>
+        )}
+      </DesignCanvas>
+
+      <TweaksPanel title="Domus tweaks">
+        <TweakSection label="Vaizdas"/>
+        <TweakRadio label="Rolė"
+          value={t.view}
+          options={['both','owner','admin']}
+          onChange={v => setTweak('view', v)} />
+        <TweakSection label="Stilius"/>
+        <TweakColor label="Akcentas"
+          value={t.accent}
+          options={['#5757f8','#202020','#1f8a5b','#c47a00']}
+          onChange={v => setTweak('accent', v)} />
+      </TweaksPanel>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
