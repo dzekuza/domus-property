@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   Home, AlertTriangle, Image, FileText, UserRoundCog, Settings,
-  Building2, Bug, Users, LogOut, HelpCircle, Eye, X, Calendar, MessageSquare,
+  Building2, Bug, Users, LogOut, HelpCircle, Eye, X, Calendar, MessageSquare, Menu,
 } from 'lucide-react';
 import { useStore } from '@/lib/store';
 import { initials } from '@/lib/fmt';
@@ -27,7 +27,7 @@ const adminNav = [
   { href: '/admin/tvarkarastis',  label: 'Tvarkaraštis', icon: Calendar },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen, onClose }: { isOpen?: boolean; onClose?: () => void }) {
   const pathname = usePathname();
   const router = useRouter();
   const { session, currentUser, effectiveUser, signOut, stopImpersonating } = useStore();
@@ -42,16 +42,19 @@ export default function Sidebar() {
   }
 
   return (
-    <aside style={{ width: 260, height: '100vh', position: 'sticky', top: 0, background: 'var(--color-paper-white)', borderRight: '1px solid var(--color-ghost-border)', display: 'flex', flexDirection: 'column', flexShrink: 0, overflowY: 'auto' }}>
+    <aside className={`app-sidebar${isOpen ? ' open' : ''}`} style={{ width: 260, height: '100vh', position: 'sticky', top: 0, background: 'var(--color-paper-white)', borderRight: '1px solid var(--color-ghost-border)', display: 'flex', flexDirection: 'column', flexShrink: 0, overflowY: 'auto' }}>
       {/* Logo */}
       <div style={{ padding: '24px 20px 12px', display: 'flex', alignItems: 'center', gap: 10 }}>
         <div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--color-electric-violet)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <Building2 size={18} color="white" />
         </div>
         <span style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 500, color: 'var(--color-midnight-ink)' }}>Domus</span>
-        <span style={{ marginLeft: 'auto', fontSize: 11, background: 'var(--color-violet-tint)', color: 'var(--color-electric-violet)', padding: '2px 8px', borderRadius: 1000, fontWeight: 500 }}>
+        <span style={{ fontSize: 11, background: 'var(--color-violet-tint)', color: 'var(--color-electric-violet)', padding: '2px 8px', borderRadius: 1000, fontWeight: 500 }}>
           {session.role === 'admin' ? 'Admin' : 'Savininkas'}
         </span>
+        <button className="sidebar-close-btn" onClick={onClose} aria-label="Uždaryti meniu">
+          <X size={16} />
+        </button>
       </div>
 
       {/* Impersonate banner */}

@@ -26,7 +26,7 @@ export default function PageHeader({ title, subtitle, breadcrumbs, actions }: Pr
           ))}
         </div>
       )}
-      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16 }}>
+      <div className="page-header-row">
         <div>
           <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 26, lineHeight: 1.2, letterSpacing: '-0.52px', color: 'var(--color-midnight-ink)', margin: 0 }}>
             {title}
@@ -35,7 +35,7 @@ export default function PageHeader({ title, subtitle, breadcrumbs, actions }: Pr
             <p style={{ fontSize: 14, color: 'var(--color-muted-ash-2)', marginTop: 4 }}>{subtitle}</p>
           )}
         </div>
-        {actions && <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>{actions}</div>}
+        {actions && <div className="page-header-actions">{actions}</div>}
       </div>
     </div>
   );

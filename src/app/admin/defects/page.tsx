@@ -66,7 +66,7 @@ export default function AdminDefectsPage() {
         {filtered.length === 0 ? (
           <EmptyState icon={Bug} title="Defektų nerasta" subtitle="Pakeiskite filtrus arba laukite naujų pranešimų." />
         ) : (
-          <table className="domus-table">
+          <div className="table-scroll"><table className="domus-table">
             <thead>
               <tr>
                 <th>ID</th>
@@ -100,7 +100,7 @@ export default function AdminDefectsPage() {
                 );
               })}
             </tbody>
-          </table>
+          </table></div>
         )}
       </Card>
     </div>

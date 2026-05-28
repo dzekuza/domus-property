@@ -54,9 +54,10 @@ export default function PagrindiniasPage() {
       <PageHeader title="Pirkimo eiga" subtitle="Visi jūsų pirkimo proceso žingsniai vienoje vietoje." />
 
       {/* Hero card */}
-      <Card style={{ marginBottom: 20, display: 'flex', gap: 20, alignItems: 'stretch' }}>
+      <Card style={{ marginBottom: 20 }}>
+        <div className="hero-card-inner">
         {estate?.coverPhotoUrl && (
-          <img src={estate.coverPhotoUrl} alt={estate.name} style={{ width: 200, height: 140, objectFit: 'cover', borderRadius: 8, flexShrink: 0 }} />
+          <img src={estate.coverPhotoUrl} alt={estate.name} className="hero-card-img" />
         )}
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div>
@@ -75,6 +76,7 @@ export default function PagrindiniasPage() {
               <div style={{ height: '100%', width: `${visibleSteps.length ? (doneCount / visibleSteps.length) * 100 : 0}%`, background: 'var(--color-electric-violet)', borderRadius: 100, transition: 'width .3s' }} />
             </div>
           </div>
+        </div>
         </div>
       </Card>
 

@@ -52,7 +52,7 @@ export default function AdminContactsPage() {
       </div>
 
       <Card style={{ padding: 0, overflow: 'hidden' }}>
-        <table className="domus-table">
+        <div className="table-scroll"><table className="domus-table">
           <thead>
             <tr>
               <th>Specialistas</th>
@@ -96,7 +96,7 @@ export default function AdminContactsPage() {
               </tr>
             ))}
           </tbody>
-        </table>
+        </table></div>
       </Card>
 
       <Dialog open={showModal} onOpenChange={setShowModal}>

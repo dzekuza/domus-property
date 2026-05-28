@@ -60,7 +60,7 @@ export default function EstateDetailPage({ params }: { params: Promise<{ id: str
       {/* Butai */}
       {tab === 'Butai' && (
         <Card style={{ padding: 0, overflow: 'hidden' }}>
-          <table className="domus-table">
+          <div className="table-scroll"><table className="domus-table">
             <thead>
               <tr>
                 <th>Butas</th>
@@ -93,7 +93,7 @@ export default function EstateDetailPage({ params }: { params: Promise<{ id: str
                 );
               })}
             </tbody>
-          </table>
+          </table></div>
         </Card>
       )}
 

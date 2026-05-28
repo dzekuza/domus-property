@@ -57,7 +57,7 @@ export default function EstatesPage() {
         {filtered.length === 0 ? (
           <EmptyState icon={Building2} title="Objektų nerasta" subtitle="Pakeiskite paieškos užklausą arba sukurkite naują objektą." action={{ label: 'Naujas objektas', onClick: () => setShowModal(true) }} />
         ) : (
-          <table className="domus-table">
+          <div className="table-scroll"><table className="domus-table">
             <thead>
               <tr>
                 <th>Objektas</th>
@@ -99,7 +99,7 @@ export default function EstatesPage() {
                 );
               })}
             </tbody>
-          </table>
+          </table></div>
         )}
       </Card>
 
