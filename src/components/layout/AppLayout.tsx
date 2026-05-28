@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Menu, Building2 } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import Sidebar from './Sidebar';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
@@ -12,14 +12,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       {/* Mobile top bar */}
       <div className="mobile-topbar">
         <button className="sidebar-menu-btn" onClick={() => setSidebarOpen(true)} aria-label="Atidaryti meniu">
-          <Menu size={20} />
+          <Menu size={19} />
         </button>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <div style={{ width: 28, height: 28, borderRadius: 7, background: 'var(--color-electric-violet)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Building2 size={15} color="white" />
-          </div>
-          <span style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 500, color: 'var(--color-midnight-ink)' }}>Domus</span>
-        </div>
+        <img src="/logo-white.svg" alt="Domus" style={{ height: 24, width: 'auto' }} />
       </div>
 
       {/* Backdrop */}

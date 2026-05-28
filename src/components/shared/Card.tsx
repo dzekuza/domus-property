@@ -12,8 +12,9 @@ export default function Card({ children, flat, style, className }: CardProps) {
       style={{
         background: flat ? 'var(--color-cloud-canvas)' : 'var(--color-paper-white)',
         border: flat ? 'none' : '1px solid var(--color-ghost-border)',
-        borderRadius: 'var(--radius-default)',
-        padding: 20,
+        borderRadius: 'var(--radius-card)',
+        boxShadow: flat ? 'none' : 'var(--shadow-card)',
+        padding: 24,
         ...style,
       }}
     >

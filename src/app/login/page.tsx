@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Building2 } from 'lucide-react';
 import { useStore } from '@/lib/store';
 import type { Role } from '@/lib/types';
 import Btn from '@/components/shared/Btn';
@@ -26,32 +25,95 @@ export default function LoginPage() {
     router.push(role === 'admin' ? '/admin/estates' : '/portal/pagrindinis');
   }
 
-  const tabStyle = (active: boolean): React.CSSProperties => ({
-    flex: 1, padding: '10px 0', fontSize: 14, fontWeight: 500, cursor: 'pointer', border: 'none', background: 'none',
-    borderBottom: `2px solid ${active ? 'var(--color-electric-violet)' : 'transparent'}`,
-    color: active ? 'var(--color-midnight-ink)' : 'var(--color-muted-ash-2)',
-    transition: 'color .12s',
-  });
+  const inputStyle: React.CSSProperties = {
+    width: '100%',
+    padding: '12px 16px',
+    fontSize: 14,
+    border: '1px solid var(--color-ghost-border)',
+    borderRadius: 10,
+    outline: 'none',
+    fontFamily: 'inherit',
+    fontWeight: 400,
+    boxSizing: 'border-box',
+    background: '#fafaf8',
+    transition: 'border-color 0.15s, box-shadow 0.15s',
+    color: 'var(--color-midnight-ink)',
+  };
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--color-cloud-canvas)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
-      <div style={{ width: '100%', maxWidth: 420 }}>
+    <div style={{
+      minHeight: '100dvh',
+      background: 'var(--background)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: 24,
+    }}>
+      {/* Background accent circle */}
+      <div style={{
+        position: 'fixed',
+        top: -120, left: -120,
+        width: 400, height: 400,
+        borderRadius: '50%',
+        background: 'rgba(12,61,74,0.06)',
+        pointerEvents: 'none',
+      }} />
+      <div style={{
+        position: 'fixed',
+        bottom: -80, right: -80,
+        width: 300, height: 300,
+        borderRadius: '50%',
+        background: 'rgba(232,119,60,0.07)',
+        pointerEvents: 'none',
+      }} />
+
+      <div style={{ width: '100%', maxWidth: 400, position: 'relative' }}>
         {/* Logo */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'center', marginBottom: 32 }}>
-          <div style={{ width: 40, height: 40, borderRadius: 10, background: 'var(--color-electric-violet)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Building2 size={22} color="white" />
-          </div>
-          <span style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 500, color: 'var(--color-midnight-ink)' }}>Domus</span>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 28 }}>
+          <img src="/logo-dark.svg" alt="Domus" style={{ height: 34, width: 'auto' }} />
         </div>
 
-        <div style={{ background: 'var(--color-paper-white)', border: '1px solid var(--color-ghost-border)', borderRadius: 12, overflow: 'hidden' }}>
-          {/* Tabs */}
-          <div style={{ display: 'flex', borderBottom: '1px solid var(--color-ghost-border)' }}>
-            <button style={tabStyle(role === 'owner')} onClick={() => setRole('owner')}>Savininkas</button>
-            <button style={tabStyle(role === 'admin')} onClick={() => setRole('admin')}>Administratorius</button>
+        <div style={{
+          background: 'var(--color-paper-white)',
+          border: '1px solid var(--color-ghost-border)',
+          borderRadius: 24,
+          overflow: 'hidden',
+          boxShadow: 'var(--shadow-card)',
+        }}>
+          {/* Role tabs */}
+          <div style={{
+            display: 'flex',
+            background: 'var(--color-cloud-canvas)',
+            padding: 4,
+            margin: '16px 16px 0',
+            borderRadius: 12,
+            gap: 4,
+          }}>
+            {(['owner', 'admin'] as Role[]).map(r => (
+              <button
+                key={r}
+                onClick={() => setRole(r)}
+                style={{
+                  flex: 1,
+                  padding: '9px 0',
+                  fontSize: 13,
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  border: 'none',
+                  fontFamily: 'inherit',
+                  borderRadius: 9,
+                  transition: 'background 0.15s, color 0.15s, box-shadow 0.15s',
+                  background: role === r ? 'var(--color-paper-white)' : 'transparent',
+                  color: role === r ? 'var(--color-sidebar-bg)' : 'var(--color-muted-ash-2)',
+                  boxShadow: role === r ? '0 1px 4px rgba(0,0,0,0.08)' : 'none',
+                }}
+              >
+                {r === 'owner' ? 'Savininkas' : 'Administratorius'}
+              </button>
+            ))}
           </div>
 
-          <form onSubmit={handleSubmit} style={{ padding: 28, display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <form onSubmit={handleSubmit} style={{ padding: '24px 24px 28px', display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div>
               <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: 'var(--color-muted-ash)', marginBottom: 6 }}>
                 El. paštas
@@ -62,9 +124,15 @@ export default function LoginPage() {
                 onChange={e => setEmail(e.target.value)}
                 placeholder={role === 'owner' ? 'andrius@mail.lt' : 'tomas@domus.lt'}
                 required
-                style={{ width: '100%', padding: '12px 16px', fontSize: 14, border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500, boxSizing: 'border-box' }}
-                onFocus={e => e.currentTarget.style.borderColor = 'var(--color-electric-violet)'}
-                onBlur={e => e.currentTarget.style.borderColor = 'var(--color-ghost-border)'}
+                style={inputStyle}
+                onFocus={e => {
+                  e.currentTarget.style.borderColor = 'var(--color-teal)';
+                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(103,205,205,0.15)';
+                }}
+                onBlur={e => {
+                  e.currentTarget.style.borderColor = 'var(--color-ghost-border)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
               />
             </div>
             <div>
@@ -77,17 +145,30 @@ export default function LoginPage() {
                 onChange={e => setPassword(e.target.value)}
                 placeholder="demo"
                 required
-                style={{ width: '100%', padding: '12px 16px', fontSize: 14, border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500, boxSizing: 'border-box' }}
-                onFocus={e => e.currentTarget.style.borderColor = 'var(--color-electric-violet)'}
-                onBlur={e => e.currentTarget.style.borderColor = 'var(--color-ghost-border)'}
+                style={inputStyle}
+                onFocus={e => {
+                  e.currentTarget.style.borderColor = 'var(--color-teal)';
+                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(103,205,205,0.15)';
+                }}
+                onBlur={e => {
+                  e.currentTarget.style.borderColor = 'var(--color-ghost-border)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
               />
             </div>
             {error && (
-              <p style={{ fontSize: 13, color: 'var(--color-danger)', background: 'var(--color-danger-tint)', padding: '8px 12px', borderRadius: 8, margin: 0 }}>
+              <p style={{
+                fontSize: 13,
+                color: 'var(--color-danger)',
+                background: 'var(--color-danger-tint)',
+                padding: '9px 14px',
+                borderRadius: 10,
+                margin: 0,
+              }}>
                 {error}
               </p>
             )}
-            <Btn variant="primary" type="submit" style={{ width: '100%', justifyContent: 'center', marginTop: 4 }}>
+            <Btn variant="primary" type="submit" style={{ width: '100%', justifyContent: 'center', marginTop: 4, padding: '13px 20px', fontSize: 15 }}>
               Prisijungti
             </Btn>
           </form>
@@ -95,21 +176,56 @@ export default function LoginPage() {
 
         {/* Quick sign-in */}
         <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <p style={{ textAlign: 'center', fontSize: 12, color: 'var(--color-muted-ash-2)', marginBottom: 2 }}>Greitas prisijungimas</p>
-          <button
-            onClick={() => { const ok = signIn('andrius@mail.lt', 'demo', 'owner'); if (ok) router.push('/portal/pagrindinis'); }}
-            style={{ width: '100%', padding: '11px 16px', fontSize: 13, fontWeight: 500, background: 'var(--color-paper-white)', border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-pill)', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-          >
-            <span>Savininkas — Andrius Kazlauskas</span>
-            <span style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', background: 'var(--color-cloud-canvas)', padding: '2px 8px', borderRadius: 100 }}>andrius@mail.lt</span>
-          </button>
-          <button
-            onClick={() => { const ok = signIn('tomas@domus.lt', 'demo', 'admin'); if (ok) router.push('/admin/estates'); }}
-            style={{ width: '100%', padding: '11px 16px', fontSize: 13, fontWeight: 500, background: 'var(--color-paper-white)', border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-pill)', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-          >
-            <span>Administratorius — Tomas Domus</span>
-            <span style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', background: 'var(--color-cloud-canvas)', padding: '2px 8px', borderRadius: 100 }}>tomas@domus.lt</span>
-          </button>
+          <p style={{ textAlign: 'center', fontSize: 12, color: 'var(--color-muted-ash-2)', marginBottom: 2, fontWeight: 400 }}>Greitas prisijungimas</p>
+          {[
+            { label: 'Savininkas', name: 'Andrius Kazlauskas', email: 'andrius@mail.lt', r: 'owner' as Role, redirect: '/portal/pagrindinis' },
+            { label: 'Administratorius', name: 'Tomas Domus', email: 'tomas@domus.lt', r: 'admin' as Role, redirect: '/admin/estates' },
+          ].map(({ label, name, email: e, r, redirect }) => (
+            <button
+              key={r}
+              onClick={() => { const ok = signIn(e, 'demo', r); if (ok) router.push(redirect); }}
+              style={{
+                width: '100%',
+                padding: '12px 16px',
+                fontSize: 13,
+                fontWeight: 500,
+                background: 'var(--color-paper-white)',
+                border: '1px solid var(--color-ghost-border)',
+                borderRadius: 14,
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                transition: 'border-color 0.15s, box-shadow 0.15s',
+                boxShadow: 'var(--shadow-card)',
+              }}
+              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-teal)'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-ghost-border)'; }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <div style={{
+                  width: 30, height: 30, borderRadius: '50%',
+                  background: 'var(--color-sidebar-bg)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: 11, fontWeight: 700, color: '#fff',
+                  flexShrink: 0,
+                }}>
+                  {name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+                </div>
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>{name}</div>
+                  <div style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', fontWeight: 400 }}>{label}</div>
+                </div>
+              </div>
+              <span style={{
+                fontSize: 11, color: 'var(--color-muted-ash-2)',
+                background: 'var(--color-cloud-canvas)',
+                padding: '3px 9px', borderRadius: 100,
+                fontWeight: 400,
+              }}>{e}</span>
+            </button>
+          ))}
         </div>
       </div>
     </div>

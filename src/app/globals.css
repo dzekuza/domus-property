@@ -11,61 +11,88 @@
   --font-display: var(--font-display);
   --color-border: var(--color-ghost-border);
   --color-input: var(--color-ghost-border);
-  --color-ring: var(--color-electric-violet);
-  --color-primary: var(--color-electric-violet);
+  --color-ring: var(--color-accent);
+  --color-primary: var(--color-accent);
   --color-primary-foreground: var(--color-paper-white);
   --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 10px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
 }
 
 :root {
-  --background: #f5f5f5;
-  --foreground: #202020;
+  --background: #f6f4f0;
+  --foreground: #1c1c1c;
 
   /* Domus design tokens */
-  --color-midnight-ink: #202020;
-  --color-cloud-canvas: #f5f5f5;
+  --color-midnight-ink: #1c1c1c;
+  --color-cloud-canvas: #f0ede8;
   --color-paper-white: #ffffff;
-  --color-muted-ash: #333333;
-  --color-muted-ash-2: #666666;
-  --color-ghost-border: #ececec;
-  --color-electric-violet: #5757f8;
-  --color-violet-tint: #f0f0fe;
-  --color-violet-tint-2: #e6e6fd;
-  --color-success: #1f8a5b;
-  --color-success-tint: #e8f5ee;
-  --color-warning: #c47a00;
-  --color-warning-tint: #fdf3df;
+  --color-muted-ash: #4a4845;
+  --color-muted-ash-2: #7a7774;
+  --color-ghost-border: #e4e0db;
+
+  /* Brand — warm amber/orange accent */
+  --color-accent: #e8773c;
+  --color-accent-tint: #fdf0e8;
+  --color-accent-hover: #d96a2e;
+
+  /* Sidebar dark */
+  --color-sidebar-bg: #0c3d4a;
+  --color-sidebar-fg: rgba(255,255,255,0.75);
+  --color-sidebar-fg-active: #67cdcd;
+  --color-sidebar-active-bg: rgba(103,205,205,0.14);
+  --color-sidebar-border: rgba(255,255,255,0.08);
+  --color-sidebar-hover-bg: rgba(255,255,255,0.07);
+  --color-sidebar-user-bg: rgba(0,0,0,0.18);
+
+  /* Teal highlight */
+  --color-teal: #67cdcd;
+  --color-teal-tint: rgba(103,205,205,0.1);
+
+  /* Status */
+  --color-success: #1a7a50;
+  --color-success-tint: #e6f4ee;
+  --color-warning: #b86e00;
+  --color-warning-tint: #fdf1de;
   --color-danger: #c43030;
   --color-danger-tint: #fbe9e9;
 
-  --font-display: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
-  --font-text: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  /* Legacy compat aliases (status pills still reference violet for "progress") */
+  --color-electric-violet: var(--color-teal);
+  --color-violet-tint: var(--color-teal-tint);
+  --color-violet-tint-2: rgba(103,205,205,0.18);
 
-  --radius-default: 8px;
+  --font-display: var(--font-display), 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --font-text: var(--font-text), 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+
+  --radius-default: 12px;
   --radius-input: 10px;
-  --radius-image: 12px;
-  --radius-pill: 1425.6px;
+  --radius-image: 16px;
+  --radius-card: 20px;
+  --radius-pill: 1000px;
+
+  /* Card shadow */
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.05);
+  --shadow-card-hover: 0 2px 6px rgba(0,0,0,0.08), 0 12px 32px rgba(0,0,0,0.08);
 
   /* shadcn compat */
   --card: #ffffff;
-  --card-foreground: #202020;
+  --card-foreground: #1c1c1c;
   --popover: #ffffff;
-  --popover-foreground: #202020;
-  --primary: #5757f8;
+  --popover-foreground: #1c1c1c;
+  --primary: #e8773c;
   --primary-foreground: #ffffff;
-  --secondary: #f5f5f5;
-  --secondary-foreground: #202020;
-  --muted: #f5f5f5;
-  --muted-foreground: #666666;
-  --accent: #f0f0fe;
-  --accent-foreground: #5757f8;
+  --secondary: #f0ede8;
+  --secondary-foreground: #1c1c1c;
+  --muted: #f0ede8;
+  --muted-foreground: #7a7774;
+  --accent: rgba(103,205,205,0.1);
+  --accent-foreground: #0c3d4a;
   --destructive: #c43030;
-  --border: #ececec;
-  --input: #ececec;
-  --ring: #5757f8;
-  --radius: 0.5rem;
+  --border: #e4e0db;
+  --input: #e4e0db;
+  --ring: #e8773c;
+  --radius: 0.75rem;
 }
 
 @layer base {
@@ -74,48 +101,62 @@
   }
   body {
     font-family: var(--font-text);
-    background: var(--color-cloud-canvas);
+    background: var(--background);
     color: var(--color-midnight-ink);
-    font-weight: 500;
+    font-weight: 400;
     -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.01em;
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    font-weight: 500;
+    font-weight: 600;
     margin: 0;
+    letter-spacing: -0.02em;
   }
   p { margin: 0; }
 }
 
-/* Sidebar nav item */
+/* ── Sidebar nav item ─────────────────────────────────────────── */
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 12px 16px;
-  border-radius: var(--radius-default);
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
   font-size: 14px;
-  color: var(--color-muted-ash);
+  color: var(--color-sidebar-fg);
   cursor: pointer;
   font-weight: 500;
   width: 100%;
-  min-height: 44px;
-  transition: background .12s, color .12s;
+  min-height: 42px;
+  transition: background 0.15s ease, color 0.15s ease;
   text-decoration: none;
+  background: transparent;
+  border: none;
+  font-family: inherit;
 }
-.nav-item:hover { background: var(--color-cloud-canvas); color: var(--color-midnight-ink); }
-.nav-item.active { background: var(--color-violet-tint); color: var(--color-electric-violet); }
-.nav-item.active svg { color: var(--color-electric-violet); }
+.nav-item:hover {
+  background: var(--color-sidebar-hover-bg);
+  color: rgba(255,255,255,0.95);
+}
+.nav-item.active {
+  background: var(--color-sidebar-active-bg);
+  color: var(--color-sidebar-fg-active);
+}
+.nav-item.active svg {
+  color: var(--color-sidebar-fg-active);
+  opacity: 1;
+}
 
-/* Table */
+/* ── Table ───────────────────────────────────────────────────── */
 .domus-table { width: 100%; border-collapse: separate; border-spacing: 0; }
 .domus-table th {
   text-align: left;
-  font-size: 12px;
-  letter-spacing: 0.04em;
+  font-size: 11px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--color-muted-ash-2);
-  font-weight: 500;
+  font-weight: 600;
   padding: 12px 16px;
   border-bottom: 1px solid var(--color-ghost-border);
 }
@@ -127,27 +168,29 @@
   vertical-align: middle;
 }
 .domus-table tr:last-child td { border-bottom: none; }
+.domus-table tbody tr { transition: background 0.1s; }
 .domus-table tbody tr:hover td { background: var(--color-cloud-canvas); cursor: pointer; }
 
-/* Animations */
+/* ── Animations ──────────────────────────────────────────────── */
 @keyframes domus-fade-in {
-  from { opacity: 0; transform: translateY(4px); }
+  from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: none; }
 }
-.fade-in { animation: domus-fade-in .2s ease-out; }
+.fade-in { animation: domus-fade-in 0.22s cubic-bezier(0.16, 1, 0.3, 1); }
 
-/* ── Responsive layout ─────────────────────────────────────────── */
+/* ── Layout ──────────────────────────────────────────────────── */
 .app-wrapper {
   display: flex;
-  min-height: 100vh;
-  background: var(--color-cloud-canvas);
+  min-height: 100dvh;
+  background: var(--background);
 }
 
 .app-sidebar-overlay {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.35);
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(2px);
   z-index: 199;
 }
 .app-sidebar-overlay.open { display: block; }
@@ -155,8 +198,8 @@
 .app-main {
   flex: 1;
   min-width: 0;
-  padding: 24px 32px;
-  max-width: 1384px;
+  padding: 28px 36px;
+  max-width: 1400px;
 }
 
 .mobile-topbar { display: none; }
@@ -165,13 +208,13 @@
   display: none;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   border-radius: 8px;
-  background: var(--color-cloud-canvas);
+  background: rgba(255,255,255,0.1);
   border: none;
   cursor: pointer;
-  color: var(--color-midnight-ink);
+  color: rgba(255,255,255,0.7);
   flex-shrink: 0;
   margin-left: auto;
 }
@@ -185,12 +228,12 @@
     top: 0;
     z-index: 200;
     transform: translateX(-100%);
-    transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.28s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     box-shadow: none;
   }
   .app-sidebar.open {
     transform: translateX(0);
-    box-shadow: 4px 0 32px rgba(0,0,0,0.14);
+    box-shadow: 6px 0 40px rgba(0,0,0,0.25);
   }
 
   .sidebar-close-btn { display: flex; }
@@ -201,8 +244,7 @@
     gap: 12px;
     padding: 0 16px;
     height: 56px;
-    background: var(--color-paper-white);
-    border-bottom: 1px solid var(--color-ghost-border);
+    background: var(--color-sidebar-bg);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -215,11 +257,11 @@
     justify-content: center;
     width: 36px;
     height: 36px;
-    border-radius: 8px;
-    border: 1px solid var(--color-ghost-border);
-    background: none;
+    border-radius: 9px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.1);
     cursor: pointer;
-    color: var(--color-midnight-ink);
+    color: rgba(255,255,255,0.85);
     flex-shrink: 0;
   }
 
@@ -230,7 +272,7 @@
   .app-main { padding: 20px 24px; }
 }
 
-/* ── PageHeader responsive ────────────────────────────────────── */
+/* ── PageHeader ───────────────────────────────────────────────── */
 .page-header-row {
   display: flex;
   align-items: flex-start;
@@ -259,23 +301,58 @@
   }
 }
 
-/* ── Table horizontal scroll ─────────────────────────────────── */
+/* ── Table scroll ─────────────────────────────────────────────── */
 .table-scroll {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
 
-/* ── Hero card responsive (pagrindinis) ──────────────────────── */
+/* ── PageHeader dark context — inputs & buttons on teal bg ──── */
+.page-header input {
+  color: rgba(255,255,255,0.9) !important;
+  border-color: rgba(255,255,255,0.22) !important;
+  background: rgba(255,255,255,0.08) !important;
+}
+.page-header input::placeholder {
+  color: rgba(255,255,255,0.38) !important;
+}
+.page-header input:focus {
+  border-color: var(--color-teal) !important;
+  box-shadow: 0 0 0 3px rgba(103,205,205,0.2) !important;
+  outline: none !important;
+}
+/* Ghost / secondary buttons on dark header */
+.page-header [data-variant="ghost"],
+.page-header [data-variant="secondary"] {
+  color: rgba(255,255,255,0.88) !important;
+  border-color: rgba(255,255,255,0.25) !important;
+  background: transparent !important;
+}
+.page-header [data-variant="ghost"]:hover,
+.page-header [data-variant="secondary"]:hover {
+  background: rgba(255,255,255,0.1) !important;
+  border-color: rgba(255,255,255,0.4) !important;
+}
+/* All SVG icons inside header default to white-ish */
+.page-header svg {
+  color: rgba(255,255,255,0.5) !important;
+}
+/* Primary button icons stay fully white */
+.page-header [data-variant="primary"] svg {
+  color: #ffffff !important;
+}
+
+/* ── Hero card (pagrindinis) ──────────────────────────────────── */
 .hero-card-inner {
   display: flex;
-  gap: 20px;
+  gap: 24px;
   align-items: stretch;
 }
 .hero-card-img {
   width: 200px;
-  height: 140px;
+  height: 150px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: var(--radius-image);
   flex-shrink: 0;
 }
 
