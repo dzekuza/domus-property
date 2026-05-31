@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { Paperclip, Send, Mic, Type, Loader2, Wand2, X, Eye, Layers } from 'lucide-react';
+import { Paperclip, Send, Mic, Type, Wand2, X, Eye, Layers, Receipt, CheckCircle, AlertCircle } from 'lucide-react';
+import Spinner from '@/components/shared/Spinner';
 import { useStore } from '@/lib/store';
 import Btn from '@/components/shared/Btn';
 import Card from '@/components/shared/Card';
@@ -9,6 +10,14 @@ import VoiceRecorder from './VoiceRecorder';
 import { generateId } from '@/lib/files';
 import { toDataURL } from '@/lib/files';
 import type { WorkAttachment, WorkUpdate } from '@/lib/types';
+
+interface BillAnalysis {
+  vendor_name: string;
+  bill_date: string;
+  total_amount: number;
+  currency?: string;
+  items: Array<{ description: string; quantity?: number; unit_price?: number; line_total?: number }>;
+}
 
 interface Props {
   engagementId: string;
@@ -24,7 +33,8 @@ interface Props {
 type Tab = 'text' | 'voice';
 
 export default function UpdateForm({ engagementId, authorId, authorName, authorRole, showOwnerToggle = false, groupedUpdates = [], onRemoveGrouped, onGroupSent }: Props) {
-  const { submitWorkUpdate } = useStore();
+  const { submitWorkUpdate, addExpense, workEngagements } = useStore();
+  const unitId = workEngagements.find(e => e.id === engagementId)?.unitId ?? '';
   const [tab, setTab] = useState<Tab>('text');
   const [text, setText] = useState('');
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
@@ -35,7 +45,12 @@ export default function UpdateForm({ engagementId, authorId, authorName, authorR
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [toOwner, setToOwner] = useState(false);
+  const [billImage, setBillImage] = useState<{ dataUrl: string; name: string } | null>(null);
+  const [billAnalyzing, setBillAnalyzing] = useState(false);
+  const [billData, setBillData] = useState<BillAnalysis | null>(null);
+  const [billError, setBillError] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+  const billRef = useRef<HTMLInputElement>(null);
 
   function handleRecorded(blob: Blob, dataUrl: string) {
     setAudioBlob(blob);
@@ -77,6 +92,27 @@ export default function UpdateForm({ engagementId, authorId, authorName, authorR
     }
   }
 
+  async function handleBill(file: File) {
+    if (!file.type.startsWith('image/')) return;
+    setBillError(false);
+    try {
+      const dataUrl = await toDataURL(file);
+      setBillImage({ dataUrl, name: file.name });
+      setBillData(null);
+      setBillAnalyzing(true);
+      const res = await fetch('/api/analyze-bill', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ imageDataUrl: dataUrl }),
+      });
+      const data = await res.json() as BillAnalysis & { error?: string };
+      if (data.error) { setBillError(true); } else { setBillData(data); }
+    } catch {
+      setBillError(true);
+    }
+    setBillAnalyzing(false);
+  }
+
   const hasGrouped = groupedUpdates.length > 0;
 
   async function handleSubmit() {
@@ -111,12 +147,30 @@ export default function UpdateForm({ engagementId, authorId, authorName, authorR
       attachments: mergedAttachments,
       toOwner: (showOwnerToggle ? toOwner : undefined) ?? (hasGrouped ? true : undefined),
       groupedIds: hasGrouped ? groupedUpdates.map(u => u.id) : undefined,
+      billSummary: billData ? { vendorName: billData.vendor_name, totalAmount: billData.total_amount, currency: billData.currency } : undefined,
     });
+    if (billData && billImage && unitId) {
+      addExpense({
+        engagementId,
+        unitId,
+        submittedBy: authorId,
+        submittedByName: authorName,
+        billImageDataUrl: billImage.dataUrl,
+        vendorName: billData.vendor_name,
+        billDate: billData.bill_date,
+        totalAmount: billData.total_amount,
+        items: billData.items,
+        currency: billData.currency,
+      });
+    }
     setText('');
     setAudioBlob(null);
     setAudioDataUrl(null);
     setTranscription('');
     setAttachments([]);
+    setBillImage(null);
+    setBillData(null);
+    setBillError(false);
     setSubmitting(false);
     setSuccess(true);
     setTimeout(() => setSuccess(false), 3000);
@@ -219,7 +273,7 @@ export default function UpdateForm({ engagementId, authorId, authorName, authorR
                 size="sm"
                 disabled={transcribing || !audioBlob}
                 onClick={transcribe}
-                icon={transcribing ? <Loader2 size={12} style={{ animation: 'spin 1s linear infinite' }} /> : <Wand2 size={12} />}
+                icon={transcribing ? <Spinner size={12} /> : <Wand2 size={12} />}
               >
                 {transcribing ? 'Transkribuojama…' : 'Transkribuoti (AI)'}
               </Btn>
@@ -271,12 +325,69 @@ export default function UpdateForm({ engagementId, authorId, authorName, authorR
           style={{ display: 'none' }}
           onChange={e => { Array.from(e.target.files ?? []).forEach(handleAttachment); e.target.value = ''; }}
         />
-        <button
-          onClick={() => fileRef.current?.click()}
-          style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'var(--color-muted-ash)', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', padding: 0 }}
-        >
-          <Paperclip size={13} /> Pridėti priedą
-        </button>
+        <input
+          ref={billRef}
+          type="file"
+          accept="image/*"
+          style={{ display: 'none' }}
+          onChange={e => { const f = e.target.files?.[0]; if (f) handleBill(f); e.target.value = ''; }}
+        />
+        <div style={{ display: 'flex', gap: 16 }}>
+          <button
+            onClick={() => fileRef.current?.click()}
+            style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'var(--color-muted-ash)', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', padding: 0 }}
+          >
+            <Paperclip size={13} /> Pridėti priedą
+          </button>
+          <button
+            onClick={() => billRef.current?.click()}
+            style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: billImage ? 'var(--color-accent)' : 'var(--color-muted-ash)', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', padding: 0 }}
+          >
+            <Receipt size={13} /> {billImage ? 'Sąskaita pridėta' : 'Pridėti sąskaitą'}
+          </button>
+        </div>
+
+        {/* Bill preview + extracted data */}
+        {billImage && (
+          <div style={{ marginTop: 10, padding: '10px 12px', background: 'var(--color-cloud-canvas)', borderRadius: 10, border: '1px solid var(--color-ghost-border)', display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+            <div style={{ position: 'relative', flexShrink: 0 }}>
+              <img src={billImage.dataUrl} alt="Sąskaita" style={{ width: 56, height: 56, objectFit: 'contain', borderRadius: 6, border: '1px solid var(--color-ghost-border)', background: '#fff' }} />
+              <button
+                onClick={() => { setBillImage(null); setBillData(null); setBillError(false); }}
+                style={{ position: 'absolute', top: -6, right: -6, width: 16, height: 16, borderRadius: '50%', background: 'var(--color-muted-ash)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0 }}
+              >
+                <X size={9} style={{ color: '#fff' }} />
+              </button>
+            </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              {billAnalyzing && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <Spinner size={12} color="var(--color-accent)" />
+                  <span style={{ fontSize: 12, color: 'var(--color-muted-ash)' }}>AI analizuoja sąskaitą…</span>
+                </div>
+              )}
+              {billError && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <AlertCircle size={12} style={{ color: 'var(--color-danger, #e55)' }} />
+                  <span style={{ fontSize: 12, color: 'var(--color-danger, #e55)' }}>Nepavyko nuskaityti — sąskaita bus išsaugota be duomenų</span>
+                </div>
+              )}
+              {billData && (
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 4 }}>
+                    <CheckCircle size={11} style={{ color: 'var(--color-success)' }} />
+                    <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--color-success)' }}>Išlaidos nuskaitytos</span>
+                  </div>
+                  <p style={{ fontSize: 12, fontWeight: 700, color: 'var(--color-midnight-ink)' }}>{billData.vendor_name}</p>
+                  <p style={{ fontSize: 11, color: 'var(--color-muted-ash)' }}>{billData.bill_date} · <strong style={{ color: 'var(--color-accent)' }}>{billData.total_amount.toFixed(2)} {billData.currency ?? 'EUR'}</strong></p>
+                  {billData.items.length > 0 && (
+                    <p style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', marginTop: 2 }}>{billData.items.length} pozicija(-os)</p>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
 
       {showOwnerToggle && (

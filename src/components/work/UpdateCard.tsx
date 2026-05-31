@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { Mic, Paperclip, ChevronDown, ChevronUp, Play, Pause, Languages, Eye } from 'lucide-react';
+import { Mic, Paperclip, ChevronDown, ChevronUp, Play, Pause, Languages, Eye, Receipt } from 'lucide-react';
 import { useStore } from '@/lib/store';
 import Avatar from '@/components/shared/Avatar';
 import TranslationBlock from './TranslationBlock';
@@ -202,7 +202,7 @@ export default function UpdateCard({ update, selectable = false, selected = fals
               {update.attachments.map(att => {
                 const isImage = att.mimeType.startsWith('image/');
                 return isImage ? (
-                  <button key={att.id} onClick={() => setLightboxUrl(att.dataUrl)}
+                  <button key={att.id} onClick={() => setLightboxUrl(att.dataUrl ?? null)}
                     style={{ width: 64, height: 64, borderRadius: 8, overflow: 'hidden', border: '1px solid var(--color-ghost-border)', cursor: 'zoom-in', padding: 0, background: 'none' }}>
                     <img src={att.dataUrl} alt={att.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </button>
@@ -214,6 +214,17 @@ export default function UpdateCard({ update, selectable = false, selected = fals
                   </a>
                 );
               })}
+            </div>
+          )}
+
+          {/* Bill summary */}
+          {update.billSummary && (
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 8, padding: '4px 10px', background: 'var(--color-cloud-canvas)', borderRadius: 8, fontSize: 12 }}>
+              <Receipt size={11} style={{ color: 'var(--color-accent)', flexShrink: 0 }} />
+              <span style={{ fontWeight: 600, color: 'var(--color-midnight-ink)' }}>{update.billSummary.vendorName ?? 'Sąskaita'}</span>
+              {update.billSummary.totalAmount != null && (
+                <span style={{ color: 'var(--color-accent)', fontWeight: 700 }}>{update.billSummary.totalAmount.toFixed(2)} {update.billSummary.currency ?? 'EUR'}</span>
+              )}
             </div>
           )}
 

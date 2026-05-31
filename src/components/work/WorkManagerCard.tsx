@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { UserCog, CheckCircle } from 'lucide-react';
+import { UserCog, CheckCircle, RotateCcw } from 'lucide-react';
 import { useStore } from '@/lib/store';
 import Avatar from '@/components/shared/Avatar';
 import Btn from '@/components/shared/Btn';
@@ -16,7 +16,7 @@ interface Props {
 }
 
 export default function WorkManagerCard({ unitId, engagement, onCreated }: Props) {
-  const { inviteWorkManager, completeEngagement } = useStore();
+  const { inviteWorkManager, completeEngagement, reactivateEngagement } = useStore();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -87,18 +87,17 @@ export default function WorkManagerCard({ unitId, engagement, onCreated }: Props
         Pradėta: {formatDate(engagement.createdAt)}
         {engagement.completedAt && ` · Baigta: ${formatDate(engagement.completedAt)}`}
       </p>
-      {isActive && (
-        <div style={{ marginTop: 12 }}>
-          <Btn
-            variant="ghost"
-            size="sm"
-            onClick={() => completeEngagement(engagement.id)}
-            icon={<CheckCircle size={13} />}
-          >
+      <div style={{ marginTop: 12 }}>
+        {isActive ? (
+          <Btn variant="ghost" size="sm" onClick={() => completeEngagement(engagement.id)} icon={<CheckCircle size={13} />}>
             Užbaigti darbą
           </Btn>
-        </div>
-      )}
+        ) : (
+          <Btn variant="ghost" size="sm" onClick={() => reactivateEngagement(engagement.id)} icon={<RotateCcw size={13} />}>
+            Atnaujinti darbą
+          </Btn>
+        )}
+      </div>
     </Card>
   );
 }

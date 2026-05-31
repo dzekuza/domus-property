@@ -3,14 +3,18 @@ import { ChevronRight } from 'lucide-react';
 
 interface Breadcrumb { label: string; href?: string; }
 
+interface MetaItem { label: string; value: string; }
+
 interface Props {
   title: string;
   subtitle?: string;
   breadcrumbs?: Breadcrumb[];
   actions?: React.ReactNode;
+  statusBadge?: { label: string; active: boolean };
+  meta?: MetaItem[];
 }
 
-export default function PageHeader({ title, subtitle, breadcrumbs, actions }: Props) {
+export default function PageHeader({ title, subtitle, breadcrumbs, actions, statusBadge, meta }: Props) {
   return (
     <div className="page-header" style={{
       background: 'var(--color-sidebar-bg)',
@@ -69,6 +73,26 @@ export default function PageHeader({ title, subtitle, breadcrumbs, actions }: Pr
             <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', marginTop: 5, fontWeight: 400 }}>
               {subtitle}
             </p>
+          )}
+          {(statusBadge || meta) && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 12, flexWrap: 'wrap' }}>
+              {statusBadge && (
+                <span style={{
+                  fontSize: 11, fontWeight: 700, padding: '3px 12px', borderRadius: 100,
+                  background: statusBadge.active ? 'rgba(103,205,205,0.18)' : 'rgba(255,255,255,0.1)',
+                  color: statusBadge.active ? 'rgba(103,205,205,1)' : 'rgba(255,255,255,0.45)',
+                  letterSpacing: '0.03em',
+                }}>
+                  {statusBadge.label}
+                </span>
+              )}
+              {meta?.map(({ label, value }) => (
+                <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                  <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{label}</span>
+                  <span style={{ fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,0.7)' }}>{value}</span>
+                </div>
+              ))}
+            </div>
           )}
         </div>
         {actions && <div className="page-header-actions">{actions}</div>}

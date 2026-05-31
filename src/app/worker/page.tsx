@@ -5,11 +5,13 @@ import { useRouter } from 'next/navigation';
 import { useStore } from '@/lib/store';
 import {
   Mic, Square, Send, Paperclip, ChevronDown, ChevronUp,
-  Wand2, Loader2, X, Play, Pause, LogOut, Info, RotateCcw,
+  Wand2, X, Play, Pause, LogOut, Info, RotateCcw,
+  Receipt, CheckCircle, AlertCircle,
 } from 'lucide-react';
 import { toDataURL, generateId } from '@/lib/files';
 import { formatRelative } from '@/lib/fmt';
 import type { WorkAttachment } from '@/lib/types';
+import Spinner from '@/components/shared/Spinner';
 
 /* ─── Pulse ring animation injected once ─────────────────────────────────── */
 const PULSE_STYLE = `
@@ -41,7 +43,7 @@ type RecordState = 'idle' | 'recording' | 'stopped';
 
 export default function WorkerPage() {
   const router = useRouter();
-  const { currentUser, workEngagements, units, estates, submitWorkUpdate, signOut,
+  const { currentUser, workEngagements, units, estates, submitWorkUpdate, addExpense, signOut,
     updatesForEngagement, setWorkUpdateTranscription } = useStore();
 
   const user = currentUser();
@@ -69,11 +71,17 @@ export default function WorkerPage() {
   const [transcribing, setTranscribing] = useState(false);
   const [transcription, setTranscription] = useState('');
 
+  const [billImage, setBillImage] = useState<{ dataUrl: string } | null>(null);
+  const [billAnalyzing, setBillAnalyzing] = useState(false);
+  const [billData, setBillData] = useState<{ vendor_name: string; bill_date: string; total_amount: number; currency?: string; items: Array<{ description: string; quantity?: number; unit_price?: number; line_total?: number }> } | null>(null);
+  const [billError, setBillError] = useState(false);
+
   const mediaRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
+  const billRef = useRef<HTMLInputElement>(null);
 
   /* ── Voice handlers ── */
   const startRecording = useCallback(async () => {
@@ -142,10 +150,33 @@ export default function WorkerPage() {
     } catch (e) { alert(e instanceof Error ? e.message : 'Klaida'); }
   }
 
+  async function handleBill(file: File) {
+    if (!file.type.startsWith('image/')) return;
+    setBillError(false);
+    try {
+      const dataUrl = await toDataURL(file);
+      setBillImage({ dataUrl });
+      setBillData(null);
+      setBillAnalyzing(true);
+      const res = await fetch('/api/analyze-bill', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ imageDataUrl: dataUrl }),
+      });
+      const data = await res.json();
+      if (data.error) { setBillError(true); } else { setBillData(data); }
+    } catch { setBillError(true); }
+    setBillAnalyzing(false);
+  }
+
   async function handleSend() {
     if (!engagement || !user) return;
     const hasContent = tab === 'voice' ? !!audioDataUrl : !!text.trim();
-    if (!hasContent && !attachments.length) return;
+    if (!hasContent && !attachments.length && !billData) return;
+
+    const billAttachment = billData && billImage
+      ? [{ id: `bill-${Date.now()}`, name: 'receipt.jpg', mimeType: 'image/jpeg', dataUrl: billImage.dataUrl }]
+      : [];
 
     submitWorkUpdate({
       engagementId: engagement.id,
@@ -157,10 +188,26 @@ export default function WorkerPage() {
       audioDataUrl: audioDataUrl ?? undefined,
       transcription: transcription || undefined,
       translations: {},
-      attachments,
+      attachments: [...attachments, ...billAttachment],
+      billSummary: billData ? { vendorName: billData.vendor_name, totalAmount: billData.total_amount, currency: billData.currency } : undefined,
     });
 
+    if (billData && billImage && engagement && unit && user) {
+      addExpense({
+        engagementId: engagement.id,
+        unitId: unit.id,
+        submittedBy: user.id,
+        submittedByName: user.fullName,
+        billImageDataUrl: billImage.dataUrl,
+        vendorName: billData.vendor_name,
+        billDate: billData.bill_date,
+        totalAmount: billData.total_amount,
+        items: billData.items,
+        currency: billData.currency,
+      });
+    }
     setText(''); setAttachments([]); resetRecording();
+    setBillImage(null); setBillData(null); setBillError(false);
     setSent(true);
     setTimeout(() => setSent(false), 2500);
   }
@@ -182,7 +229,7 @@ export default function WorkerPage() {
     );
   }
 
-  const canSend = tab === 'voice' ? (!!audioDataUrl || !!text.trim()) : !!text.trim();
+  const canSend = !!billData || (tab === 'voice' ? (!!audioDataUrl || !!text.trim()) : !!text.trim());
 
   return (
     <div className="worker-root" style={{ minHeight: '100dvh', background: 'var(--background)', display: 'flex', flexDirection: 'column' }}>
@@ -360,7 +407,7 @@ export default function WorkerPage() {
                       }}
                     >
                       {transcribing
-                        ? <><Loader2 size={13} style={{ animation: 'spin-slow 1s linear infinite' }} /> Transkribuojama…</>
+                        ? <><Spinner size={13} /> Transkribuojama…</>
                         : <><Wand2 size={13} /> AI transkripcija</>
                       }
                     </button>
@@ -399,10 +446,47 @@ export default function WorkerPage() {
             </div>
           )}
 
+          {/* Bill preview strip */}
+          {billImage && (
+            <div style={{ margin: '0 20px 10px', padding: '10px 12px', background: 'rgba(255,255,255,0.06)', borderRadius: 12, border: '1px solid rgba(255,255,255,0.1)', display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+              <div style={{ position: 'relative', flexShrink: 0 }}>
+                <img src={billImage.dataUrl} alt="Sąskaita" style={{ width: 48, height: 48, objectFit: 'contain', borderRadius: 6, border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.05)' }} />
+                <button onClick={() => { setBillImage(null); setBillData(null); setBillError(false); }} style={{ position: 'absolute', top: -6, right: -6, width: 16, height: 16, borderRadius: '50%', background: 'rgba(255,255,255,0.25)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0 }}>
+                  <X size={9} style={{ color: '#fff' }} />
+                </button>
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                {billAnalyzing && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <Spinner size={11} color="var(--color-teal)" />
+                    <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)' }}>AI analizuoja sąskaitą…</span>
+                  </div>
+                )}
+                {billError && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <AlertCircle size={11} style={{ color: '#f87171' }} />
+                    <span style={{ fontSize: 11, color: '#f87171' }}>Nepavyko nuskaityti</span>
+                  </div>
+                )}
+                {billData && (
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 2 }}>
+                      <CheckCircle size={10} style={{ color: 'var(--color-teal)' }} />
+                      <span style={{ fontSize: 10, fontWeight: 700, color: 'var(--color-teal)' }}>Nuskaitytas</span>
+                    </div>
+                    <p style={{ fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,0.85)' }}>{billData.vendor_name}</p>
+                    <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)' }}>{billData.bill_date} · <strong style={{ color: 'var(--color-accent)' }}>{billData.total_amount.toFixed(2)} {billData.currency ?? 'EUR'}</strong></p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
           {/* ── Bottom action bar ── */}
           <div style={{ padding: '14px 20px 20px', display: 'flex', alignItems: 'center', gap: 10 }}>
             {/* Attachments */}
             <input ref={fileRef} type="file" multiple accept="image/*,.pdf" style={{ display: 'none' }} onChange={e => { Array.from(e.target.files ?? []).forEach(handleAttachment); e.target.value = ''; }} />
+            <input ref={billRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={e => { const f = e.target.files?.[0]; if (f) handleBill(f); e.target.value = ''; }} />
             <button
               onClick={() => fileRef.current?.click()}
               style={{ width: 40, height: 40, borderRadius: 12, background: attachments.length > 0 ? 'rgba(103,205,205,0.18)' : 'rgba(255,255,255,0.08)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, position: 'relative', transition: 'background 0.15s' }}
@@ -414,6 +498,13 @@ export default function WorkerPage() {
                   {attachments.length}
                 </span>
               )}
+            </button>
+            <button
+              onClick={() => billRef.current?.click()}
+              style={{ width: 40, height: 40, borderRadius: 12, background: billImage ? 'rgba(232,119,60,0.2)' : 'rgba(255,255,255,0.08)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'background 0.15s' }}
+              title="Pridėti sąskaitą"
+            >
+              <Receipt size={16} style={{ color: billImage ? 'var(--color-accent)' : 'rgba(255,255,255,0.45)' }} />
             </button>
 
             {/* Attachment chips */}

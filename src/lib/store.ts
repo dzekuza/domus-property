@@ -7,6 +7,7 @@ import type {
   Role, DefectStatus, ServiceKind, PurchaseStepId, DocumentFile, DefectRoom,
   ScheduleEvent, ScheduleEventType, ChatMessage,
   WorkEngagement, WorkerProfile, WorkerSpecialty, WorkUpdate, WorkAttachment, AISummary,
+  Expense,
 } from './types';
 import { SEED_USERS, SEED_ESTATES, SEED_UNITS, SEED_DEFECTS, SEED_CONTACTS, SEED_PHOTO_SECTIONS, SEED_SCHEDULE_EVENTS, SEED_CHAT_MESSAGES, SEED_WORK_ENGAGEMENTS, SEED_WORKER_PROFILES, SEED_WORK_UPDATES } from './seed';
 import { toDataURL, generateId } from './files';
@@ -32,6 +33,7 @@ interface DomusStore {
   workerProfiles: WorkerProfile[];
   workUpdates: WorkUpdate[];
   aiSummaries: AISummary[];
+  expenses: Expense[];
 
   // work engagement selectors
   engagementForUnit: (unitId: string) => WorkEngagement | undefined;
@@ -43,12 +45,16 @@ interface DomusStore {
   // work engagement mutations
   inviteWorkManager: (unitId: string, name: string, email: string) => WorkEngagement;
   completeEngagement: (engagementId: string) => void;
+  reactivateEngagement: (engagementId: string) => void;
   inviteWorker: (engagementId: string, name: string, email: string, specialty: WorkerSpecialty) => WorkerProfile;
   removeWorker: (workerId: string) => void;
   submitWorkUpdate: (update: Omit<WorkUpdate, 'id' | 'createdAt'>) => WorkUpdate;
   setWorkUpdateTranscription: (updateId: string, transcription: string) => void;
   setWorkUpdateTranslation: (updateId: string, lang: string, text: string) => void;
   addAISummary: (summary: Omit<AISummary, 'id'>) => AISummary;
+  addExpense: (input: Omit<Expense, 'id' | 'submittedAt'>) => Expense;
+  expensesForEngagement: (engagementId: string) => Expense[];
+  expensesForUnit: (unitId: string) => Expense[];
 
   // auth
   signIn: (email: string, _password: string, role: Role) => boolean;
@@ -108,6 +114,7 @@ export const useStore = create<DomusStore>()(
       workerProfiles: SEED_WORKER_PROFILES,
       workUpdates: SEED_WORK_UPDATES,
       aiSummaries: [],
+      expenses: [],
 
       // ── Work Engagement Selectors ─────────────────────────────────────────
       engagementForUnit(unitId) {
@@ -157,6 +164,13 @@ export const useStore = create<DomusStore>()(
         set(s => ({
           workEngagements: s.workEngagements.map(e =>
             e.id === engagementId ? { ...e, status: 'completed', completedAt: new Date().toISOString() } : e
+          ),
+        }));
+      },
+      reactivateEngagement(engagementId) {
+        set(s => ({
+          workEngagements: s.workEngagements.map(e =>
+            e.id === engagementId ? { ...e, status: 'active', completedAt: undefined } : e
           ),
         }));
       },
@@ -224,6 +238,17 @@ export const useStore = create<DomusStore>()(
         const newSummary: AISummary = { ...summary, id: `sum-${generateId()}` };
         set(s => ({ aiSummaries: [...s.aiSummaries, newSummary] }));
         return newSummary;
+      },
+      addExpense(input) {
+        const expense: Expense = { ...input, id: `exp-${generateId()}`, submittedAt: new Date().toISOString() };
+        set(s => ({ expenses: [...s.expenses, expense] }));
+        return expense;
+      },
+      expensesForEngagement(engagementId) {
+        return get().expenses.filter(e => e.engagementId === engagementId);
+      },
+      expensesForUnit(unitId) {
+        return get().expenses.filter(e => e.unitId === unitId);
       },
 
       // ── Auth ──────────────────────────────────────────────────────────────
@@ -454,8 +479,12 @@ export const useStore = create<DomusStore>()(
         chatMessages: s.chatMessages,
         workEngagements: s.workEngagements,
         workerProfiles: s.workerProfiles,
-        workUpdates: s.workUpdates,
+        workUpdates: s.workUpdates.map(({ audioDataUrl: _a, attachments, ...rest }) => ({
+          ...rest,
+          attachments: attachments.map(({ dataUrl: _d, ...att }) => att),
+        })),
         aiSummaries: s.aiSummaries,
+        expenses: s.expenses.map(({ billImageDataUrl: _img, ...rest }) => rest),
       }),
     }
   )

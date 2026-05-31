@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Sparkles, Loader2, Calendar, CalendarRange, Layers, X } from 'lucide-react';
+import { Sparkles, Calendar, CalendarRange, Layers, X } from 'lucide-react';
+import Spinner from '@/components/shared/Spinner';
 import { useStore } from '@/lib/store';
 import Card from '@/components/shared/Card';
 import EmptyState from '@/components/shared/EmptyState';
@@ -78,11 +79,11 @@ export default function UpdateFeed({
             <Sparkles size={15} style={{ color: 'var(--color-electric-violet)', flexShrink: 0 }} />
             <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-midnight-ink)', flex: 1 }}>AI Santrauka</span>
             <Btn variant="ghost" size="sm" disabled={generatingDaily} onClick={() => generateSummary('daily')}
-              icon={generatingDaily ? <Loader2 size={12} style={{ animation: 'spin 1s linear infinite' }} /> : <Calendar size={12} />}>
+              icon={generatingDaily ? <Spinner size={12} /> : <Calendar size={12} />}>
               {generatingDaily ? 'Generuojama…' : 'Dienos'}
             </Btn>
             <Btn variant="ghost" size="sm" disabled={generatingWeekly} onClick={() => generateSummary('weekly')}
-              icon={generatingWeekly ? <Loader2 size={12} style={{ animation: 'spin 1s linear infinite' }} /> : <CalendarRange size={12} />}>
+              icon={generatingWeekly ? <Spinner size={12} /> : <CalendarRange size={12} />}>
               {generatingWeekly ? 'Generuojama…' : 'Savaitės'}
             </Btn>
             {summaries.length > 0 && (

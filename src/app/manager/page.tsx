@@ -1,16 +1,20 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { LogOut } from 'lucide-react';
 import { useStore } from '@/lib/store';
 import PageHeader from '@/components/layout/PageHeader';
 import Card from '@/components/shared/Card';
 import WorkerList from '@/components/work/WorkerList';
 import UpdateForm from '@/components/work/UpdateForm';
 import UpdateFeed from '@/components/work/UpdateFeed';
+import ExpenseTable from '@/components/work/ExpenseTable';
 import { formatDate } from '@/lib/fmt';
 
 export default function ManagerPage() {
-  const { currentUser, workEngagements, units, estates, updatesForEngagement } = useStore();
+  const router = useRouter();
+  const { currentUser, workEngagements, units, estates, updatesForEngagement, signOut } = useStore();
   const user = currentUser();
   const engagement = user?.engagementId
     ? workEngagements.find(e => e.id === user.engagementId)
@@ -51,40 +55,30 @@ export default function ManagerPage() {
 
   return (
     <div>
-      <PageHeader title="Darbo vadovas" subtitle={unitLabel} />
+      <PageHeader
+        title="Darbo vadovas"
+        subtitle={unitLabel}
+        statusBadge={{ label: isActive ? 'Aktyvus' : 'Užbaigtas', active: isActive }}
+        meta={[
+          { label: 'Butas', value: `${unit.number}, ${unit.floor} aukštas` },
+          { label: 'Pradėta', value: formatDate(engagement.createdAt) },
+        ]}
+        actions={
+          <button
+            onClick={() => { signOut(); router.push('/login'); }}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 10, padding: '7px 14px', color: 'rgba(255,255,255,0.7)', fontSize: 13, fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit' }}
+          >
+            <LogOut size={14} />
+            Atsijungti
+          </button>
+        }
+      />
 
       <div className="darbai-grid">
-        {/* Left col — project info + workers */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-          <Card>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div>
-                  <p style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 3 }}>Objektas</p>
-                  <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>{estate?.name}</p>
-                </div>
-                <span style={{
-                  fontSize: 11, fontWeight: 700, padding: '3px 12px', borderRadius: 100,
-                  background: isActive ? '#dcfce7' : 'var(--color-cloud-canvas)',
-                  color: isActive ? '#166534' : 'var(--color-muted-ash)',
-                }}>
-                  {isActive ? 'Aktyvus' : 'Užbaigtas'}
-                </span>
-              </div>
-              <div style={{ display: 'flex', gap: 24 }}>
-                <div>
-                  <p style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 3 }}>Butas</p>
-                  <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>{unit.number}, {unit.floor} aukštas</p>
-                </div>
-                <div>
-                  <p style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 3 }}>Pradėta</p>
-                  <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>{formatDate(engagement.createdAt)}</p>
-                </div>
-              </div>
-            </div>
-          </Card>
-
+        {/* Left col — workers + expenses */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16, position: 'sticky', top: 24, alignSelf: 'flex-start' }}>
           <WorkerList engagementId={engagement.id} />
+          <ExpenseTable engagementId={engagement.id} />
         </div>
 
         {/* Right col — post update + feed */}

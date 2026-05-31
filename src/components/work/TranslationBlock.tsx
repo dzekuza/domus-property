@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Languages, Loader2 } from 'lucide-react';
+import { Languages } from 'lucide-react';
+import Spinner from '@/components/shared/Spinner';
 
 const LANGS = [
   { code: 'en', label: 'EN' },
@@ -68,7 +69,7 @@ export default function TranslationBlock({ updateId, sourceText, translations, o
             {l.label}
           </button>
         ))}
-        {loading && <Loader2 size={13} style={{ color: 'var(--color-muted-ash-2)', animation: 'spin 1s linear infinite' }} />}
+        {loading && <Spinner size={13} color="var(--color-muted-ash-2)" />}
       </div>
       {translatedText && (
         <div style={{ marginTop: 8, padding: '10px 14px', background: 'var(--color-cloud-canvas)', borderRadius: 10, fontSize: 13, color: 'var(--color-midnight-ink)', lineHeight: 1.5 }}>

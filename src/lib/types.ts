@@ -40,7 +40,7 @@ export interface WorkAttachment {
   id: string;
   name: string;
   mimeType: string;
-  dataUrl: string;
+  dataUrl?: string;
 }
 
 export interface WorkUpdate {
@@ -58,6 +58,7 @@ export interface WorkUpdate {
   createdAt: string;
   toOwner?: boolean;
   groupedIds?: string[];
+  billSummary?: { vendorName?: string; totalAmount?: number; currency?: string };
 }
 
 export interface AISummary {
@@ -201,4 +202,26 @@ export interface ChatMessage {
   authorUserId: string;
   body: string;
   createdAt: string;
+}
+
+export interface ExpenseItem {
+  description: string;
+  quantity?: number;
+  unit_price?: number;
+  line_total?: number;
+}
+
+export interface Expense {
+  id: string;
+  engagementId: string;
+  unitId: string;
+  submittedBy: string;
+  submittedByName: string;
+  submittedAt: string;
+  billImageDataUrl?: string;
+  vendorName: string;
+  billDate: string;
+  totalAmount: number;
+  items: ExpenseItem[];
+  currency?: string;
 }

@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import {
   Home, AlertTriangle, Image, FileText, UserRoundCog, Settings,
   Building2, Bug, Users, LogOut, HelpCircle, Eye, X, Calendar, MessageSquare, HardHat,
+  PanelLeftClose, PanelLeftOpen,
 } from 'lucide-react';
 import { useStore } from '@/lib/store';
 import { initials } from '@/lib/fmt';
@@ -36,7 +37,7 @@ const workerNav = [
   { href: '/worker', label: 'Mano darbai', icon: HardHat },
 ];
 
-export default function Sidebar({ isOpen, onClose }: { isOpen?: boolean; onClose?: () => void }) {
+export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }: { isOpen?: boolean; onClose?: () => void; collapsed?: boolean; onToggleCollapse?: () => void }) {
   const pathname = usePathname();
   const router = useRouter();
   const { session, currentUser, effectiveUser, signOut, stopImpersonating } = useStore();
@@ -56,7 +57,7 @@ export default function Sidebar({ isOpen, onClose }: { isOpen?: boolean; onClose
     <aside
       className={`app-sidebar${isOpen ? ' open' : ''}`}
       style={{
-        width: 256,
+        width: collapsed ? 60 : 256,
         height: '100vh',
         position: 'sticky',
         top: 0,
@@ -65,30 +66,49 @@ export default function Sidebar({ isOpen, onClose }: { isOpen?: boolean; onClose
         flexDirection: 'column',
         flexShrink: 0,
         overflowY: 'auto',
+        overflowX: 'hidden',
+        transition: 'width 0.22s ease',
       }}
     >
       {/* Logo */}
-      <div style={{ padding: '20px 16px 14px', display: 'flex', alignItems: 'center', gap: 10 }}>
-        <img
-          src="/logo-white.svg"
-          alt="Domus"
-          style={{ height: 28, width: 'auto', flexShrink: 0 }}
-        />
-        <span style={{
-          fontSize: 10, fontWeight: 600,
-          background: 'rgba(103,205,205,0.18)',
-          color: 'var(--color-teal)',
-          padding: '2px 8px',
-          borderRadius: 100,
-          letterSpacing: '0.04em',
-          textTransform: 'uppercase',
-          marginLeft: 'auto',
-        }}>
-          {session.role === 'admin' ? 'Admin' : session.role === 'work_manager' ? 'Vadovas' : session.role === 'worker' ? 'Darbininkas' : 'Savininkas'}
-        </span>
-        <button className="sidebar-close-btn" onClick={onClose} aria-label="Uždaryti meniu">
-          <X size={15} />
-        </button>
+      <div style={{ padding: '16px 12px 14px', display: 'flex', alignItems: 'center', minHeight: 56, gap: 8 }}>
+        {collapsed ? (
+          <button
+            onClick={onToggleCollapse}
+            aria-label="Išplėsti"
+            style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.45)', display: 'flex', padding: 4, margin: '0 auto' }}
+          >
+            <PanelLeftOpen size={16} />
+          </button>
+        ) : (
+          <>
+            <img src="/logo-white.svg" alt="Domus" style={{ height: 26, width: 'auto', flexShrink: 0 }} />
+            <span style={{
+              fontSize: 10, fontWeight: 600,
+              background: 'rgba(103,205,205,0.18)',
+              color: 'var(--color-teal)',
+              padding: '2px 8px',
+              borderRadius: 100,
+              letterSpacing: '0.04em',
+              textTransform: 'uppercase',
+              whiteSpace: 'nowrap',
+              flexShrink: 0,
+            }}>
+              {session.role === 'admin' ? 'Admin' : session.role === 'work_manager' ? 'Vadovas' : session.role === 'worker' ? 'Darbininkas' : 'Savininkas'}
+            </span>
+            <div style={{ flex: 1 }} />
+            <button
+              onClick={onToggleCollapse}
+              aria-label="Suskleisti"
+              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.45)', display: 'flex', padding: 4, flexShrink: 0 }}
+            >
+              <PanelLeftClose size={16} />
+            </button>
+            <button className="sidebar-close-btn" onClick={onClose} aria-label="Uždaryti meniu">
+              <X size={15} />
+            </button>
+          </>
+        )}
       </div>
 
       {/* Impersonate banner */}
@@ -111,49 +131,57 @@ export default function Sidebar({ isOpen, onClose }: { isOpen?: boolean; onClose
       )}
 
       {/* Section label */}
-      <div style={{
-        padding: '4px 16px 6px',
-        fontSize: 10,
-        letterSpacing: '0.08em',
-        textTransform: 'uppercase',
-        color: 'rgba(255,255,255,0.35)',
-        fontWeight: 600,
-      }}>
-        {session.role === 'admin' ? 'Valdymas' : session.role === 'work_manager' ? 'Projektas' : session.role === 'worker' ? 'Darbai' : 'Mano butas'}
-      </div>
+      {!collapsed && (
+        <div style={{
+          padding: '4px 16px 6px',
+          fontSize: 10,
+          letterSpacing: '0.08em',
+          textTransform: 'uppercase',
+          color: 'rgba(255,255,255,0.35)',
+          fontWeight: 600,
+        }}>
+          {session.role === 'admin' ? 'Valdymas' : session.role === 'work_manager' ? 'Projektas' : session.role === 'worker' ? 'Darbai' : 'Mano butas'}
+        </div>
+      )}
 
       {/* Nav */}
-      <nav style={{ padding: '0 8px', flex: 1 }}>
+      <nav style={{ padding: '0 6px', flex: 1 }}>
         {nav.map(({ href, label, icon: Icon }) => {
           const active = pathname.startsWith(href);
           return (
-            <Link key={href} href={href} className={`nav-item${active ? ' active' : ''}`}>
+            <Link
+              key={href}
+              href={href}
+              className={`nav-item${active ? ' active' : ''}`}
+              title={collapsed ? label : undefined}
+              style={collapsed ? { justifyContent: 'center', padding: '10px 0' } : undefined}
+            >
               <Icon size={17} strokeWidth={active ? 2 : 1.75} style={{ flexShrink: 0, opacity: active ? 1 : 0.65 }} />
-              {label}
+              {!collapsed && label}
             </Link>
           );
         })}
       </nav>
 
       {/* Footer links */}
-      <div style={{ padding: '10px 8px 6px', borderTop: '1px solid var(--color-sidebar-border)' }}>
-        <Link href="#" className="nav-item" style={{ marginBottom: 2 }}>
+      <div style={{ padding: '10px 6px 6px', borderTop: '1px solid var(--color-sidebar-border)' }}>
+        <Link href="#" className="nav-item" title={collapsed ? 'Pagalba' : undefined} style={collapsed ? { justifyContent: 'center', padding: '10px 0' } : { marginBottom: 2 }}>
           <HelpCircle size={17} strokeWidth={1.75} style={{ opacity: 0.6, flexShrink: 0 }} />
-          Pagalba
+          {!collapsed && 'Pagalba'}
         </Link>
-        <button onClick={handleSignOut} className="nav-item" style={{ color: '#f87171' }}>
+        <button onClick={handleSignOut} className="nav-item" title={collapsed ? 'Atsijungti' : undefined} style={{ color: '#f87171', ...(collapsed ? { justifyContent: 'center', padding: '10px 0' } : {}) }}>
           <LogOut size={17} strokeWidth={1.75} style={{ flexShrink: 0 }} />
-          Atsijungti
+          {!collapsed && 'Atsijungti'}
         </button>
       </div>
 
       {/* User card */}
       <div style={{
-        margin: '8px 10px 12px',
-        padding: '12px 14px',
+        margin: collapsed ? '8px 6px 12px' : '8px 10px 12px',
+        padding: collapsed ? '10px 0' : '12px 14px',
         background: 'var(--color-sidebar-user-bg)',
         borderRadius: 12,
-        display: 'flex', alignItems: 'center', gap: 10,
+        display: 'flex', alignItems: 'center', justifyContent: collapsed ? 'center' : 'flex-start', gap: 10,
         border: '1px solid rgba(255,255,255,0.06)',
       }}>
         <div style={{
@@ -165,16 +193,12 @@ export default function Sidebar({ isOpen, onClose }: { isOpen?: boolean; onClose
         }}>
           {initials(effUser?.fullName ?? '?')}
         </div>
-        <div style={{ minWidth: 0 }}>
-          <div style={{
-            fontSize: 13, fontWeight: 600, color: '#fff',
-            overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-          }}>{effUser?.fullName}</div>
-          <div style={{
-            fontSize: 11, color: 'rgba(255,255,255,0.45)',
-            overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-          }}>{effUser?.email}</div>
-        </div>
+        {!collapsed && (
+          <div style={{ minWidth: 0 }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#fff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{effUser?.fullName}</div>
+            <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{effUser?.email}</div>
+          </div>
+        )}
       </div>
     </aside>
   );

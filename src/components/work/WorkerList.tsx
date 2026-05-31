@@ -55,12 +55,7 @@ export default function WorkerList({ engagementId }: Props) {
 
   return (
     <Card>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
-        <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--color-midnight-ink)' }}>Darbininkai ({workers.length})</p>
-        <Btn variant="ghost" size="sm" icon={<UserPlus size={13} />} onClick={() => setAdding(s => !s)}>
-          Pridėti
-        </Btn>
-      </div>
+      <p style={{ fontSize: 15, fontWeight: 700, color: 'var(--color-midnight-ink)', marginBottom: 14 }}>Darbininkai ({workers.length})</p>
 
       {adding && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '12px 14px', background: 'var(--color-cloud-canvas)', borderRadius: 12, marginBottom: 14 }}>
@@ -168,6 +163,10 @@ export default function WorkerList({ engagementId }: Props) {
           ))}
         </div>
       )}
+
+      <Btn variant="ghost" size="sm" icon={<UserPlus size={13} />} onClick={() => setAdding(s => !s)} style={{ marginTop: 12, width: '100%', justifyContent: 'center' }}>
+        Pridėti darbininką
+      </Btn>
     </Card>
   );
 }
