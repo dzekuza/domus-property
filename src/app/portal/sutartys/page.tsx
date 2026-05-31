@@ -17,7 +17,7 @@ const serviceIcons: Record<ServiceKind, React.FC<{ size?: number; strokeWidth?: 
 };
 
 export default function SutartysPage() {
-  const { effectiveUser, unitOf } = useStore();
+  const { effectiveUser, unitOf, setServiceContractStatus } = useStore();
   const effUser = effectiveUser();
   const unit = effUser?.unitId ? unitOf(effUser.id) : null;
   const services = unit?.services ?? [];
@@ -58,7 +58,17 @@ export default function SutartysPage() {
                 )}
                 {svc.status === 'done'
                   ? <Btn variant="ghost" size="sm">Sutartis</Btn>
-                  : <Btn variant="primary" size="sm">Pasirašyti</Btn>
+                  : <Btn
+                      variant="primary"
+                      size="sm"
+                      onClick={() => {
+                        if (!unit) return;
+                        const next = svc.status === 'pending' ? 'progress' : 'done';
+                        setServiceContractStatus(unit.id, svc.id, next);
+                      }}
+                    >
+                      {svc.status === 'progress' ? 'Patvirtinti' : 'Pasirašyti'}
+                    </Btn>
                 }
               </div>
             </Card>
