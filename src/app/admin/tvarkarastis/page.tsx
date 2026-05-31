@@ -7,6 +7,7 @@ import PageHeader from '@/components/layout/PageHeader';
 import Card from '@/components/shared/Card';
 import Btn from '@/components/shared/Btn';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { formatDate } from '@/lib/fmt';
 import type { ScheduleEventType } from '@/lib/types';
 
@@ -45,7 +46,6 @@ export default function AdminTvarkarastisPage() {
     setShowModal(false);
   }
 
-  const selectStyle: React.CSSProperties = { padding: '8px 12px', fontSize: 13, border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-pill)', outline: 'none', fontFamily: 'inherit', fontWeight: 500, background: 'var(--color-paper-white)' };
   const inputStyle: React.CSSProperties = { width: '100%', padding: '10px 14px', fontSize: 14, border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500, boxSizing: 'border-box' };
 
   function EventList({ events, emptyLabel }: { events: typeof filtered; emptyLabel: string }) {
@@ -90,10 +90,17 @@ export default function AdminTvarkarastisPage() {
         subtitle={`${scheduleEvents.length} įvykių iš viso`}
         actions={
           <>
-            <select value={estateFilter} onChange={e => setEstateFilter(e.target.value)} style={selectStyle}>
-              <option value="all">Visi objektai</option>
-              {estates.map(e => <option key={e.id} value={e.id}>{e.name}</option>)}
-            </select>
+            <Select value={estateFilter} onValueChange={v => { if (v) setEstateFilter(v); }}>
+              <SelectTrigger className="rounded-full">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="all">Visi objektai</SelectItem>
+                  {estates.map(e => <SelectItem key={e.id} value={e.id}>{e.name}</SelectItem>)}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
             <Btn variant="primary" icon={<Plus size={15} />} onClick={() => setShowModal(true)}>Naujas įvykis</Btn>
           </>
         }
@@ -122,15 +129,29 @@ export default function AdminTvarkarastisPage() {
           <form onSubmit={handleCreate} style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 8 }}>
             <div>
               <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6 }}>Objektas</label>
-              <select value={form.estateId} onChange={e => setForm(f => ({ ...f, estateId: e.target.value }))} style={{ ...inputStyle }}>
-                {estates.map(e => <option key={e.id} value={e.id}>{e.name}</option>)}
-              </select>
+              <Select value={form.estateId} onValueChange={v => { if (v) setForm(f => ({ ...f, estateId: v })); }}>
+                <SelectTrigger className="w-full">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {estates.map(e => <SelectItem key={e.id} value={e.id}>{e.name}</SelectItem>)}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
             <div>
               <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6 }}>Tipas</label>
-              <select value={form.type} onChange={e => setForm(f => ({ ...f, type: e.target.value as ScheduleEventType }))} style={{ ...inputStyle }}>
-                {EVENT_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
-              </select>
+              <Select value={form.type} onValueChange={v => setForm(f => ({ ...f, type: v as ScheduleEventType }))}>
+                <SelectTrigger className="w-full">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {EVENT_TYPES.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
             <div>
               <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6 }}>Pavadinimas</label>

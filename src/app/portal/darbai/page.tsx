@@ -6,6 +6,7 @@ import PageHeader from '@/components/layout/PageHeader';
 import WorkManagerCard from '@/components/work/WorkManagerCard';
 import UpdateFeed from '@/components/work/UpdateFeed';
 import WorkerList from '@/components/work/WorkerList';
+import ExpenseTable from '@/components/work/ExpenseTable';
 import Card from '@/components/shared/Card';
 import EmptyState from '@/components/shared/EmptyState';
 import Btn from '@/components/shared/Btn';
@@ -71,6 +72,7 @@ export default function DarbaiPage() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                 <WorkManagerCard unitId={unit.id} engagement={eng} />
                 <WorkerList engagementId={eng.id} />
+                <ExpenseTable engagementId={eng.id} />
               </div>
               <UpdateFeed engagementId={eng.id} unitLabel={unitLabel} />
             </div>

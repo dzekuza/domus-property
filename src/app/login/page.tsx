@@ -75,7 +75,7 @@ export default function LoginPage() {
 
       <div style={{ width: '100%', maxWidth: 420, position: 'relative' }}>
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 28 }}>
-          <img src="/logo-dark.svg" alt="Domus" style={{ height: 34, width: 'auto' }} />
+          <img src="/logo-dark.svg" alt="Miteda" style={{ height: 34, width: 'auto' }} />
         </div>
 
         <div style={{ background: 'var(--color-paper-white)', border: '1px solid var(--color-ghost-border)', borderRadius: 24, overflow: 'hidden', boxShadow: 'var(--shadow-card)' }}>

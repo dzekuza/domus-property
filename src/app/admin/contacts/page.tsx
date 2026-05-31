@@ -9,6 +9,7 @@ import Card from '@/components/shared/Card';
 import Avatar from '@/components/shared/Avatar';
 import Btn from '@/components/shared/Btn';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import type { ContactCategory } from '@/lib/types';
 
 export default function AdminContactsPage() {
@@ -105,9 +106,16 @@ export default function AdminContactsPage() {
           <form onSubmit={handleCreate} style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 8 }}>
             <div>
               <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6 }}>Kategorija</label>
-              <select value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value as ContactCategory }))} style={{ width: '100%', padding: '10px 14px', fontSize: 14, border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500 }}>
-                {CONTACT_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
-              </select>
+              <Select value={form.category} onValueChange={v => setForm(f => ({ ...f, category: v as ContactCategory }))}>
+                <SelectTrigger className="w-full">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {CONTACT_CATEGORIES.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
             {[
               { label: 'Vardas ir pavardė', key: 'fullName', placeholder: 'Jonas Petraitis' },

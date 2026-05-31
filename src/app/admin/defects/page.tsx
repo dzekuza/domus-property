@@ -10,6 +10,7 @@ import StatusPill from '@/components/shared/StatusPill';
 import Btn from '@/components/shared/Btn';
 import EmptyState from '@/components/shared/EmptyState';
 import { formatDate } from '@/lib/fmt';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import type { DefectStatus } from '@/lib/types';
 
 const STATUS_OPTIONS: { label: string; value: DefectStatus | 'all' }[] = [
@@ -34,7 +35,6 @@ export default function AdminDefectsPage() {
     return true;
   });
 
-  const selectStyle: React.CSSProperties = { padding: '8px 12px', fontSize: 13, border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-pill)', outline: 'none', fontFamily: 'inherit', fontWeight: 500, background: 'var(--color-paper-white)' };
 
   return (
     <div>
@@ -46,13 +46,27 @@ export default function AdminDefectsPage() {
 
       {/* Filters */}
       <div style={{ display: 'flex', gap: 10, marginBottom: 20, alignItems: 'center', flexWrap: 'wrap' }}>
-        <select value={estateFilter} onChange={e => setEstateFilter(e.target.value)} style={selectStyle}>
-          <option value="all">Visi objektai</option>
-          {uniqueEstates.map(e => e && <option key={e.id} value={e.id}>{e.name}</option>)}
-        </select>
-        <select value={statusFilter} onChange={e => setStatusFilter(e.target.value as DefectStatus | 'all')} style={selectStyle}>
-          {STATUS_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-        </select>
+        <Select value={estateFilter} onValueChange={v => { if (v) setEstateFilter(v); }}>
+          <SelectTrigger className="rounded-full">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectItem value="all">Visi objektai</SelectItem>
+              {uniqueEstates.map(e => e && <SelectItem key={e.id} value={e.id}>{e.name}</SelectItem>)}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+        <Select value={statusFilter} onValueChange={v => setStatusFilter(v as DefectStatus | 'all')}>
+          <SelectTrigger className="rounded-full">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              {STATUS_OPTIONS.map(o => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
         <div style={{ display: 'flex', gap: 6, marginLeft: 'auto' }}>
           {STATUS_OPTIONS.slice(1).map(o => (
             <span key={o.value} style={{ fontSize: 12, padding: '4px 10px', borderRadius: 'var(--radius-pill)', background: 'var(--color-cloud-canvas)', color: 'var(--color-muted-ash)' }}>

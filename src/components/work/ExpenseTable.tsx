@@ -57,12 +57,19 @@ export default function ExpenseTable({ engagementId }: Props) {
                 <span style={{ fontSize: 12, color: 'var(--color-muted-ash)' }}>{exp.billDate}</span>
                 <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--color-midnight-ink)', textAlign: 'right' }}>{exp.totalAmount.toFixed(2)} {exp.currency ?? 'EUR'}</span>
                 <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-muted-ash-2)' }}>
-                  {expanded === exp.id ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
+                  <div className="t-icon-swap" data-state={expanded === exp.id ? 'b' : 'a'}>
+                    <span className="t-icon" data-icon="a"><ChevronDown size={12} /></span>
+                    <span className="t-icon" data-icon="b"><ChevronUp size={12} /></span>
+                  </div>
                 </span>
               </div>
 
-              {expanded === exp.id && (
-                <div style={{ padding: '10px 12px 14px', background: 'var(--color-cloud-canvas)', borderTop: '1px solid var(--color-ghost-border)' }}>
+              <div style={{ overflow: 'hidden', maxHeight: expanded === exp.id ? 400 : 0, transition: 'max-height 0.35s cubic-bezier(0.22, 1, 0.36, 1)' }}>
+                <div
+                  className="t-panel-slide"
+                  data-open={expanded === exp.id ? 'true' : 'false'}
+                  style={{ padding: '10px 12px 14px', background: 'var(--color-cloud-canvas)', borderTop: '1px solid var(--color-ghost-border)' }}
+                >
                   <div style={{ display: 'flex', gap: 14, marginBottom: 10 }}>
                     <img src={exp.billImageDataUrl} alt="Sąskaita" style={{ width: 72, height: 72, objectFit: 'contain', borderRadius: 8, border: '1px solid var(--color-ghost-border)', background: '#fff', flexShrink: 0 }} />
                     <div>
@@ -87,7 +94,7 @@ export default function ExpenseTable({ engagementId }: Props) {
                     </>
                   )}
                 </div>
-              )}
+              </div>
             </div>
           ))}
         </div>

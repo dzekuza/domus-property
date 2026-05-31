@@ -19,7 +19,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <button className="sidebar-menu-btn" onClick={() => setSidebarOpen(true)} aria-label="Atidaryti meniu">
             <Menu size={19} />
           </button>
-          <img src="/logo-white.svg" alt="Domus" style={{ height: 24, width: 'auto' }} />
+          <img src="/logo-white.svg" alt="Miteda" style={{ height: 24, width: 'auto' }} />
         </div>
       )}
 

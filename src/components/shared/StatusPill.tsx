@@ -72,6 +72,7 @@ export default function StatusPill({ type, value }: Props) {
       letterSpacing: '0.01em',
       background: bg,
       color,
+      transition: 'background-color 0.2s ease, color 0.2s ease',
     }}>
       {type === 'step' && value === 'done' && <Check size={11} strokeWidth={2.5} />}
       {label}

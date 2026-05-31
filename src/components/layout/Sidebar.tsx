@@ -72,17 +72,9 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
     >
       {/* Logo */}
       <div style={{ padding: '16px 12px 14px', display: 'flex', alignItems: 'center', minHeight: 56, gap: 8 }}>
-        {collapsed ? (
-          <button
-            onClick={onToggleCollapse}
-            aria-label="Išplėsti"
-            style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.45)', display: 'flex', padding: 4, margin: '0 auto' }}
-          >
-            <PanelLeftOpen size={16} />
-          </button>
-        ) : (
+        {!collapsed && (
           <>
-            <img src="/logo-white.svg" alt="Domus" style={{ height: 26, width: 'auto', flexShrink: 0 }} />
+            <img src="/logo-white.svg" alt="Miteda" style={{ height: 26, width: 'auto', flexShrink: 0 }} />
             <span style={{
               fontSize: 10, fontWeight: 600,
               background: 'rgba(103,205,205,0.18)',
@@ -97,17 +89,22 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
               {session.role === 'admin' ? 'Admin' : session.role === 'work_manager' ? 'Vadovas' : session.role === 'worker' ? 'Darbininkas' : 'Savininkas'}
             </span>
             <div style={{ flex: 1 }} />
-            <button
-              onClick={onToggleCollapse}
-              aria-label="Suskleisti"
-              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.45)', display: 'flex', padding: 4, flexShrink: 0 }}
-            >
-              <PanelLeftClose size={16} />
-            </button>
-            <button className="sidebar-close-btn" onClick={onClose} aria-label="Uždaryti meniu">
-              <X size={15} />
-            </button>
           </>
+        )}
+        <button
+          onClick={onToggleCollapse}
+          aria-label={collapsed ? 'Išplėsti' : 'Suskleisti'}
+          style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.45)', display: 'flex', padding: 4, flexShrink: 0, ...(collapsed ? { margin: '0 auto' } : {}) }}
+        >
+          <div className="t-icon-swap" data-state={collapsed ? 'a' : 'b'}>
+            <span className="t-icon" data-icon="a"><PanelLeftOpen size={16} /></span>
+            <span className="t-icon" data-icon="b"><PanelLeftClose size={16} /></span>
+          </div>
+        </button>
+        {!collapsed && (
+          <button className="sidebar-close-btn" onClick={onClose} aria-label="Uždaryti meniu">
+            <X size={15} />
+          </button>
         )}
       </div>
 

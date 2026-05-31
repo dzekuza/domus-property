@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { UserPlus, Trash2, ChevronDown, Eye, EyeOff, RefreshCw } from 'lucide-react';
+import { UserPlus, Trash2, Eye, EyeOff, RefreshCw } from 'lucide-react';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useStore } from '@/lib/store';
 import Avatar from '@/components/shared/Avatar';
 import Btn from '@/components/shared/Btn';
@@ -57,8 +58,8 @@ export default function WorkerList({ engagementId }: Props) {
     <Card>
       <p style={{ fontSize: 15, fontWeight: 700, color: 'var(--color-midnight-ink)', marginBottom: 14 }}>Darbininkai ({workers.length})</p>
 
-      {adding && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '12px 14px', background: 'var(--color-cloud-canvas)', borderRadius: 12, marginBottom: 14 }}>
+      <div style={{ overflow: 'hidden', maxHeight: adding ? 400 : 0, transition: 'max-height 0.35s cubic-bezier(0.22, 1, 0.36, 1), margin-bottom 0.35s cubic-bezier(0.22, 1, 0.36, 1)', marginBottom: adding ? 14 : 0 }}>
+        <div className="t-panel-slide" data-open={adding ? 'true' : 'false'} style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '12px 14px', background: 'var(--color-cloud-canvas)', borderRadius: 12 }}>
           {/* Row 1 — name + email */}
           <div style={{ display: 'flex', gap: 8 }}>
             <input value={name} onChange={e => setName(e.target.value)} placeholder="Vardas Pavardė" style={inputStyle} />
@@ -67,30 +68,16 @@ export default function WorkerList({ engagementId }: Props) {
 
           {/* Row 2 — specialty + password */}
           <div style={{ display: 'flex', gap: 8 }}>
-            {/* Specialty select with custom arrow */}
-            <div style={{ position: 'relative', flexShrink: 0 }}>
-              <select
-                value={specialty}
-                onChange={e => setSpecialty(e.target.value as WorkerSpecialty)}
-                style={{
-                  ...inputStyle,
-                  flex: 'none',
-                  width: 'auto',
-                  paddingRight: 32,
-                  appearance: 'none',
-                  WebkitAppearance: 'none',
-                  cursor: 'pointer',
-                }}
-              >
-                {SPECIALTIES.map(s => <option key={s} value={s}>{s}</option>)}
-              </select>
-              <ChevronDown size={13} style={{
-                position: 'absolute', right: 10, top: '50%',
-                transform: 'translateY(-50%)',
-                pointerEvents: 'none',
-                color: 'var(--color-muted-ash-2)',
-              }} />
-            </div>
+            <Select value={specialty} onValueChange={v => setSpecialty(v as WorkerSpecialty)}>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {SPECIALTIES.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
 
             {/* Password with eye + generate */}
             <div style={{ position: 'relative', flex: 1 }}>
@@ -131,7 +118,7 @@ export default function WorkerList({ engagementId }: Props) {
             </Btn>
           </div>
         </div>
-      )}
+      </div>
 
       {workers.length === 0 ? (
         <p style={{ fontSize: 13, color: 'var(--color-muted-ash-2)', fontStyle: 'italic' }}>Darbininkų dar nėra. Pridėkite pirmąjį.</p>

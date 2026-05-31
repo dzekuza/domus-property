@@ -11,6 +11,7 @@ import Btn from '@/components/shared/Btn';
 import Avatar from '@/components/shared/Avatar';
 import EmptyState from '@/components/shared/EmptyState';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { formatRelative } from '@/lib/fmt';
 import type { DefectStatus, DefectRoom } from '@/lib/types';
 
@@ -146,9 +147,16 @@ export default function DefektaiPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 8 }}>
             <div>
               <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6 }}>Patalpa</label>
-              <select value={room} onChange={e => setRoom(e.target.value as DefectRoom)} style={{ width: '100%', padding: '10px 14px', fontSize: 14, border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500 }}>
-                {DEFECT_ROOMS.map(r => <option key={r} value={r}>{r}</option>)}
-              </select>
+              <Select value={room} onValueChange={v => setRoom(v as DefectRoom)}>
+                <SelectTrigger className="w-full">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {DEFECT_ROOMS.map(r => <SelectItem key={r} value={r}>{r}</SelectItem>)}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
             <div>
               <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6 }}>Trumpas pavadinimas</label>

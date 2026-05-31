@@ -178,21 +178,28 @@ export default function UpdateCard({ update, selectable = false, selected = fals
                   letterSpacing: '0.01em',
                 }}
               >
-                {showTranscription ? <ChevronUp size={11} /> : <ChevronDown size={11} />}
+                <div className="t-icon-swap" data-state={showTranscription ? 'b' : 'a'}>
+                  <span className="t-icon" data-icon="a"><ChevronDown size={11} /></span>
+                  <span className="t-icon" data-icon="b"><ChevronUp size={11} /></span>
+                </div>
                 Transkripcija
               </button>
-              {showTranscription && (
-                <div style={{
-                  marginTop: 6, padding: '10px 12px',
-                  background: 'var(--color-cloud-canvas)',
-                  borderRadius: 10, fontSize: 13,
-                  color: 'var(--color-midnight-ink)',
-                  lineHeight: 1.6, fontStyle: 'italic',
-                  borderLeft: '2px solid var(--color-ghost-border)',
-                }}>
+              <div style={{ overflow: 'hidden', maxHeight: showTranscription ? 300 : 0, transition: 'max-height 0.35s cubic-bezier(0.22, 1, 0.36, 1)' }}>
+                <div
+                  className="t-panel-slide"
+                  data-open={showTranscription ? 'true' : 'false'}
+                  style={{
+                    marginTop: 6, padding: '10px 12px',
+                    background: 'var(--color-cloud-canvas)',
+                    borderRadius: 10, fontSize: 13,
+                    color: 'var(--color-midnight-ink)',
+                    lineHeight: 1.6, fontStyle: 'italic',
+                    borderLeft: '2px solid var(--color-ghost-border)',
+                  }}
+                >
                   {update.transcription}
                 </div>
-              )}
+              </div>
             </div>
           )}
 
