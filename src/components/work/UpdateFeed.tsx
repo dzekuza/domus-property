@@ -11,6 +11,16 @@ import Btn from '@/components/shared/Btn';
 import { formatDateTime } from '@/lib/fmt';
 import type { WorkUpdate } from '@/lib/types';
 
+function renderMarkdown(text: string): string {
+  return text
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*([^*\n]+?)\*/g, '<em>$1</em>')
+    .replace(/^#{1,3} (.+)$/gm, '<strong>$1</strong>')
+    .replace(/^\s*[\*\-] (.+)$/gm, '• $1')
+    .replace(/\n/g, '<br/>');
+}
+
 interface Props {
   engagementId: string;
   unitLabel: string;
@@ -101,7 +111,7 @@ export default function UpdateFeed({
                   </span>
                   <span style={{ fontSize: 11, color: 'var(--color-muted-ash-2)' }}>{formatDateTime(summary.generatedAt)}</span>
                 </div>
-                <p style={{ fontSize: 13, color: 'var(--color-midnight-ink)', lineHeight: 1.6 }}>{summary.text}</p>
+                <p style={{ fontSize: 13, color: 'var(--color-midnight-ink)', lineHeight: 1.6 }} dangerouslySetInnerHTML={{ __html: renderMarkdown(summary.text) }} />
               </div>
             ) : null
           )}
