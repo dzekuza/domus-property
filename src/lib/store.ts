@@ -6,8 +6,9 @@ import type {
   User, Estate, Unit, Defect, Contact, PhotoSection,
   Role, DefectStatus, ServiceKind, PurchaseStepId, DocumentFile, DefectRoom,
   ScheduleEvent, ScheduleEventType, ChatMessage,
+  WorkEngagement, WorkerProfile, WorkerSpecialty, WorkUpdate, WorkAttachment, AISummary,
 } from './types';
-import { SEED_USERS, SEED_ESTATES, SEED_UNITS, SEED_DEFECTS, SEED_CONTACTS, SEED_PHOTO_SECTIONS, SEED_SCHEDULE_EVENTS, SEED_CHAT_MESSAGES } from './seed';
+import { SEED_USERS, SEED_ESTATES, SEED_UNITS, SEED_DEFECTS, SEED_CONTACTS, SEED_PHOTO_SECTIONS, SEED_SCHEDULE_EVENTS, SEED_CHAT_MESSAGES, SEED_WORK_ENGAGEMENTS, SEED_WORKER_PROFILES, SEED_WORK_UPDATES } from './seed';
 import { toDataURL, generateId } from './files';
 
 interface Session {
@@ -15,6 +16,7 @@ interface Session {
   role: Role | null;
   impersonateUserId: string | null;
 }
+
 
 interface DomusStore {
   session: Session;
@@ -26,6 +28,27 @@ interface DomusStore {
   photoSections: PhotoSection[];
   scheduleEvents: ScheduleEvent[];
   chatMessages: ChatMessage[];
+  workEngagements: WorkEngagement[];
+  workerProfiles: WorkerProfile[];
+  workUpdates: WorkUpdate[];
+  aiSummaries: AISummary[];
+
+  // work engagement selectors
+  engagementForUnit: (unitId: string) => WorkEngagement | undefined;
+  engagementsForUnit: (unitId: string) => WorkEngagement[];
+  workersForEngagement: (engagementId: string) => WorkerProfile[];
+  updatesForEngagement: (engagementId: string) => WorkUpdate[];
+  summariesForEngagement: (engagementId: string) => AISummary[];
+
+  // work engagement mutations
+  inviteWorkManager: (unitId: string, name: string, email: string) => WorkEngagement;
+  completeEngagement: (engagementId: string) => void;
+  inviteWorker: (engagementId: string, name: string, email: string, specialty: WorkerSpecialty) => WorkerProfile;
+  removeWorker: (workerId: string) => void;
+  submitWorkUpdate: (update: Omit<WorkUpdate, 'id' | 'createdAt'>) => WorkUpdate;
+  setWorkUpdateTranscription: (updateId: string, transcription: string) => void;
+  setWorkUpdateTranslation: (updateId: string, lang: string, text: string) => void;
+  addAISummary: (summary: Omit<AISummary, 'id'>) => AISummary;
 
   // auth
   signIn: (email: string, _password: string, role: Role) => boolean;
@@ -81,6 +104,127 @@ export const useStore = create<DomusStore>()(
       photoSections: SEED_PHOTO_SECTIONS,
       scheduleEvents: SEED_SCHEDULE_EVENTS,
       chatMessages: SEED_CHAT_MESSAGES,
+      workEngagements: SEED_WORK_ENGAGEMENTS,
+      workerProfiles: SEED_WORKER_PROFILES,
+      workUpdates: SEED_WORK_UPDATES,
+      aiSummaries: [],
+
+      // ── Work Engagement Selectors ─────────────────────────────────────────
+      engagementForUnit(unitId) {
+        return get().workEngagements.find(e => e.unitId === unitId);
+      },
+      engagementsForUnit(unitId) {
+        return get().workEngagements.filter(e => e.unitId === unitId);
+      },
+      workersForEngagement(engagementId) {
+        return get().workerProfiles.filter(w => w.engagementId === engagementId);
+      },
+      updatesForEngagement(engagementId) {
+        return get().workUpdates.filter(u => u.engagementId === engagementId);
+      },
+      summariesForEngagement(engagementId) {
+        return get().aiSummaries.filter(s => s.engagementId === engagementId);
+      },
+
+      // ── Work Engagement Mutations ─────────────────────────────────────────
+      inviteWorkManager(unitId, name, email) {
+        const managerId = `mgr-${generateId()}`;
+        const engagementId = `we-${generateId()}`;
+        const managerUser: User = {
+          id: managerId,
+          role: 'work_manager',
+          fullName: name,
+          email,
+          engagementId,
+          avatarBg: '#e8f5ee',
+        };
+        const engagement: WorkEngagement = {
+          id: engagementId,
+          unitId,
+          managerId,
+          managerName: name,
+          managerEmail: email,
+          status: 'active',
+          createdAt: new Date().toISOString(),
+        };
+        set(s => ({
+          users: [...s.users, managerUser],
+          workEngagements: [...s.workEngagements, engagement],
+        }));
+        return engagement;
+      },
+      completeEngagement(engagementId) {
+        set(s => ({
+          workEngagements: s.workEngagements.map(e =>
+            e.id === engagementId ? { ...e, status: 'completed', completedAt: new Date().toISOString() } : e
+          ),
+        }));
+      },
+      inviteWorker(engagementId, name, email, specialty) {
+        const userId = `wrk-${generateId()}`;
+        const profileId = `wp-${generateId()}`;
+        const workerUser: User = {
+          id: userId,
+          role: 'worker',
+          fullName: name,
+          email,
+          engagementId,
+          avatarBg: '#fdf3df',
+        };
+        const engagement = get().workEngagements.find(e => e.id === engagementId);
+        const workerProfile: WorkerProfile = {
+          id: profileId,
+          engagementId,
+          userId,
+          name,
+          email,
+          specialty,
+          createdAt: new Date().toISOString(),
+        };
+        set(s => ({
+          users: [...s.users, workerUser],
+          workerProfiles: [...s.workerProfiles, workerProfile],
+          units: engagement
+            ? s.units.map(u => u.id === engagement.unitId ? { ...u } : u)
+            : s.units,
+        }));
+        return workerProfile;
+      },
+      removeWorker(workerId) {
+        const profile = get().workerProfiles.find(w => w.id === workerId);
+        set(s => ({
+          workerProfiles: s.workerProfiles.filter(w => w.id !== workerId),
+          users: profile ? s.users.filter(u => u.id !== profile.userId) : s.users,
+        }));
+      },
+      submitWorkUpdate(update) {
+        const newUpdate: WorkUpdate = {
+          ...update,
+          id: `wu-${generateId()}`,
+          createdAt: new Date().toISOString(),
+        };
+        set(s => ({ workUpdates: [...s.workUpdates, newUpdate] }));
+        return newUpdate;
+      },
+      setWorkUpdateTranscription(updateId, transcription) {
+        set(s => ({
+          workUpdates: s.workUpdates.map(u =>
+            u.id === updateId ? { ...u, transcription, text: u.text || transcription } : u
+          ),
+        }));
+      },
+      setWorkUpdateTranslation(updateId, lang, text) {
+        set(s => ({
+          workUpdates: s.workUpdates.map(u =>
+            u.id === updateId ? { ...u, translations: { ...u.translations, [lang]: text } } : u
+          ),
+        }));
+      },
+      addAISummary(summary) {
+        const newSummary: AISummary = { ...summary, id: `sum-${generateId()}` };
+        set(s => ({ aiSummaries: [...s.aiSummaries, newSummary] }));
+        return newSummary;
+      },
 
       // ── Auth ──────────────────────────────────────────────────────────────
       signIn(email, _password, role) {
@@ -308,6 +452,10 @@ export const useStore = create<DomusStore>()(
         photoSections: s.photoSections,
         scheduleEvents: s.scheduleEvents,
         chatMessages: s.chatMessages,
+        workEngagements: s.workEngagements,
+        workerProfiles: s.workerProfiles,
+        workUpdates: s.workUpdates,
+        aiSummaries: s.aiSummaries,
       }),
     }
   )

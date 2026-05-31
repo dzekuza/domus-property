@@ -5,16 +5,17 @@ import { useRouter } from 'next/navigation';
 import { useStore } from '@/lib/store';
 import type { Role } from '@/lib/types';
 
-export default function RoleGuard({ role, children }: { role: Role; children: React.ReactNode }) {
+export default function RoleGuard({ role, children }: { role: Role | Role[]; children: React.ReactNode }) {
   const router = useRouter();
   const session = useStore(s => s.session);
 
-  useEffect(() => {
-    if (!session.userId || session.role !== role) {
-      router.replace('/login');
-    }
-  }, [session, role, router]);
+  const allowed = Array.isArray(role) ? role : [role];
+  const ok = !!session.userId && !!session.role && allowed.includes(session.role);
 
-  if (!session.userId || session.role !== role) return null;
+  useEffect(() => {
+    if (!ok) router.replace('/login');
+  }, [ok, router]);
+
+  if (!ok) return null;
   return <>{children}</>;
 }

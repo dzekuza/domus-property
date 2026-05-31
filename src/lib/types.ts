@@ -1,4 +1,4 @@
-export type Role = 'owner' | 'admin';
+export type Role = 'owner' | 'admin' | 'work_manager' | 'worker';
 
 export interface User {
   id: string;
@@ -8,6 +8,64 @@ export interface User {
   phone?: string;
   unitId?: string;
   avatarBg?: string;
+  engagementId?: string;
+}
+
+// ─── Work Engagement Types ────────────────────────────────────────────────────
+
+export interface WorkEngagement {
+  id: string;
+  unitId: string;
+  managerId: string;
+  managerName: string;
+  managerEmail: string;
+  status: 'active' | 'completed';
+  createdAt: string;
+  completedAt?: string;
+}
+
+export type WorkerSpecialty = 'Dažytojas' | 'Elektrikas' | 'Santechnikas' | 'Stogdengys' | 'Kita';
+
+export interface WorkerProfile {
+  id: string;
+  engagementId: string;
+  userId: string;
+  name: string;
+  email: string;
+  specialty: WorkerSpecialty;
+  createdAt: string;
+}
+
+export interface WorkAttachment {
+  id: string;
+  name: string;
+  mimeType: string;
+  dataUrl: string;
+}
+
+export interface WorkUpdate {
+  id: string;
+  engagementId: string;
+  authorId: string;
+  authorName: string;
+  authorRole: 'work_manager' | 'worker';
+  inputType: 'text' | 'voice';
+  text: string;
+  audioDataUrl?: string;
+  transcription?: string;
+  translations: Record<string, string>;
+  attachments: WorkAttachment[];
+  createdAt: string;
+  toOwner?: boolean;
+  groupedIds?: string[];
+}
+
+export interface AISummary {
+  id: string;
+  engagementId: string;
+  period: 'daily' | 'weekly';
+  generatedAt: string;
+  text: string;
 }
 
 export interface Estate {

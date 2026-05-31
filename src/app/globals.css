@@ -202,6 +202,12 @@
   max-width: 1400px;
 }
 
+/* Worker portal manages its own layout — no shell padding */
+.app-main:has(> .worker-root) {
+  padding: 0;
+  max-width: none;
+}
+
 .mobile-topbar { display: none; }
 
 .sidebar-close-btn {
@@ -266,10 +272,12 @@
   }
 
   .app-main { padding: 16px; }
+  .app-main:has(> .worker-root) { padding: 0; }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
   .app-main { padding: 20px 24px; }
+  .app-main:has(> .worker-root) { padding: 0; }
 }
 
 /* ── PageHeader ───────────────────────────────────────────────── */
@@ -340,6 +348,20 @@
 /* Primary button icons stay fully white */
 .page-header [data-variant="primary"] svg {
   color: #ffffff !important;
+}
+
+/* ── Darbai 2-col grid ───────────────────────────────────────── */
+.darbai-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 16px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .darbai-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ── Hero card (pagrindinis) ──────────────────────────────────── */

@@ -13,6 +13,10 @@ export default function Root() {
       router.replace('/login');
     } else if (session.role === 'admin') {
       router.replace('/admin/estates');
+    } else if (session.role === 'work_manager') {
+      router.replace('/manager');
+    } else if (session.role === 'worker') {
+      router.replace('/worker');
     } else {
       router.replace('/portal/pagrindinis');
     }

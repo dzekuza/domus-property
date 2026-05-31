@@ -1,4 +1,4 @@
-import type { User, Estate, Unit, Defect, Contact, PhotoSection, PurchaseStepId, ScheduleEvent, ChatMessage } from './types';
+import type { User, Estate, Unit, Defect, Contact, PhotoSection, PurchaseStepId, ScheduleEvent, ChatMessage, WorkEngagement, WorkerProfile, WorkUpdate } from './types';
 import { PURCHASE_STEPS, SERVICE_KINDS } from './constants';
 
 const ALL_STEP_IDS = PURCHASE_STEPS.map(s => s.id) as PurchaseStepId[];
@@ -46,6 +46,33 @@ export const SEED_USERS: User[] = [
     phone: '+370 620 98765',
     unitId: 'unit-a04',
     avatarBg: '#fdf3df',
+  },
+  {
+    id: 'u4',
+    role: 'work_manager',
+    fullName: 'Jonas Petraitis',
+    email: 'vadovas@domus.lt',
+    phone: '+370 611 22334',
+    engagementId: 'we-seed1',
+    avatarBg: '#e8f5ee',
+  },
+  {
+    id: 'u5',
+    role: 'worker',
+    fullName: 'Tomas Kazlauskas',
+    email: 'darbininkas@domus.lt',
+    phone: '+370 611 55667',
+    engagementId: 'we-seed1',
+    avatarBg: '#fdf3df',
+  },
+  {
+    id: 'u6',
+    role: 'worker',
+    fullName: 'Rasa Vaitkutė',
+    email: 'rasa@domus.lt',
+    phone: '+370 611 77889',
+    engagementId: 'we-seed1',
+    avatarBg: '#fde8e8',
   },
 ];
 
@@ -403,6 +430,81 @@ export const SEED_SCHEDULE_EVENTS: ScheduleEvent[] = [
   { id: 'se5', estateId: 'e1', title: 'Žolės pjovimas', description: 'Eilinis žolės pjovimas.', type: 'Žolės pjovimas', date: '2026-07-01', time: '09:00', createdBy: 'u2', createdAt: '2026-05-22T11:00:00Z' },
   { id: 'se6', estateId: 'e1', title: 'Vandentiekio patikrinimas', description: 'Profilaktinis vandentiekio sistemos patikrinimas. Vanduo gali būti išjungtas 1–2 val.', type: 'Apžiūra', date: '2026-05-15', time: '11:00', createdBy: 'u2', createdAt: '2026-05-01T10:00:00Z' },
   { id: 'se7', estateId: 'e2', title: 'Žolės pjovimas', type: 'Žolės pjovimas', date: '2026-06-05', time: '09:00', createdBy: 'u2', createdAt: '2026-05-20T10:00:00Z' },
+];
+
+// ─── Work Engagements ─────────────────────────────────────────────────────────
+
+export const SEED_WORK_ENGAGEMENTS: WorkEngagement[] = [
+  {
+    id: 'we-seed1',
+    unitId: 'unit-b12',
+    managerId: 'u4',
+    managerName: 'Jonas Petraitis',
+    managerEmail: 'vadovas@domus.lt',
+    status: 'active',
+    createdAt: '2026-05-15T08:00:00Z',
+  },
+];
+
+export const SEED_WORKER_PROFILES: WorkerProfile[] = [
+  {
+    id: 'wp1',
+    engagementId: 'we-seed1',
+    userId: 'u5',
+    name: 'Tomas Kazlauskas',
+    email: 'darbininkas@domus.lt',
+    specialty: 'Dažytojas',
+    createdAt: '2026-05-15T09:00:00Z',
+  },
+  {
+    id: 'wp2',
+    engagementId: 'we-seed1',
+    userId: 'u6',
+    name: 'Rasa Vaitkutė',
+    email: 'rasa@domus.lt',
+    specialty: 'Santechnikas',
+    createdAt: '2026-05-15T09:30:00Z',
+  },
+];
+
+export const SEED_WORK_UPDATES: WorkUpdate[] = [
+  {
+    id: 'wu1',
+    engagementId: 'we-seed1',
+    authorId: 'u5',
+    authorName: 'Tomas Kazlauskas',
+    authorRole: 'worker',
+    inputType: 'text',
+    text: 'Baigtas pirmojo aukšto gipskartonio montavimas. Rytoj pradedame dažyti sienas.',
+    translations: {},
+    attachments: [],
+    createdAt: '2026-05-20T10:30:00Z',
+  },
+  {
+    id: 'wu2',
+    engagementId: 'we-seed1',
+    authorId: 'u6',
+    authorName: 'Rasa Vaitkutė',
+    authorRole: 'worker',
+    inputType: 'voice',
+    text: 'Įrengtas vonios kambarys — klozetai ir kriauklės pritvirtintos. Laukiame silikonavimo.',
+    transcription: 'Įrengtas vonios kambarys — klozetai ir kriauklės pritvirtintos. Laukiame silikonavimo.',
+    translations: {},
+    attachments: [],
+    createdAt: '2026-05-22T14:15:00Z',
+  },
+  {
+    id: 'wu3',
+    engagementId: 'we-seed1',
+    authorId: 'u4',
+    authorName: 'Jonas Petraitis',
+    authorRole: 'work_manager',
+    inputType: 'text',
+    text: 'Apžiūrėjau visus aukštus. Darbai vyksta pagal grafiką. Kitą savaitę planuojame baigti fasadą.',
+    translations: {},
+    attachments: [],
+    createdAt: '2026-05-28T16:00:00Z',
+  },
 ];
 
 // ─── Chat messages ────────────────────────────────────────────────────────────

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   Home, AlertTriangle, Image, FileText, UserRoundCog, Settings,
-  Building2, Bug, Users, LogOut, HelpCircle, Eye, X, Calendar, MessageSquare,
+  Building2, Bug, Users, LogOut, HelpCircle, Eye, X, Calendar, MessageSquare, HardHat,
 } from 'lucide-react';
 import { useStore } from '@/lib/store';
 import { initials } from '@/lib/fmt';
@@ -17,6 +17,7 @@ const ownerNav = [
   { href: '/portal/kontaktai',   label: 'Kontaktai',         icon: UserRoundCog },
   { href: '/portal/tvarkarastis',label: 'Tvarkaraštis',      icon: Calendar },
   { href: '/portal/bendruomene', label: 'Bendruomenė',       icon: MessageSquare },
+  { href: '/portal/darbai',      label: 'Remonto darbai',    icon: HardHat },
   { href: '/portal/nustatymai',  label: 'Nustatymai',        icon: Settings },
 ];
 
@@ -27,13 +28,24 @@ const adminNav = [
   { href: '/admin/tvarkarastis', label: 'Tvarkaraštis', icon: Calendar },
 ];
 
+const managerNav = [
+  { href: '/manager', label: 'Mano projektas', icon: HardHat },
+];
+
+const workerNav = [
+  { href: '/worker', label: 'Mano darbai', icon: HardHat },
+];
+
 export default function Sidebar({ isOpen, onClose }: { isOpen?: boolean; onClose?: () => void }) {
   const pathname = usePathname();
   const router = useRouter();
   const { session, currentUser, effectiveUser, signOut, stopImpersonating } = useStore();
   const effUser = effectiveUser();
   const isImpersonating = !!session.impersonateUserId;
-  const nav = session.role === 'admin' ? adminNav : ownerNav;
+  const nav = session.role === 'admin' ? adminNav
+    : session.role === 'work_manager' ? managerNav
+    : session.role === 'worker' ? workerNav
+    : ownerNav;
 
   function handleSignOut() {
     signOut();
@@ -72,7 +84,7 @@ export default function Sidebar({ isOpen, onClose }: { isOpen?: boolean; onClose
           textTransform: 'uppercase',
           marginLeft: 'auto',
         }}>
-          {session.role === 'admin' ? 'Admin' : 'Savininkas'}
+          {session.role === 'admin' ? 'Admin' : session.role === 'work_manager' ? 'Vadovas' : session.role === 'worker' ? 'Darbininkas' : 'Savininkas'}
         </span>
         <button className="sidebar-close-btn" onClick={onClose} aria-label="Uždaryti meniu">
           <X size={15} />
@@ -107,7 +119,7 @@ export default function Sidebar({ isOpen, onClose }: { isOpen?: boolean; onClose
         color: 'rgba(255,255,255,0.35)',
         fontWeight: 600,
       }}>
-        {session.role === 'admin' ? 'Valdymas' : 'Mano butas'}
+        {session.role === 'admin' ? 'Valdymas' : session.role === 'work_manager' ? 'Projektas' : session.role === 'worker' ? 'Darbai' : 'Mano butas'}
       </div>
 
       {/* Nav */}
