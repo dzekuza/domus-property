@@ -211,6 +211,21 @@ export interface ExpenseItem {
   line_total?: number;
 }
 
+export type BulletinCategory = 'Parduodu' | 'Ieškau' | 'Informacija' | 'Prarasta';
+
+export interface BulletinPost {
+  id: string;
+  authorId: string;
+  authorName: string;
+  unitNumber: string;
+  category: BulletinCategory;
+  title: string;
+  body: string;
+  contact?: string;
+  createdAt: string;
+  pinned?: boolean;
+}
+
 export interface Expense {
   id: string;
   engagementId: string;

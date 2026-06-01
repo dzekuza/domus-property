@@ -1,29 +1,34 @@
 import type { Metadata } from 'next';
-import { DM_Sans, Outfit } from 'next/font/google';
+import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 
-const dmSans = DM_Sans({
+const inter = Inter({
   subsets: ['latin'],
   variable: '--font-text',
   display: 'swap',
-  weight: ['400', '500', '600'],
 });
 
-const outfit = Outfit({
-  subsets: ['latin'],
+const tomatoGrotesk = localFont({
+  src: [
+    { path: './fonts/TomatoGrotesk-Regular.otf',   weight: '400', style: 'normal' },
+    { path: './fonts/TomatoGrotesk-Medium.otf',    weight: '500', style: 'normal' },
+    { path: './fonts/TomatoGrotesk-SemiBold.otf',  weight: '600', style: 'normal' },
+    { path: './fonts/TomatoGrotesk-Bold.otf',      weight: '700', style: 'normal' },
+    { path: './fonts/TomatoGrotesk-ExtraBold.otf', weight: '800', style: 'normal' },
+  ],
   variable: '--font-display',
   display: 'swap',
-  weight: ['400', '500', '600', '700'],
 });
 
 export const metadata: Metadata = {
-  title: 'Domus — Nekilnojamojo turto valdymas',
+  title: 'Miteda — Nekilnojamojo turto valdymas',
   description: 'Savininko ir administratoriaus portalai',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="lt" className={`${dmSans.variable} ${outfit.variable}`}>
+    <html lang="lt" className={`${inter.variable} ${tomatoGrotesk.variable}`}>
       <body style={{ minHeight: '100vh' }}>{children}</body>
     </html>
   );

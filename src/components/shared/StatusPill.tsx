@@ -3,14 +3,14 @@ import type { DefectStatus, StepStatus } from '@/lib/types';
 
 const defectMap: Record<DefectStatus, { label: string; bg: string; color: string }> = {
   open:     { label: 'Atviras',    bg: 'var(--color-cloud-canvas)',  color: 'var(--color-muted-ash)' },
-  progress: { label: 'Vykdomas',  bg: 'var(--color-teal-tint)',     color: 'var(--color-teal)' },
+  progress: { label: 'Vykdomas',  bg: 'var(--color-danger-tint)',   color: 'var(--color-danger)' },
   resolved: { label: 'Išspręstas', bg: 'var(--color-success-tint)', color: 'var(--color-success)' },
   rejected: { label: 'Atmestas',  bg: 'var(--color-danger-tint)',   color: 'var(--color-danger)' },
 };
 
 const stepMap: Record<StepStatus, { label: string; bg: string; color: string }> = {
   done:        { label: 'Atlikta',    bg: 'var(--color-success-tint)', color: 'var(--color-success)' },
-  progress:    { label: 'Vykdoma',   bg: 'var(--color-teal-tint)',    color: 'var(--color-teal)' },
+  progress:    { label: 'Vykdoma',   bg: 'var(--color-danger-tint)',  color: 'var(--color-danger)' },
   pending:     { label: 'Laukiama',  bg: 'var(--color-cloud-canvas)', color: 'var(--color-muted-ash)' },
   not_started: { label: 'Nepradėta', bg: 'var(--color-cloud-canvas)', color: 'var(--color-muted-ash-2)' },
 };
@@ -29,7 +29,7 @@ const unitStatusMap: Record<string, { label: string; bg: string; color: string }
 
 const serviceStatusMap: Record<string, { label: string; bg: string; color: string }> = {
   done:     { label: 'Aktyvuota', bg: 'var(--color-success-tint)', color: 'var(--color-success)' },
-  progress: { label: 'Vykdoma',  bg: 'var(--color-teal-tint)',    color: 'var(--color-teal)' },
+  progress: { label: 'Vykdoma',  bg: 'var(--color-danger-tint)',  color: 'var(--color-danger)' },
   pending:  { label: 'Laukiama', bg: 'var(--color-cloud-canvas)', color: 'var(--color-muted-ash)' },
 };
 

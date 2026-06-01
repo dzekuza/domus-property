@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import {
   Home, AlertTriangle, Image, FileText, UserRoundCog, Settings,
   Building2, Bug, Users, LogOut, HelpCircle, Eye, X, Calendar, MessageSquare, HardHat,
-  PanelLeftClose, PanelLeftOpen,
+  PanelLeftClose, PanelLeftOpen, Megaphone,
 } from 'lucide-react';
 import { useStore } from '@/lib/store';
 import { initials } from '@/lib/fmt';
@@ -17,6 +17,7 @@ const ownerNav = [
   { href: '/portal/sutartys',    label: 'Paslaugų sutartys', icon: FileText },
   { href: '/portal/kontaktai',   label: 'Kontaktai',         icon: UserRoundCog },
   { href: '/portal/tvarkarastis',label: 'Tvarkaraštis',      icon: Calendar },
+  { href: '/portal/skelbimai',   label: 'Skelbimų lenta',    icon: Megaphone },
   { href: '/portal/bendruomene', label: 'Bendruomenė',       icon: MessageSquare },
   { href: '/portal/darbai',      label: 'Remonto darbai',    icon: HardHat },
   { href: '/portal/nustatymai',  label: 'Nustatymai',        icon: Settings },

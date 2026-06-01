@@ -1,4 +1,4 @@
-import type { User, Estate, Unit, Defect, Contact, PhotoSection, PurchaseStepId, ScheduleEvent, ChatMessage, WorkEngagement, WorkerProfile, WorkUpdate } from './types';
+import type { User, Estate, Unit, Defect, Contact, PhotoSection, PurchaseStepId, ScheduleEvent, ChatMessage, WorkEngagement, WorkerProfile, WorkUpdate, BulletinPost } from './types';
 import { PURCHASE_STEPS, SERVICE_KINDS } from './constants';
 
 const ALL_STEP_IDS = PURCHASE_STEPS.map(s => s.id) as PurchaseStepId[];
@@ -515,4 +515,33 @@ export const SEED_CHAT_MESSAGES: ChatMessage[] = [
   { id: 'cm3', estateId: 'e1', authorUserId: 'u2', body: 'Žaidimų aikštelės atnaujinimas planuojamas rugpjūčio mėnesį. Detalesnė informacija bus paskelbta vėliau.', createdAt: '2026-05-20T12:00:00Z' },
   { id: 'cm4', estateId: 'e1', authorUserId: 'u3', body: 'Labas! Ar kas nors žino, ar yra galimybė gauti papildomą rūsio dėžę?', createdAt: '2026-05-21T09:15:00Z' },
   { id: 'cm5', estateId: 'e1', authorUserId: 'u2', body: 'Laura, prašome kreiptis į administraciją el. paštu — peržiūrėsime galimybes.', createdAt: '2026-05-21T10:00:00Z' },
+];
+
+// ─── Bulletin posts ───────────────────────────────────────────────────────────
+
+export const SEED_BULLETIN_POSTS: BulletinPost[] = [
+  {
+    id: 'bp1', authorId: 'u1', authorName: 'Andrius Kazlauskas', unitNumber: 'B-12',
+    category: 'Parduodu', title: 'Parduodu naują dušo kabina',
+    body: 'Parduodu naują, nenaudotą dušo kabiną 90×90 cm. Pirktа tik prieš mėnesį, pakeitėme planus. Kaina 280 €.',
+    contact: '+370 612 34567', createdAt: '2026-05-30T14:00:00Z',
+  },
+  {
+    id: 'bp2', authorId: 'u3', authorName: 'Laura Jankauskienė', unitNumber: 'A-05',
+    category: 'Ieškau', title: 'Ieškau gero elektriko',
+    body: 'Reikia įrengti papildomą rozetę virtuvėje. Jei kas žino patikimo elektriko — prašau pasidalinti kontaktu.',
+    contact: 'laura@mail.lt', createdAt: '2026-05-29T09:30:00Z',
+  },
+  {
+    id: 'bp3', authorId: 'u1', authorName: 'Andrius Kazlauskas', unitNumber: 'B-12',
+    category: 'Informacija', title: 'Rūsyje paliktas dviratis',
+    body: 'Rūsio koridoriuje, prie B laiptinės, stovi nežinomas dviratis jau kelias savaites. Gal kas atpažįsta?',
+    createdAt: '2026-05-27T17:00:00Z',
+  },
+  {
+    id: 'bp4', authorId: 'u3', authorName: 'Laura Jankauskienė', unitNumber: 'A-05',
+    category: 'Prarasta', title: 'Pamestas raktas',
+    body: 'Praradau namo raktą su mėlynu raktų pakabuку. Jei radote — prašau susisiekti.',
+    contact: '+370 698 76543', createdAt: '2026-05-26T11:00:00Z',
+  },
 ];

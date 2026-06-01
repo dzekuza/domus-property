@@ -19,6 +19,8 @@
   --color-ring: var(--color-accent);
   --color-primary: var(--color-accent);
   --color-primary-foreground: var(--color-paper-white);
+  --color-cta: var(--color-cta);
+  --color-cta-hover: var(--color-cta-hover);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-card: var(--card);
@@ -45,39 +47,43 @@
   --color-muted-ash-2: #7a7774;
   --color-ghost-border: #e4e0db;
 
-  /* Brand — warm amber/orange accent */
-  --color-accent: #e8773c;
-  --color-accent-tint: #fdf0e8;
-  --color-accent-hover: #d96a2e;
+  /* Brand — lime green accent */
+  --color-accent: #76c03d;
+  --color-accent-tint: rgba(118,192,61,0.1);
+  --color-accent-hover: #65a834;
 
-  /* Sidebar dark */
-  --color-sidebar-bg: #0c3d4a;
+  /* CTA / destructive orange */
+  --color-cta: #ff601b;
+  --color-cta-hover: #e8531a;
+
+  /* Sidebar dark forest green */
+  --color-sidebar-bg: #092d1a;
   --color-sidebar-fg: rgba(255,255,255,0.75);
-  --color-sidebar-fg-active: #67cdcd;
-  --color-sidebar-active-bg: rgba(103,205,205,0.14);
+  --color-sidebar-fg-active: #76c03d;
+  --color-sidebar-active-bg: rgba(106,205,103,0.14);
   --color-sidebar-border: rgba(255,255,255,0.08);
   --color-sidebar-hover-bg: rgba(255,255,255,0.07);
   --color-sidebar-user-bg: rgba(0,0,0,0.18);
 
-  /* Teal highlight */
-  --color-teal: #67cdcd;
-  --color-teal-tint: rgba(103,205,205,0.1);
+  /* Brand green aliases */
+  --color-teal: #76c03d;
+  --color-teal-tint: rgba(118,192,61,0.1);
 
   /* Status */
   --color-success: #1a7a50;
-  --color-success-tint: #e6f4ee;
+  --color-success-tint: rgba(118,192,61,0.5);
   --color-warning: #b86e00;
   --color-warning-tint: #fdf1de;
-  --color-danger: #c43030;
-  --color-danger-tint: #fbe9e9;
+  --color-danger: #ff601b;
+  --color-danger-tint: rgba(255,96,27,0.12);
 
-  /* Legacy compat aliases (status pills still reference violet for "progress") */
+  /* Legacy compat aliases */
   --color-electric-violet: var(--color-teal);
   --color-violet-tint: var(--color-teal-tint);
-  --color-violet-tint-2: rgba(103,205,205,0.18);
+  --color-violet-tint-2: rgba(118,192,61,0.18);
 
-  --font-display: var(--font-display), 'Outfit', ui-sans-serif, system-ui, sans-serif;
-  --font-text: var(--font-text), 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), 'Tomato Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-text: var(--font-text), 'Inter', ui-sans-serif, system-ui, sans-serif;
 
   --radius-default: 12px;
   --radius-input: 10px;
@@ -94,18 +100,18 @@
   --card-foreground: #1c1c1c;
   --popover: #ffffff;
   --popover-foreground: #1c1c1c;
-  --primary: #e8773c;
+  --primary: #76c03d;
   --primary-foreground: #ffffff;
   --secondary: #f0ede8;
   --secondary-foreground: #1c1c1c;
   --muted: #f0ede8;
   --muted-foreground: #7a7774;
-  --accent: rgba(103,205,205,0.1);
-  --accent-foreground: #0c3d4a;
-  --destructive: #c43030;
+  --accent: rgba(118,192,61,0.1);
+  --accent-foreground: #174325;
+  --destructive: #ff601b;
   --border: #e4e0db;
   --input: #e4e0db;
-  --ring: #e8773c;
+  --ring: #76c03d;
   --radius: 0.75rem;
 
   /* transitions-dev */
@@ -397,6 +403,23 @@
   .darbai-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* ── Home dashboard grid ──────────────────────────────────────── */
+.home-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 20px;
+  align-items: start;
+}
+.bulletin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 900px) {
+  .home-grid { grid-template-columns: 1fr; }
 }
 
 /* ── Hero card (pagrindinis) ──────────────────────────────────── */

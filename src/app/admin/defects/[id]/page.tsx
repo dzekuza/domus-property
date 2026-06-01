@@ -13,7 +13,7 @@ import type { DefectStatus } from '@/lib/types';
 
 const STATUS_OPTIONS: { label: string; value: DefectStatus; color: string }[] = [
   { label: 'Atviras',    value: 'open',     color: 'var(--color-muted-ash-2)' },
-  { label: 'Vykdomas',  value: 'progress', color: 'var(--color-electric-violet)' },
+  { label: 'Vykdomas',  value: 'progress', color: 'var(--color-danger)' },
   { label: 'Išspręstas', value: 'resolved', color: 'var(--color-success)' },
   { label: 'Atmestas',  value: 'rejected', color: 'var(--color-danger)' },
 ];

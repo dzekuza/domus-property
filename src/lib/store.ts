@@ -7,9 +7,9 @@ import type {
   Role, DefectStatus, ServiceKind, PurchaseStepId, DocumentFile, DefectRoom,
   ScheduleEvent, ScheduleEventType, ChatMessage,
   WorkEngagement, WorkerProfile, WorkerSpecialty, WorkUpdate, WorkAttachment, AISummary,
-  Expense,
+  Expense, BulletinPost, BulletinCategory,
 } from './types';
-import { SEED_USERS, SEED_ESTATES, SEED_UNITS, SEED_DEFECTS, SEED_CONTACTS, SEED_PHOTO_SECTIONS, SEED_SCHEDULE_EVENTS, SEED_CHAT_MESSAGES, SEED_WORK_ENGAGEMENTS, SEED_WORKER_PROFILES, SEED_WORK_UPDATES } from './seed';
+import { SEED_USERS, SEED_ESTATES, SEED_UNITS, SEED_DEFECTS, SEED_CONTACTS, SEED_PHOTO_SECTIONS, SEED_SCHEDULE_EVENTS, SEED_CHAT_MESSAGES, SEED_WORK_ENGAGEMENTS, SEED_WORKER_PROFILES, SEED_WORK_UPDATES, SEED_BULLETIN_POSTS } from './seed';
 import { toDataURL, generateId } from './files';
 
 interface Session {
@@ -94,6 +94,10 @@ interface DomusStore {
   deleteScheduleEvent: (id: string) => void;
   // chat
   sendChatMessage: (estateId: string, body: string) => void;
+  // bulletin
+  bulletinPosts: BulletinPost[];
+  addBulletinPost: (input: { category: BulletinCategory; title: string; body: string; contact?: string }) => void;
+  deleteBulletinPost: (id: string) => void;
 }
 
 let defectSeq = 204;
@@ -110,6 +114,7 @@ export const useStore = create<DomusStore>()(
       photoSections: SEED_PHOTO_SECTIONS,
       scheduleEvents: SEED_SCHEDULE_EVENTS,
       chatMessages: SEED_CHAT_MESSAGES,
+      bulletinPosts: SEED_BULLETIN_POSTS,
       workEngagements: SEED_WORK_ENGAGEMENTS,
       workerProfiles: SEED_WORKER_PROFILES,
       workUpdates: SEED_WORK_UPDATES,
@@ -463,6 +468,24 @@ export const useStore = create<DomusStore>()(
         const msg: ChatMessage = { id: `cm-${generateId()}`, estateId, authorUserId: get().session.userId ?? '', body, createdAt: new Date().toISOString() };
         set(s => ({ chatMessages: [...s.chatMessages, msg] }));
       },
+      // ── Bulletin mutations ────────────────────────────────────────────────
+      addBulletinPost({ category, title, body, contact }) {
+        const { session, users, units } = get();
+        const user = users.find(u => u.id === session.userId);
+        const unit = units.find(u => u.ownerUserId === session.userId);
+        const post: BulletinPost = {
+          id: `bp-${generateId()}`,
+          authorId: session.userId ?? '',
+          authorName: user?.fullName ?? 'Savininkas',
+          unitNumber: unit?.number ?? '—',
+          category, title, body, contact,
+          createdAt: new Date().toISOString(),
+        };
+        set(s => ({ bulletinPosts: [post, ...s.bulletinPosts] }));
+      },
+      deleteBulletinPost(id) {
+        set(s => ({ bulletinPosts: s.bulletinPosts.filter(p => p.id !== id) }));
+      },
     }),
     {
       name: 'domus.store.v1',
@@ -477,6 +500,7 @@ export const useStore = create<DomusStore>()(
         photoSections: s.photoSections,
         scheduleEvents: s.scheduleEvents,
         chatMessages: s.chatMessages,
+        bulletinPosts: s.bulletinPosts,
         workEngagements: s.workEngagements,
         workerProfiles: s.workerProfiles,
         workUpdates: s.workUpdates.map(({ audioDataUrl: _a, attachments, ...rest }) => ({

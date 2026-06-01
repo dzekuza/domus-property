@@ -1,151 +1,298 @@
 'use client';
 
-import { useState, useRef } from 'react';
-import { ChevronDown, ChevronUp, FileText, Download, Upload, Check } from 'lucide-react';
-import { useStore } from '@/lib/store';
-import { PURCHASE_STEPS } from '@/lib/constants';
+import { useState } from 'react';
+import { Lock, Car, Wifi, Bell, Phone, Copy, Check } from 'lucide-react';
 import PageHeader from '@/components/layout/PageHeader';
 import Card from '@/components/shared/Card';
-import StatusPill from '@/components/shared/StatusPill';
-import Btn from '@/components/shared/Btn';
-import { formatBytes, formatDate } from '@/lib/fmt';
-import type { PurchaseStepId } from '@/lib/types';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { useStore } from '@/lib/store';
+
+// ── Event types ──────────────────────────────────────────────────────────────
+const EVENT_TYPES = {
+  waste:    { label: 'Šiukšlių išvežimas',        color: '#3b82f6', bg: 'rgba(59,130,246,0.10)' },
+  lawn:     { label: 'Žolės pjovimas',             color: '#76c03d', bg: 'rgba(118,192,61,0.10)' },
+  elevator: { label: 'Lifto priežiūra',            color: '#f59e0b', bg: 'rgba(245,158,11,0.10)' },
+  water:    { label: 'Vandens atjungimas',          color: '#ef4444', bg: 'rgba(239,68,68,0.10)' },
+  meeting:  { label: 'Bendruomenės susirinkimas',  color: '#8b5cf6', bg: 'rgba(139,92,246,0.10)' },
+  cleaning: { label: 'Teritorijos valymas',        color: '#06b6d4', bg: 'rgba(6,182,212,0.10)'  },
+  roof:     { label: 'Stogo darbai',               color: '#ff601b', bg: 'rgba(255,96,27,0.10)'  },
+} as const;
+type EventType = keyof typeof EVENT_TYPES;
+
+const UPCOMING_EVENTS: Array<{ date: string; type: EventType; note?: string }> = [
+  { date: '2026-06-03', type: 'waste' },
+  { date: '2026-06-05', type: 'lawn' },
+  { date: '2026-06-10', type: 'elevator' },
+  { date: '2026-06-12', type: 'water',    note: '9:00 – 14:00' },
+  { date: '2026-06-15', type: 'meeting',  note: '18:00, Laiptinė A' },
+  { date: '2026-06-18', type: 'cleaning' },
+  { date: '2026-06-22', type: 'roof' },
+  { date: '2026-07-01', type: 'waste' },
+  { date: '2026-07-08', type: 'lawn' },
+];
+
+// ── Messages ──────────────────────────────────────────────────────────────────
+const MESSAGES = [
+  { id: 1, from: 'Administratorius', avatar: 'A', avatarBg: 'var(--color-sidebar-bg)',
+    text: 'Primename apie bendrijos susirinkimą birželio 15 d. 18:00 val.', time: 'Šiandien 09:14', unread: true },
+  { id: 2, from: 'Miteda', avatar: 'M', avatarBg: 'var(--color-accent)',
+    text: 'Jūsų butas įregistruotas. Raktų perdavimas planuojamas birželio 30 d.', time: 'Vakar 14:30', unread: false },
+  { id: 3, from: 'Administratorius', avatar: 'A', avatarBg: 'var(--color-sidebar-bg)',
+    text: 'Birželio 12 d. 9:00–14:00 bus atjungtas karštas vanduo.', time: 'Pirmad.', unread: false },
+];
+
+// ── Bulletin board ────────────────────────────────────────────────────────────
+const BULLETINS = [
+  { id: 1, title: 'Vandens atjungimas birželio 12 d.',
+    body: 'Nuo 9:00 iki 14:00 bus atjungtas karštas vanduo techninės priežiūros tikslais.',
+    date: '2026-06-01', priority: 'high' as const },
+  { id: 2, title: 'Stovėjimo aikštelės taisyklės',
+    body: 'Kiekvienas savininkas turi vieną žymėtą vietą. Prašome laikytis tvarkos.',
+    date: '2026-05-28', priority: 'normal' as const },
+  { id: 3, title: 'Penktadienio laiptinės valymas',
+    body: 'Kiekvieną penktadienį atliekamas laiptinės valymas 8:00–10:00.',
+    date: '2026-05-25', priority: 'normal' as const },
+];
+
+// ── Important info ────────────────────────────────────────────────────────────
+const IMPORTANT_INFO = [
+  { icon: Lock,  label: 'Laiptinės kodas',       value: '1234#',                     copy: true  },
+  { icon: Car,   label: 'Vartų kodas',            value: '5678#',                     copy: true  },
+  { icon: Wifi,  label: 'WiFi (bendros erdvės)',  value: 'KalnuTerasos · kalnu2024',  copy: true  },
+  { icon: Bell,  label: 'Avarinis numeris',       value: '+370 600 12345',            copy: false },
+  { icon: Phone, label: 'Administratorius',       value: '+370 699 87654',            copy: false },
+];
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function daysFromNow(dateStr: string) {
+  const now = new Date(); now.setHours(0, 0, 0, 0);
+  return Math.floor((new Date(dateStr).getTime() - now.getTime()) / 86_400_000);
+}
 
 export default function PagrindiniasPage() {
-  const { effectiveUser, unitOf, estateForUnit, uploadDocument } = useStore();
+  const { effectiveUser, unitOf, estateForUnit } = useStore();
   const effUser = effectiveUser();
-  const unit = effUser?.unitId ? unitOf(effUser.id) : null;
+  const unit   = effUser?.unitId ? unitOf(effUser.id) : null;
   const estate = unit ? estateForUnit(unit.id) : null;
 
-  const visibleSteps = PURCHASE_STEPS.filter(s => unit?.visibleSteps[s.id]);
-  const doneCount = visibleSteps.filter(s => unit?.stepStatuses[s.id] === 'done').length;
+  const [copied, setCopied] = useState<string | null>(null);
 
-  const defaultOpen = visibleSteps.find(s => unit?.stepStatuses[s.id] === 'progress')?.id
-    ?? visibleSteps[0]?.id
-    ?? null;
-  const [openStep, setOpenStep] = useState<PurchaseStepId | null>(defaultOpen as PurchaseStepId | null);
-  const [uploading, setUploading] = useState(false);
-  const [toast, setToast] = useState('');
-  const fileRef = useRef<HTMLInputElement>(null);
-
-  async function handleUpload(stepId: PurchaseStepId, file: File) {
-    setUploading(true);
-    try {
-      await uploadDocument(unit!.id, stepId, file);
-      setToast('Failas įkeltas');
-      setTimeout(() => setToast(''), 3000);
-    } catch (err: unknown) {
-      setToast(err instanceof Error ? err.message : 'Klaida įkeliant failą');
-      setTimeout(() => setToast(''), 4000);
-    }
-    setUploading(false);
-  }
-
-  if (!unit) {
-    return (
-      <div>
-        <PageHeader title="Pirkimo eiga" subtitle="Jūsų butas dar nepriskirtas." />
-      </div>
-    );
+  function copy(value: string, label: string) {
+    navigator.clipboard.writeText(value).catch(() => {});
+    setCopied(label);
+    setTimeout(() => setCopied(null), 2000);
   }
 
   return (
     <div>
-      <PageHeader title="Pirkimo eiga" subtitle="Visi jūsų pirkimo proceso žingsniai vienoje vietoje." />
+      <PageHeader
+        title="Pagrindinis"
+        subtitle={unit ? `${estate?.name ?? ''} · Butas ${unit.number}` : 'Sveiki sugrįžę'}
+      />
 
-      {/* Hero card */}
-      <Card style={{ marginBottom: 20 }}>
-        <div className="hero-card-inner">
-        {estate?.coverPhotoUrl && (
-          <img src={estate.coverPhotoUrl} alt={estate.name} className="hero-card-img" />
-        )}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-          <div>
-            <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 4 }}>{estate?.name}</p>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 22, color: 'var(--color-midnight-ink)', marginBottom: 8 }}>Butas {unit.number}</h2>
-            {unit.keyHandoverDate && (
-              <p style={{ fontSize: 13, color: 'var(--color-muted-ash-2)' }}>Planuojamas raktų perdavimas: <strong>{formatDate(unit.keyHandoverDate)}</strong></p>
-            )}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+
+        {/* ── Bulletin Board (full width, first) ────────────────────────── */}
+        <Card style={{ padding: 0, overflow: 'hidden' }}>
+          <div style={{ padding: '18px 24px', borderBottom: '1px solid var(--color-ghost-border)' }}>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 600, color: 'var(--color-midnight-ink)', marginBottom: 2 }}>
+              Skelbimų lenta
+            </h3>
+            <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }}>Aktualūs pranešimai ir skelbimai</p>
           </div>
-          <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-              <span style={{ fontSize: 13, color: 'var(--color-muted-ash-2)' }}>Pirkimo eiga</span>
-              <span style={{ fontSize: 13, fontWeight: 600 }}>{doneCount} / {visibleSteps.length}</span>
-            </div>
-            <div style={{ height: 6, background: 'var(--color-cloud-canvas)', borderRadius: 100, overflow: 'hidden' }}>
-              <div style={{ height: '100%', width: `${visibleSteps.length ? (doneCount / visibleSteps.length) * 100 : 0}%`, background: 'var(--color-electric-violet)', borderRadius: 100, transition: 'width .3s' }} />
-            </div>
-          </div>
-        </div>
-        </div>
-      </Card>
-
-      {/* Steps accordion */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        {visibleSteps.map((step, idx) => {
-          const status = unit.stepStatuses[step.id];
-          const docs = unit.documents[step.id] ?? [];
-          const isOpen = openStep === step.id;
-
-          return (
-            <Card key={step.id} style={{ padding: 0, overflow: 'hidden' }}>
-              <button
-                onClick={() => setOpenStep(isOpen ? null : step.id)}
-                style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 16, padding: '16px 20px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}
+          <div className="bulletin-grid">
+            {BULLETINS.map((b) => (
+              <div
+                key={b.id}
+                style={{
+                  padding: 18,
+                  background: b.priority === 'high' ? 'rgba(255,96,27,0.05)' : 'var(--color-cloud-canvas)',
+                  borderRadius: 12,
+                  border: `1px solid ${b.priority === 'high' ? 'rgba(255,96,27,0.2)' : 'var(--color-ghost-border)'}`,
+                }}
               >
-                {/* Step number / check */}
-                <div style={{ width: 32, height: 32, borderRadius: '50%', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: status === 'done' ? 'var(--color-success)' : 'var(--color-cloud-canvas)', color: status === 'done' ? '#fff' : 'var(--color-muted-ash-2)', fontWeight: 600, fontSize: 13 }}>
-                  {status === 'done' ? <Check size={16} strokeWidth={2.5} /> : idx + 1}
+                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 10, marginBottom: 6 }}>
+                  <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-midnight-ink)', lineHeight: 1.35 }}>{b.title}</p>
+                  {b.priority === 'high' && (
+                    <span style={{ fontSize: 10, fontWeight: 700, color: 'var(--color-danger)', background: 'var(--color-danger-tint)', padding: '2px 8px', borderRadius: 100, flexShrink: 0, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                      Svarbu
+                    </span>
+                  )}
                 </div>
-                <div style={{ flex: 1, textAlign: 'left' }}>
-                  <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>{step.title}</p>
-                  <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', marginTop: 2 }}>{step.subtitle}</p>
-                </div>
-                <StatusPill type="step" value={status} />
-                {isOpen ? <ChevronUp size={16} style={{ color: 'var(--color-muted-ash-2)', flexShrink: 0 }} /> : <ChevronDown size={16} style={{ color: 'var(--color-muted-ash-2)', flexShrink: 0 }} />}
-              </button>
+                <p style={{ fontSize: 13, color: 'var(--color-muted-ash-2)', lineHeight: 1.55 }}>{b.body}</p>
+                <p style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', marginTop: 12, opacity: 0.65 }}>
+                  {new Date(b.date).toLocaleDateString('lt-LT')}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Card>
 
-              {isOpen && (
-                <div className="fade-in" style={{ borderTop: '1px solid var(--color-ghost-border)', padding: '16px 20px' }}>
-                  {docs.length === 0 ? (
-                    <p style={{ fontSize: 13, color: 'var(--color-muted-ash-2)', fontStyle: 'italic' }}>Dokumentai bus paskelbti artimiausiu metu.</p>
-                  ) : (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                      {docs.map(doc => (
-                        <div key={doc.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', background: 'var(--color-cloud-canvas)', borderRadius: 8 }}>
-                          <FileText size={16} strokeWidth={1.5} style={{ color: 'var(--color-muted-ash-2)', flexShrink: 0 }} />
-                          <span style={{ flex: 1, fontSize: 13 }}>{doc.name}</span>
-                          <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }}>{formatBytes(doc.sizeBytes)}</span>
-                          <a href={doc.url} download={doc.name}>
-                            <Btn variant="ghost" size="sm" icon={<Download size={13} />}>Atsisiųsti</Btn>
-                          </a>
+        {/* ── Main grid: Calendar (left) + side column (right) ─────────── */}
+        <div className="home-grid">
+
+          {/* Calendar / Agenda ───────────────────────────────────────── */}
+          <Card style={{ padding: 0, overflow: 'hidden' }}>
+            {/* Header */}
+            <div style={{ padding: '18px 24px', borderBottom: '1px solid var(--color-ghost-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div>
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 600, color: 'var(--color-midnight-ink)', marginBottom: 2 }}>
+                  Artimiausi įvykiai
+                </h3>
+                <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }}>Namo veiklos kalendorius</p>
+              </div>
+            </div>
+
+            {/* Color legend */}
+            <div style={{ padding: '10px 24px', borderBottom: '1px solid var(--color-ghost-border)', display: 'flex', flexWrap: 'wrap', gap: '5px 14px' }}>
+              {(Object.entries(EVENT_TYPES) as [EventType, typeof EVENT_TYPES[EventType]][]).map(([key, { label, color }]) => (
+                <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                  <div style={{ width: 7, height: 7, borderRadius: '50%', background: color, flexShrink: 0 }} />
+                  <span style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', whiteSpace: 'nowrap' }}>{label}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Events */}
+            <ScrollArea style={{ height: 348 }}>
+              <div style={{ padding: '4px 0 12px' }}>
+                {UPCOMING_EVENTS.map((ev) => {
+                  const { color, bg, label } = EVENT_TYPES[ev.type];
+                  const days  = daysFromNow(ev.date);
+                  const soon  = days >= 0 && days <= 7;
+                  const d     = new Date(ev.date);
+                  return (
+                    <div
+                      key={`${ev.date}-${ev.type}`}
+                      style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '10px 24px', borderBottom: '1px solid var(--color-ghost-border)' }}
+                    >
+                      {/* Date column */}
+                      <div style={{ width: 48, flexShrink: 0, textAlign: 'center' }}>
+                        <div style={{ fontSize: 20, fontFamily: 'var(--font-display)', fontWeight: 700, lineHeight: 1, color: soon ? color : 'var(--color-midnight-ink)' }}>
+                          {d.getDate()}
                         </div>
-                      ))}
-                    </div>
-                  )}
+                        <div style={{ fontSize: 10, color: 'var(--color-muted-ash-2)', textTransform: 'uppercase', letterSpacing: '0.04em', marginTop: 2 }}>
+                          {d.toLocaleDateString('lt-LT', { month: 'short' })}
+                        </div>
+                      </div>
 
-                  {step.allowOwnerUpload && (
-                    <div style={{ marginTop: 16, border: '2px dashed var(--color-ghost-border)', borderRadius: 8, padding: 20, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
-                      <Upload size={24} strokeWidth={1.5} style={{ color: 'var(--color-muted-ash-2)' }} />
-                      <p style={{ fontSize: 13, color: 'var(--color-muted-ash-2)', textAlign: 'center' }}>Įkelkite pasirašytą priėmimo-perdavimo aktą (PDF)</p>
-                      <input ref={fileRef} type="file" accept=".pdf" style={{ display: 'none' }} onChange={e => e.target.files?.[0] && handleUpload(step.id, e.target.files[0])} />
-                      <Btn variant="primary" size="sm" disabled={uploading} onClick={() => fileRef.current?.click()} icon={<Upload size={13} />}>
-                        {uploading ? 'Įkeliama…' : 'Įkelti'}
-                      </Btn>
+                      {/* Color bar */}
+                      <div style={{ width: 3, height: 38, borderRadius: 2, background: color, flexShrink: 0 }} />
+
+                      {/* Label */}
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <p style={{ fontSize: 14, fontWeight: 500, color: 'var(--color-midnight-ink)' }}>{label}</p>
+                        {ev.note && (
+                          <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', marginTop: 1 }}>{ev.note}</p>
+                        )}
+                      </div>
+
+                      {/* "Soon" badge */}
+                      {soon && (
+                        <span style={{ fontSize: 11, fontWeight: 600, color, background: bg, padding: '2px 9px', borderRadius: 100, flexShrink: 0, whiteSpace: 'nowrap' }}>
+                          {days === 0 ? 'Šiandien' : `${days}d.`}
+                        </span>
+                      )}
                     </div>
+                  );
+                })}
+              </div>
+            </ScrollArea>
+          </Card>
+
+          {/* ── Right side column ──────────────────────────────────────── */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+
+            {/* Messages ───────────────────────────────────────────────── */}
+            <Card style={{ padding: 0, overflow: 'hidden' }}>
+              <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--color-ghost-border)', display: 'flex', alignItems: 'center', gap: 8 }}>
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>
+                  Gautos žinutės
+                </h3>
+                {MESSAGES.some(m => m.unread) && (
+                  <span style={{ fontSize: 11, fontWeight: 700, color: '#fff', background: 'var(--color-danger)', padding: '1px 7px', borderRadius: 100 }}>
+                    {MESSAGES.filter(m => m.unread).length}
+                  </span>
+                )}
+              </div>
+              {MESSAGES.map((msg, i) => (
+                <div
+                  key={msg.id}
+                  style={{
+                    display: 'flex', gap: 12, padding: '12px 20px', cursor: 'pointer',
+                    borderBottom: i < MESSAGES.length - 1 ? '1px solid var(--color-ghost-border)' : 'none',
+                    background: msg.unread ? 'rgba(118,192,61,0.04)' : 'transparent',
+                  }}
+                >
+                  <div style={{ width: 34, height: 34, borderRadius: '50%', flexShrink: 0, background: msg.avatarBg, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700 }}>
+                    {msg.avatar}
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 2, gap: 6 }}>
+                      <span style={{ fontSize: 13, fontWeight: msg.unread ? 700 : 500, color: 'var(--color-midnight-ink)' }}>{msg.from}</span>
+                      <span style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', flexShrink: 0 }}>{msg.time}</span>
+                    </div>
+                    <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {msg.text}
+                    </p>
+                  </div>
+                  {msg.unread && (
+                    <div style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--color-accent)', flexShrink: 0, alignSelf: 'center' }} />
                   )}
                 </div>
-              )}
+              ))}
             </Card>
-          );
-        })}
-      </div>
 
-      {toast && (
-        <div style={{ position: 'fixed', bottom: 24, right: 24, background: 'var(--color-midnight-ink)', color: '#fff', padding: '12px 20px', borderRadius: 'var(--radius-pill)', fontSize: 14, zIndex: 9999 }}>
-          {toast}
-        </div>
-      )}
+            {/* Important Info ─────────────────────────────────────────── */}
+            <Card style={{ padding: 0, overflow: 'hidden' }}>
+              <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--color-ghost-border)' }}>
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>
+                  🚨 Svarbi informacija
+                </h3>
+              </div>
+              <div style={{ padding: '6px 0' }}>
+                {IMPORTANT_INFO.map(({ icon: Icon, label, value, copy: canCopy }) => {
+                  const isCopied = copied === label;
+                  return (
+                    <div
+                      key={label}
+                      onClick={canCopy ? () => copy(value, label) : undefined}
+                      title={canCopy ? 'Spustelėkite norėdami nukopijuoti' : undefined}
+                      style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '9px 20px', cursor: canCopy ? 'pointer' : 'default', transition: 'background 0.12s' }}
+                      onMouseEnter={e => canCopy && ((e.currentTarget as HTMLDivElement).style.background = 'var(--color-cloud-canvas)')}
+                      onMouseLeave={e => ((e.currentTarget as HTMLDivElement).style.background = 'transparent')}
+                    >
+                      <div style={{ width: 30, height: 30, borderRadius: 8, background: 'var(--color-cloud-canvas)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <Icon size={13} style={{ color: 'var(--color-muted-ash)' }} />
+                      </div>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <p style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', marginBottom: 1 }}>{label}</p>
+                        <p style={{
+                          fontSize: 13, fontWeight: 600,
+                          color: isCopied ? 'var(--color-accent)' : 'var(--color-midnight-ink)',
+                          overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+                          transition: 'color 0.15s',
+                        }}>
+                          {isCopied ? '✓ Nukopijuota' : value}
+                        </p>
+                      </div>
+                      {canCopy && !isCopied && (
+                        <Copy size={13} style={{ color: 'var(--color-muted-ash-2)', flexShrink: 0 }} />
+                      )}
+                      {isCopied && (
+                        <Check size={13} style={{ color: 'var(--color-accent)', flexShrink: 0 }} />
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </Card>
+
+          </div>{/* /right col */}
+        </div>{/* /home-grid */}
+
+
+      </div>
     </div>
   );
 }
