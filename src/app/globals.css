@@ -312,7 +312,7 @@
     flex-shrink: 0;
   }
 
-  .app-main { padding: 16px; }
+  .app-main { padding: 16px; overflow-x: hidden; }
   .app-main:has(> .worker-root) { padding: 0; }
 }
 
@@ -324,7 +324,7 @@
 /* ── PageHeader ───────────────────────────────────────────────── */
 .page-header-row {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 16px;
 }
@@ -347,6 +347,10 @@
   }
   .page-header-actions input {
     width: 100% !important;
+  }
+  .page-header-actions button {
+    width: 100%;
+    justify-content: center;
   }
 }
 
@@ -398,8 +402,12 @@
   gap: 16px;
   align-items: start;
 }
+.darbai-grid > * {
+  min-width: 0;
+}
 
-@media (max-width: 900px) {
+/* fix: collapse both home-grid and darbai-grid earlier */
+@media (max-width: 1100px) {
   .darbai-grid {
     grid-template-columns: 1fr;
   }
@@ -412,13 +420,17 @@
   gap: 20px;
   align-items: start;
 }
+.home-grid > * {
+  min-width: 0;
+}
 .bulletin-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 16px;
 }
 
-@media (max-width: 900px) {
+/* fix: collapse both home-grid and darbai-grid earlier */
+@media (max-width: 1100px) {
   .home-grid { grid-template-columns: 1fr; }
 }
 
@@ -492,4 +504,20 @@
 @media (prefers-reduced-motion: reduce) {
   .t-icon-swap .t-icon { transition: none !important; }
   .t-panel-slide { transition: none !important; }
+}
+
+/* ── Role tab switcher ────────────────────────────────────────── */
+.role-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--color-cloud-canvas);
+  padding: 4px;
+  margin: 16px 16px 0;
+  border-radius: 12px;
+  gap: 3px;
+}
+@media (max-width: 480px) {
+  .role-tabs {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

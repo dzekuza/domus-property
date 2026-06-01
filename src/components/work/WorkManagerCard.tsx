@@ -69,14 +69,14 @@ export default function WorkManagerCard({ unitId, engagement, onCreated }: Props
 
   return (
     <Card>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12, flexWrap: 'wrap' }}>
         <Avatar name={engagement.managerName} bg="#e8f5ee" size={34} />
-        <div style={{ flex: 1 }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
           <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>{engagement.managerName}</p>
           <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }}>{engagement.managerEmail}</p>
         </div>
         <span style={{
-          fontSize: 11, fontWeight: 700, padding: '3px 12px', borderRadius: 100,
+          fontSize: 11, fontWeight: 700, padding: '3px 12px', borderRadius: 100, flexShrink: 0,
           background: isActive ? '#dcfce7' : 'var(--color-cloud-canvas)',
           color: isActive ? '#166534' : 'var(--color-muted-ash)',
         }}>

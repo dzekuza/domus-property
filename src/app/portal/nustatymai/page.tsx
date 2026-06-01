@@ -34,7 +34,7 @@ export default function NustatymaiPage() {
         <Card>
           <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 600, marginBottom: 16 }}>Asmeninė informacija</h2>
           <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 14 }}>
               <div>
                 <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6 }}>Vardas ir pavardė</label>
                 <input value={name} onChange={e => setName(e.target.value)} style={inputStyle} />

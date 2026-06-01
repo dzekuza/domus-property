@@ -153,6 +153,7 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
               className={`nav-item${active ? ' active' : ''}`}
               title={collapsed ? label : undefined}
               style={collapsed ? { justifyContent: 'center', padding: '10px 0' } : undefined}
+              onClick={onClose}
             >
               <Icon size={17} strokeWidth={active ? 2 : 1.75} style={{ flexShrink: 0, opacity: active ? 1 : 0.65 }} />
               {!collapsed && label}

@@ -21,13 +21,13 @@ export default function KontaktaiPage() {
       {estateContacts.length === 0 ? (
         <Card><EmptyState icon={UserRoundCog} title="Kontaktų dar nėra" subtitle="Kontaktai bus paskelbti artimiausiu metu." /></Card>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 16 }}>
           {estateContacts.map(contact => (
             <Card key={contact.id}>
               <div style={{ display: 'flex', gap: 14, marginBottom: 12 }}>
                 <Avatar name={contact.fullName} size={44} />
                 <div>
-                  <p style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 2 }}>{contact.category}</p>
+                  <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 2 }}>{contact.category}</p>
                   <p style={{ fontSize: 15, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>{contact.fullName}</p>
                   <p style={{ fontSize: 13, color: 'var(--color-muted-ash-2)' }}>{contact.org}</p>
                 </div>

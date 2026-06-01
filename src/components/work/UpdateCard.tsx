@@ -109,7 +109,7 @@ export default function UpdateCard({ update, selectable = false, selected = fals
       )}
       <div
         style={{
-          display: 'flex', gap: 12, padding: '14px',
+          display: 'flex', gap: 0, padding: '14px',
           background: selected ? 'rgba(232,119,60,0.08)' : 'var(--color-cloud-canvas)',
           borderRadius: 12,
           border: selected ? '1.5px solid var(--color-accent)' : '1.5px solid transparent',
@@ -128,11 +128,10 @@ export default function UpdateCard({ update, selectable = false, selected = fals
             {selected && <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>}
           </div>
         )}
-        <Avatar name={update.authorName} bg={roleBg} size={34} />
-
         <div style={{ flex: 1, minWidth: 0 }}>
           {/* Header row */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 6, flexWrap: 'wrap' }}>
+            <Avatar name={update.authorName} bg={roleBg} size={28} />
             <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--color-midnight-ink)', letterSpacing: '-0.01em' }}>
               {update.authorName}
             </span>

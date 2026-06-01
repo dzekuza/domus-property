@@ -33,7 +33,7 @@ export default function BendruomenePage() {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 80px)' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100dvh - 56px)' }}>
       <PageHeader
         title="Bendruomenė"
         subtitle={estate ? `${estate.name} · Gyventojų pokalbiai` : 'Gyventojų pokalbiai'}
@@ -70,7 +70,7 @@ export default function BendruomenePage() {
                       <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
                         {!isMine && <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>{author?.fullName}</span>}
                         {isAdmin && (
-                          <span style={{ fontSize: 10, fontWeight: 500, background: 'var(--color-electric-violet)', color: '#fff', padding: '1px 6px', borderRadius: 100 }}>Administracija</span>
+                          <span style={{ fontSize: 11, fontWeight: 500, background: 'var(--color-electric-violet)', color: '#fff', padding: '2px 7px', borderRadius: 100 }}>Administracija</span>
                         )}
                         {isMine && <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>Jūs</span>}
                       </div>
@@ -102,7 +102,7 @@ export default function BendruomenePage() {
         )}
 
         {/* Input */}
-        <div style={{ padding: '12px 16px', borderTop: '1px solid var(--color-ghost-border)', display: 'flex', gap: 10 }}>
+        <div style={{ padding: '12px 16px', paddingBottom: 'max(12px, env(safe-area-inset-bottom))', borderTop: '1px solid var(--color-ghost-border)', display: 'flex', gap: 10 }}>
           <input
             value={text}
             onChange={e => setText(e.target.value)}
@@ -115,7 +115,7 @@ export default function BendruomenePage() {
           <button
             onClick={handleSend}
             disabled={!text.trim()}
-            style={{ width: 42, height: 42, borderRadius: '50%', background: text.trim() ? 'var(--color-electric-violet)' : 'var(--color-cloud-canvas)', border: 'none', cursor: text.trim() ? 'pointer' : 'default', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'background .15s' }}
+            style={{ width: 44, height: 44, borderRadius: '50%', background: text.trim() ? 'var(--color-electric-violet)' : 'var(--color-cloud-canvas)', border: 'none', cursor: text.trim() ? 'pointer' : 'default', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'background .15s' }}
           >
             <Send size={16} strokeWidth={1.5} style={{ color: text.trim() ? '#fff' : 'var(--color-muted-ash-2)' }} />
           </button>

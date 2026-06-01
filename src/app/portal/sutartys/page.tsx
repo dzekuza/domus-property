@@ -35,7 +35,7 @@ export default function SutartysPage() {
         </div>
       )}
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 16 }}>
         {services.map(svc => {
           const meta = SERVICE_KINDS[svc.id];
           const Icon = serviceIcons[svc.id];

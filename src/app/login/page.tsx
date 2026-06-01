@@ -80,7 +80,7 @@ export default function LoginPage() {
 
         <div style={{ background: 'var(--color-paper-white)', border: '1px solid var(--color-ghost-border)', borderRadius: 24, overflow: 'hidden', boxShadow: 'var(--shadow-card)' }}>
           {/* Role tabs */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', background: 'var(--color-cloud-canvas)', padding: 4, margin: '16px 16px 0', borderRadius: 12, gap: 3 }}>
+          <div className="role-tabs">
             {(['owner', 'admin', 'work_manager', 'worker'] as Role[]).map(r => (
               <button
                 key={r}

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Lock, Car, Wifi, Bell, Phone, Copy, Check } from 'lucide-react';
 import PageHeader from '@/components/layout/PageHeader';
 import Card from '@/components/shared/Card';
@@ -70,6 +71,7 @@ function daysFromNow(dateStr: string) {
 }
 
 export default function PagrindiniasPage() {
+  const router = useRouter();
   const { effectiveUser, unitOf, estateForUnit } = useStore();
   const effUser = effectiveUser();
   const unit   = effUser?.unitId ? unitOf(effUser.id) : null;
@@ -100,7 +102,7 @@ export default function PagrindiniasPage() {
             </h3>
             <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }}>Aktualūs pranešimai ir skelbimai</p>
           </div>
-          <div className="bulletin-grid">
+          <div className="bulletin-grid" style={{ padding: '16px 24px 24px' }}>
             {BULLETINS.map((b) => (
               <div
                 key={b.id}
@@ -114,7 +116,7 @@ export default function PagrindiniasPage() {
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 10, marginBottom: 6 }}>
                   <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-midnight-ink)', lineHeight: 1.35 }}>{b.title}</p>
                   {b.priority === 'high' && (
-                    <span style={{ fontSize: 10, fontWeight: 700, color: 'var(--color-danger)', background: 'var(--color-danger-tint)', padding: '2px 8px', borderRadius: 100, flexShrink: 0, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--color-danger)', background: 'var(--color-danger-tint)', padding: '2px 8px', borderRadius: 100, flexShrink: 0, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                       Svarbu
                     </span>
                   )}
@@ -144,7 +146,7 @@ export default function PagrindiniasPage() {
             </div>
 
             {/* Color legend */}
-            <div style={{ padding: '10px 24px', borderBottom: '1px solid var(--color-ghost-border)', display: 'flex', flexWrap: 'wrap', gap: '5px 14px' }}>
+            <div style={{ padding: '10px 16px', borderBottom: '1px solid var(--color-ghost-border)', display: 'flex', flexWrap: 'wrap', gap: '5px 12px', width: '100%', boxSizing: 'border-box' }}>
               {(Object.entries(EVENT_TYPES) as [EventType, typeof EVENT_TYPES[EventType]][]).map(([key, { label, color }]) => (
                 <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                   <div style={{ width: 7, height: 7, borderRadius: '50%', background: color, flexShrink: 0 }} />
@@ -171,7 +173,7 @@ export default function PagrindiniasPage() {
                         <div style={{ fontSize: 20, fontFamily: 'var(--font-display)', fontWeight: 700, lineHeight: 1, color: soon ? color : 'var(--color-midnight-ink)' }}>
                           {d.getDate()}
                         </div>
-                        <div style={{ fontSize: 10, color: 'var(--color-muted-ash-2)', textTransform: 'uppercase', letterSpacing: '0.04em', marginTop: 2 }}>
+                        <div style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', textTransform: 'uppercase', letterSpacing: '0.04em', marginTop: 2 }}>
                           {d.toLocaleDateString('lt-LT', { month: 'short' })}
                         </div>
                       </div>
@@ -218,6 +220,7 @@ export default function PagrindiniasPage() {
               {MESSAGES.map((msg, i) => (
                 <div
                   key={msg.id}
+                  onClick={() => router.push('/portal/bendruomene')}
                   style={{
                     display: 'flex', gap: 12, padding: '12px 20px', cursor: 'pointer',
                     borderBottom: i < MESSAGES.length - 1 ? '1px solid var(--color-ghost-border)' : 'none',
