@@ -8,13 +8,12 @@ interface CardProps {
 export default function Card({ children, flat, style, className }: CardProps) {
   return (
     <div
-      className={className}
+      className={flat ? className : `glass ${className ?? ''}`}
       style={{
-        background: flat ? 'var(--color-cloud-canvas)' : 'var(--color-paper-white)',
-        border: flat ? 'none' : '1px solid var(--color-ghost-border)',
+        background: flat ? 'rgba(240, 237, 232, 0.55)' : undefined,
         borderRadius: 'var(--radius-card)',
-        boxShadow: flat ? 'none' : 'var(--shadow-card)',
         padding: 24,
+        ...(flat ? { border: 'none', boxShadow: 'none' } : {}),
         ...style,
       }}
     >

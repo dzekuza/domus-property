@@ -131,7 +131,7 @@ export default function SkelbimaiPage() {
             return (
               <div
                 key={post.id}
-                style={{ background: '#fff', borderRadius: 'var(--radius-card)', border: '1px solid var(--color-ghost-border)', display: 'flex', flexDirection: 'column', boxShadow: 'var(--shadow-card)', overflow: 'hidden', height: '100%' }}
+                style={{ background: 'var(--glass-bg)', backdropFilter: 'var(--glass-blur)', WebkitBackdropFilter: 'var(--glass-blur)', borderRadius: 'var(--radius-card)', border: '1px solid var(--glass-border)', display: 'flex', flexDirection: 'column', boxShadow: 'var(--glass-shadow)', overflow: 'hidden', height: '100%' }}
               >
                 {/* Top content area */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10, padding: '16px 16px 14px', flex: 1 }}>
@@ -179,7 +179,7 @@ export default function SkelbimaiPage() {
                 {/* Footer: author + time */}
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px', borderTop: '1px solid var(--color-ghost-border)', background: 'var(--color-cloud-canvas)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <div style={{ width: 22, height: 22, borderRadius: '50%', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 700, color: 'var(--color-muted-ash)', flexShrink: 0, border: '1px solid var(--color-ghost-border)' }}>
+                    <div style={{ width: 22, height: 22, borderRadius: '50%', background: 'rgba(255,255,255,0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 700, color: 'var(--color-muted-ash)', flexShrink: 0, border: '1px solid var(--glass-border)' }}>
                       {post.authorName[0]}
                     </div>
                     <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', fontWeight: 500 }}>

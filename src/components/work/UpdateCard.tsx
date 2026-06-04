@@ -121,7 +121,7 @@ export default function UpdateCard({ update, selectable = false, selected = fals
         {selectable && (
           <div style={{
             width: 18, height: 18, borderRadius: 5, border: `2px solid ${selected ? 'var(--color-accent)' : 'var(--color-ghost-border)'}`,
-            background: selected ? 'var(--color-accent)' : '#fff',
+            background: selected ? 'var(--color-accent)' : 'rgba(255,255,255,0.55)',
             display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, alignSelf: 'center',
             transition: 'background 0.15s, border-color 0.15s',
           }}>
