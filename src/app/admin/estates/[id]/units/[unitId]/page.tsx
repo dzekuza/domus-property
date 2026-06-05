@@ -19,7 +19,7 @@ const serviceIcons: Record<ServiceKind, React.FC<{ size?: number; strokeWidth?: 
 };
 
 const innerSection: React.CSSProperties = {
-  background: 'var(--color-surface-raised)',
+  background: 'var(--color-input-bg)',
   border: '1px solid var(--color-ghost-border)',
   borderRadius: 14,
   padding: 20,
@@ -50,7 +50,7 @@ export default function UnitEditorPage({ params }: { params: Promise<{ id: strin
 
   const inputStyle: React.CSSProperties = {
     width: '100%', padding: '10px 14px', fontSize: 14,
-    background: 'var(--color-surface-raised)', border: '1px solid var(--color-ghost-border)',
+    background: 'var(--color-input-bg)', border: '1px solid var(--color-ghost-border)',
     borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit',
     fontWeight: 500, boxSizing: 'border-box', color: 'var(--foreground)',
   };
@@ -153,7 +153,7 @@ export default function UnitEditorPage({ params }: { params: Promise<{ id: strin
                     </label>
                   </div>
                   {docs.map(doc => (
-                    <div key={doc.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', background: 'var(--color-surface-raised)', borderRadius: 8, marginTop: 6 }}>
+                    <div key={doc.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', background: 'var(--color-input-bg)', borderRadius: 8, marginTop: 6 }}>
                       <FileText size={14} style={{ color: 'var(--color-muted-ash-2)' }} />
                       <span style={{ flex: 1, fontSize: 13, color: 'var(--color-midnight-ink)' }}>{doc.name}</span>
                       <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }}>{formatBytes(doc.sizeBytes)}</span>
@@ -235,7 +235,7 @@ export default function UnitEditorPage({ params }: { params: Promise<{ id: strin
                   <input
                     placeholder="el.pastas@mail.lt"
                     defaultValue={owner?.email ?? ''}
-                    style={{ flex: 1, padding: '10px 14px', fontSize: 13, background: 'var(--color-surface-raised)', border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500, color: 'var(--foreground)' }}
+                    style={{ flex: 1, padding: '10px 14px', fontSize: 13, background: 'var(--color-input-bg)', border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500, color: 'var(--foreground)' }}
                   />
                   <Btn variant="primary" size="sm">Siųsti kvietimą</Btn>
                 </div>

@@ -22,7 +22,7 @@ const filters: { label: string; value: DefectStatus | 'all' }[] = [
 ];
 
 const innerItem: React.CSSProperties = {
-  background: 'var(--color-surface-raised)',
+  background: 'var(--color-input-bg)',
   border: '1px solid var(--color-ghost-border)',
   borderRadius: 14,
   overflow: 'hidden',
@@ -129,7 +129,7 @@ export default function DefektaiPage() {
                           onChange={e => setReply(r => ({ ...r, [defect.id]: e.target.value }))}
                           placeholder="Rašykite atsakymą…"
                           onKeyDown={e => e.key === 'Enter' && handleReply(defect.id)}
-                          style={{ flex: 1, padding: '10px 14px', fontSize: 14, background: 'var(--color-surface-raised)', color: 'var(--foreground)', border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500 }}
+                          style={{ flex: 1, padding: '10px 14px', fontSize: 14, background: 'var(--color-input-bg)', color: 'var(--foreground)', border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500 }}
                         />
                         <Btn variant="primary" size="sm" icon={<Send size={13} />} onClick={() => handleReply(defect.id)}>Siųsti</Btn>
                       </div>
@@ -157,11 +157,11 @@ export default function DefektaiPage() {
             </div>
             <div>
               <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6 }}>Trumpas pavadinimas</label>
-              <input value={title} onChange={e => setTitle(e.target.value)} placeholder="pvz. Nutekėjimas po kriaukle" style={{ width: '100%', padding: '10px 14px', fontSize: 14, background: 'var(--color-surface-raised)', color: 'var(--foreground)', border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500, boxSizing: 'border-box' }} />
+              <input value={title} onChange={e => setTitle(e.target.value)} placeholder="pvz. Nutekėjimas po kriaukle" style={{ width: '100%', padding: '10px 14px', fontSize: 14, background: 'var(--color-input-bg)', color: 'var(--foreground)', border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500, boxSizing: 'border-box' }} />
             </div>
             <div>
               <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6 }}>Aprašymas</label>
-              <textarea value={body} onChange={e => setBody(e.target.value)} rows={4} placeholder="Aprašykite problemą detaliau…" style={{ width: '100%', padding: '10px 14px', fontSize: 14, background: 'var(--color-surface-raised)', color: 'var(--foreground)', border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500, resize: 'vertical', boxSizing: 'border-box' }} />
+              <textarea value={body} onChange={e => setBody(e.target.value)} rows={4} placeholder="Aprašykite problemą detaliau…" style={{ width: '100%', padding: '10px 14px', fontSize: 14, background: 'var(--color-input-bg)', color: 'var(--foreground)', border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500, resize: 'vertical', boxSizing: 'border-box' }} />
             </div>
             <Btn variant="primary" disabled={submitting || !title.trim() || !body.trim()} onClick={handleSubmitDefect} style={{ justifyContent: 'center' }}>
               {submitting ? 'Siunčiama…' : 'Pateikti pranešimą'}

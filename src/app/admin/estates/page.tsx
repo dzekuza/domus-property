@@ -43,8 +43,8 @@ export default function EstatesPage() {
         title="Objektai"
         actions={
           <>
-            <div style={{ position: 'relative' }}>
-              <Search size={15} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--color-muted-ash-2)' }} />
+            <div className="search-wrap">
+              <Search size={15} style={{ position: 'absolute', left: 12, color: 'var(--color-muted-ash-2)' }} />
               <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Ieškoti objektų…" style={{ paddingLeft: 34, paddingRight: 14, paddingTop: 9, paddingBottom: 9, fontSize: 13, border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-pill)', outline: 'none', fontFamily: 'inherit', fontWeight: 500, width: 220 }} />
             </div>
             <Btn variant="primary" icon={<Plus size={15} />} onClick={() => setShowModal(true)}>Naujas objektas</Btn>

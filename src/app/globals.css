@@ -55,9 +55,10 @@
   --color-cloud-canvas: rgba(240, 237, 232, 0.7);
   --color-paper-white: rgba(255, 255, 255, 0.68);
   --color-muted-ash: #4a4845;
-  --color-muted-ash-2: #7a7774;
+  --color-muted-ash-2: #6d6a67;
   --color-ghost-border: #0000000a;
-  --color-surface-raised: #cfcfcf0a;
+  --color-surface-raised: #fafafa;
+  --color-input-bg: #ffffff;
   --color-surface-hover: rgba(0, 0, 0, 0.06);
   --color-surface-active: rgba(0, 0, 0, 0.12);
 
@@ -74,7 +75,7 @@
   /* Sidebar dark glass */
   --color-sidebar-bg: var(--glass-sidebar-bg);
   --color-sidebar-fg: rgba(0,0,0,0.62);
-  --color-sidebar-fg-active: #4a8c1c;
+  --color-sidebar-fg-active: #3a7015;
   --color-sidebar-active-bg: rgba(118,192,61,0.12);
   --color-sidebar-border: rgba(0,0,0,0.08);
   --color-sidebar-hover-bg: rgba(0,0,0,0.05);
@@ -89,8 +90,8 @@
   --color-success-tint: rgba(118,192,61,0.5);
   --color-warning: #b86e00;
   --color-warning-tint: #fdf1de;
-  --color-danger: #ff601b;
-  --color-danger-tint: rgba(255,96,27,0.12);
+  --color-danger: #c0390a;
+  --color-danger-tint: rgba(192,57,10,0.12);
 
   /* Legacy compat aliases */
   --color-electric-violet: var(--color-teal);
@@ -107,7 +108,7 @@
   --radius-default: 12px;
   --radius-input: 10px;
   --radius-image: 16px;
-  --radius-card: 20px;
+  --radius-card: 24px;
   --radius-pill: 1000px;
 
   /* Card shadow */
@@ -124,7 +125,7 @@
   --secondary: rgba(0, 0, 0, 0.05);
   --secondary-foreground: #1c1c1c;
   --muted: rgba(0, 0, 0, 0.04);
-  --muted-foreground: #7a7774;
+  --muted-foreground: #6d6a67;
   --accent: rgba(118,192,61,0.1);
   --accent-foreground: #174325;
   --destructive: #ff601b;
@@ -193,10 +194,10 @@
   color: #1c1c1c;
   --color-midnight-ink: #1c1c1c;
   --color-muted-ash: #4a4845;
-  --color-muted-ash-2: #7a7774;
+  --color-muted-ash-2: #6d6a67;
   --color-ghost-border: #0000000a;
   --foreground: #1c1c1c;
-  --muted-foreground: #7a7774;
+  --muted-foreground: #6d6a67;
 }
 .glass-strong {
   position: relative;
@@ -209,15 +210,15 @@
   color: #1c1c1c;
   --color-midnight-ink: #1c1c1c;
   --color-muted-ash: #4a4845;
-  --color-muted-ash-2: #7a7774;
+  --color-muted-ash-2: #6d6a67;
   --color-ghost-border: rgba(0, 0, 0, 0.10);
   --foreground: #1c1c1c;
-  --muted-foreground: #7a7774;
+  --muted-foreground: #6d6a67;
 }
 
 /* ── Table legibility on light glass ── */
 .glass .domus-table th {
-  color: rgba(0, 0, 0, 0.45) !important;
+  color: rgba(0, 0, 0, 0.55) !important;
   border-bottom-color: rgba(0, 0, 0, 0.08) !important;
   background: transparent !important;
 }
@@ -261,10 +262,10 @@
   color: #1c1c1c;
   --color-midnight-ink: #1c1c1c;
   --color-muted-ash: #4a4845;
-  --color-muted-ash-2: #7a7774;
+  --color-muted-ash-2: #6d6a67;
   --color-ghost-border: rgba(0, 0, 0, 0.10);
   --foreground: #1c1c1c;
-  --muted-foreground: #7a7774;
+  --muted-foreground: #6d6a67;
 }
 
 /* Dialog footer */
@@ -479,9 +480,18 @@
   .app-sidebar.open {
     transform: translateX(0) !important;
     box-shadow: 6px 0 40px rgba(0,0,0,0.25);
+    overflow-x: visible !important;
   }
 
+  /* Close button visible; collapse toggle hidden (irrelevant on mobile overlay) */
   .sidebar-close-btn { display: flex; }
+  .app-sidebar .sidebar-collapse-btn { display: none !important; }
+
+  /* Prevent header content overflowing sidebar edge */
+  .app-sidebar .sidebar-logo-row {
+    padding-right: 8px !important;
+    overflow: visible;
+  }
 
   .mobile-topbar {
     display: flex;
@@ -521,26 +531,34 @@
 
 /* ── PageHeader ───────────────────────────────────────────────── */
 .page-header-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto;
   gap: 16px;
+  align-items: start;
 }
 .page-header-actions {
   display: flex;
-  gap: 8px;
-  flex-shrink: 0;
-  flex-wrap: wrap;
+  gap: 12px;
+  flex-wrap: nowrap;
   justify-content: flex-end;
+  align-items: center;
+  grid-column: 2;
+  grid-row: 1 / span 5;
+  align-self: center;
+}
+.search-wrap {
+  position: relative;
+  display: inline-flex;
   align-items: center;
 }
 
 @media (max-width: 640px) {
   .page-header-row {
-    flex-direction: column;
-    align-items: stretch;
+    grid-template-columns: 1fr;
   }
   .page-header-actions {
+    grid-column: 1;
+    grid-row: auto;
     justify-content: flex-start;
     width: 100%;
   }
@@ -548,9 +566,9 @@
     width: 100% !important;
   }
   .page-header-actions button {
-    width: 100% !important;
-    display: flex !important;
-    justify-content: center !important;
+    display: inline-flex !important;
+    width: auto !important;
+    justify-content: center;
   }
 }
 
@@ -716,6 +734,12 @@
   border-radius: 12px;
   gap: 3px;
 }
+@media (max-width: 768px) {
+  :root {
+    --radius-card: 16px;
+  }
+}
+
 @media (max-width: 480px) {
   .role-tabs {
     grid-template-columns: repeat(2, 1fr);

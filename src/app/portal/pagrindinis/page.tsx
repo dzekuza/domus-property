@@ -8,13 +8,13 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { useStore } from '@/lib/store';
 
 const EVENT_TYPES = {
-  waste:    { label: 'Šiukšlių išvežimas',        color: '#3b82f6', bg: 'rgba(59,130,246,0.10)' },
-  lawn:     { label: 'Žolės pjovimas',             color: 'var(--color-accent)', bg: 'var(--color-accent-tint)' },
-  elevator: { label: 'Lifto priežiūra',            color: '#f59e0b', bg: 'rgba(245,158,11,0.10)' },
-  water:    { label: 'Vandens atjungimas',          color: '#ef4444', bg: 'rgba(239,68,68,0.10)' },
-  meeting:  { label: 'Bendruomenės susirinkimas',  color: '#8b5cf6', bg: 'rgba(139,92,246,0.10)' },
-  cleaning: { label: 'Teritorijos valymas',        color: '#06b6d4', bg: 'rgba(6,182,212,0.10)'  },
-  roof:     { label: 'Stogo darbai',               color: '#ff601b', bg: 'rgba(255,96,27,0.10)'  },
+  waste:    { label: 'Šiukšlių išvežimas',        color: '#3b82f6', textColor: '#1d4ed8', bg: 'rgba(59,130,246,0.10)' },
+  lawn:     { label: 'Žolės pjovimas',             color: 'var(--color-accent)', textColor: '#3a7015', bg: 'var(--color-accent-tint)' },
+  elevator: { label: 'Lifto priežiūra',            color: '#f59e0b', textColor: '#92400e', bg: 'rgba(245,158,11,0.12)' },
+  water:    { label: 'Vandens atjungimas',          color: '#ef4444', textColor: '#b91c1c', bg: 'rgba(239,68,68,0.12)' },
+  meeting:  { label: 'Bendruomenės susirinkimas',  color: '#8b5cf6', textColor: '#5b21b6', bg: 'rgba(139,92,246,0.10)' },
+  cleaning: { label: 'Teritorijos valymas',        color: '#06b6d4', textColor: '#0e7490', bg: 'rgba(6,182,212,0.10)'  },
+  roof:     { label: 'Stogo darbai',               color: '#ff601b', textColor: '#c0390a', bg: 'rgba(255,96,27,0.12)'  },
 } as const;
 type EventType = keyof typeof EVENT_TYPES;
 
@@ -196,7 +196,7 @@ export default function PagrindiniasPage() {
             <ScrollArea style={{ height: 348 }}>
               <div style={{ padding: '4px 0 12px' }}>
                 {UPCOMING_EVENTS.map((ev) => {
-                  const { color, bg, label } = EVENT_TYPES[ev.type];
+                  const { color, textColor, bg, label } = EVENT_TYPES[ev.type];
                   const days = daysFromNow(ev.date);
                   const soon = days >= 0 && days <= 7;
                   const d    = new Date(ev.date);
@@ -206,7 +206,7 @@ export default function PagrindiniasPage() {
                       style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '10px 18px', borderBottom: '1px solid var(--color-ghost-border)' }}
                     >
                       <div style={{ width: 48, flexShrink: 0, textAlign: 'center' }}>
-                        <div style={{ fontSize: 20, fontFamily: 'var(--font-display)', fontWeight: 700, lineHeight: 1, color: soon ? color : 'var(--color-midnight-ink)' }}>
+                        <div style={{ fontSize: 20, fontFamily: 'var(--font-display)', fontWeight: 700, lineHeight: 1, color: soon ? textColor : 'var(--color-midnight-ink)' }}>
                           {d.getDate()}
                         </div>
                         <div style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', textTransform: 'uppercase', letterSpacing: '0.04em', marginTop: 2 }}>
@@ -221,7 +221,7 @@ export default function PagrindiniasPage() {
                         )}
                       </div>
                       {soon && (
-                        <span style={{ fontSize: 11, fontWeight: 600, color, background: bg, padding: '2px 9px', borderRadius: 100, flexShrink: 0, whiteSpace: 'nowrap' }}>
+                        <span style={{ fontSize: 11, fontWeight: 600, color: textColor, background: bg, padding: '2px 9px', borderRadius: 100, flexShrink: 0, whiteSpace: 'nowrap' }}>
                           {days === 0 ? 'Šiandien' : `${days}d.`}
                         </span>
                       )}

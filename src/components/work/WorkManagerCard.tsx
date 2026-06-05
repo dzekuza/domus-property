@@ -34,23 +34,25 @@ export default function WorkManagerCard({ unitId, engagement, onCreated }: Props
     flex: 1, padding: '9px 12px', fontSize: 13,
     border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)',
     outline: 'none', fontFamily: 'inherit', fontWeight: 400, color: 'var(--foreground)',
-    background: 'var(--color-surface-raised)', boxSizing: 'border-box',
+    background: 'var(--color-input-bg)', boxSizing: 'border-box',
   };
 
   if (!engagement) {
     return (
-      <div style={{ background: 'var(--color-surface-raised)', border: '1px solid var(--color-ghost-border)', borderRadius: 14, padding: 20 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-          <UserCog size={16} style={{ color: 'var(--color-electric-violet)' }} />
-          <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--color-midnight-ink)' }}>Pakviesti darbo vadovą</p>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, textAlign: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <UserCog size={15} style={{ color: 'var(--color-electric-violet)' }} />
+            <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--color-midnight-ink)' }}>Pakviesti darbo vadovą</p>
+          </div>
+          <p style={{ fontSize: 13, color: 'var(--color-muted-ash)', maxWidth: 340 }}>
+            Darbo vadovas organizuos trumpalaikius remonto darbus jūsų bute ir teiks ataskaitas.
+          </p>
         </div>
-        <p style={{ fontSize: 13, color: 'var(--color-muted-ash)', marginBottom: 14 }}>
-          Darbo vadovas organizuos trumpalaikius remonto darbus jūsų bute ir teiks ataskaitas.
-        </p>
         {!inviting ? (
           <Btn variant="primary" size="sm" onClick={() => setInviting(true)}>Pakviesti</Btn>
         ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, width: '100%' }}>
             <div style={{ display: 'flex', gap: 8 }}>
               <input value={name} onChange={e => setName(e.target.value)} placeholder="Vardas Pavardė" style={inputStyle} />
               <input value={email} onChange={e => setEmail(e.target.value)} placeholder="el.pastas@mail.lt" type="email" style={inputStyle} />
@@ -68,7 +70,7 @@ export default function WorkManagerCard({ unitId, engagement, onCreated }: Props
   const isActive = engagement.status === 'active';
 
   return (
-    <div style={{ background: 'var(--color-surface-raised)', border: '1px solid var(--color-ghost-border)', borderRadius: 14, padding: 20 }}>
+    <>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12, flexWrap: 'wrap' }}>
         <Avatar name={engagement.managerName} bg="rgba(118,192,61,0.20)" size={34} />
         <div style={{ flex: 1, minWidth: 0 }}>
@@ -98,6 +100,6 @@ export default function WorkManagerCard({ unitId, engagement, onCreated }: Props
           </Btn>
         )}
       </div>
-    </div>
+    </>
   );
 }

@@ -248,7 +248,7 @@ export default function UpdateForm({ engagementId, authorId, authorName, authorR
       )}
 
       {/* Tab switcher */}
-      <div style={{ display: 'flex', background: 'var(--color-surface-raised)', padding: 4, borderRadius: 12, gap: 4, marginBottom: 16 }}>
+      <div style={{ display: 'flex', background: 'var(--color-input-bg)', padding: 4, borderRadius: 12, gap: 4, marginBottom: 16 }}>
         {tabBtn('text', <Type size={13} />, 'Tekstas')}
         {tabBtn('voice', <Mic size={13} />, 'Balsas')}
       </div>
@@ -259,7 +259,7 @@ export default function UpdateForm({ engagementId, authorId, authorName, authorR
           onChange={e => setText(e.target.value)}
           rows={4}
           placeholder="Aprašykite šiandienos darbus…"
-          style={{ width: '100%', padding: '10px 14px', fontSize: 14, background: 'var(--color-surface-raised)', border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 400, color: 'var(--foreground)', resize: 'vertical', boxSizing: 'border-box', lineHeight: 1.6 }}
+          style={{ width: '100%', padding: '10px 14px', fontSize: 14, background: 'var(--color-input-bg)', border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 400, color: 'var(--foreground)', resize: 'vertical', boxSizing: 'border-box', lineHeight: 1.6 }}
         />
       )}
 
@@ -290,7 +290,7 @@ export default function UpdateForm({ engagementId, authorId, authorName, authorR
                   onChange={e => setText(e.target.value)}
                   rows={3}
                   placeholder="Pastabos prie įrašo…"
-                  style={{ width: '100%', padding: '10px 14px', fontSize: 14, background: 'var(--color-surface-raised)', border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 400, color: 'var(--foreground)', resize: 'vertical', boxSizing: 'border-box' }}
+                  style={{ width: '100%', padding: '10px 14px', fontSize: 14, background: 'var(--color-input-bg)', border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 400, color: 'var(--foreground)', resize: 'vertical', boxSizing: 'border-box' }}
                 />
               </div>
             </>
@@ -303,7 +303,7 @@ export default function UpdateForm({ engagementId, authorId, authorName, authorR
         {attachments.length > 0 && (
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 8 }}>
             {attachments.map(att => (
-              <div key={att.id} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '5px 10px', background: 'var(--color-surface-raised)', borderRadius: 8, fontSize: 12, color: 'var(--color-muted-ash)' }}>
+              <div key={att.id} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '5px 10px', background: 'var(--color-input-bg)', borderRadius: 8, fontSize: 12, color: 'var(--color-muted-ash)' }}>
                 {att.mimeType.startsWith('image/') ? (
                   <img src={att.dataUrl} alt={att.name} style={{ width: 24, height: 24, objectFit: 'cover', borderRadius: 4 }} />
                 ) : (
@@ -349,7 +349,7 @@ export default function UpdateForm({ engagementId, authorId, authorName, authorR
 
         {/* Bill preview + extracted data */}
         {billImage && (
-          <div style={{ marginTop: 10, padding: '10px 12px', background: 'var(--color-surface-raised)', borderRadius: 10, border: '1px solid var(--color-ghost-border)', display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+          <div style={{ marginTop: 10, padding: '10px 12px', background: 'var(--color-input-bg)', borderRadius: 10, border: '1px solid var(--color-ghost-border)', display: 'flex', gap: 12, alignItems: 'flex-start' }}>
             <div style={{ position: 'relative', flexShrink: 0 }}>
               <img src={billImage.dataUrl} alt="Sąskaita" style={{ width: 56, height: 56, objectFit: 'contain', borderRadius: 6, border: '1px solid var(--color-ghost-border)', background: '#fff' }} />
               <button

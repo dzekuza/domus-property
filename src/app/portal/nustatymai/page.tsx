@@ -22,7 +22,7 @@ export default function NustatymaiPage() {
     setTimeout(() => setSaved(false), 3000);
   }
 
-  const inputStyle: React.CSSProperties = { width: '100%', padding: '12px 16px', fontSize: 14, background: 'var(--color-surface-raised)', border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500, boxSizing: 'border-box', color: 'var(--foreground)' };
+  const inputStyle: React.CSSProperties = { width: '100%', padding: '12px 16px', fontSize: 14, background: 'var(--color-input-bg)', border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500, boxSizing: 'border-box', color: 'var(--foreground)' };
 
   return (
     <PageShell title="Nustatymai" bodyStyle={{ padding: '28px' }}>

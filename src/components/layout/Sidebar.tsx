@@ -79,14 +79,14 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
       }}
     >
       {/* Logo */}
-      <div style={{ padding: '16px 12px 14px', display: 'flex', alignItems: 'center', minHeight: 56, gap: 8 }}>
+      <div className="sidebar-logo-row" style={{ padding: '16px 12px 14px', display: 'flex', alignItems: 'center', minHeight: 56, gap: 8 }}>
         {!collapsed && (
           <>
             <img src="/darkmite.svg" alt="Miteda" style={{ height: 26, width: 'auto', flexShrink: 0 }} />
             <span style={{
               fontSize: 10, fontWeight: 600,
               background: 'var(--color-teal-tint)',
-              color: 'var(--color-teal)',
+              color: 'var(--color-sidebar-fg-active)',
               padding: '2px 8px',
               borderRadius: 100,
               letterSpacing: '0.04em',
@@ -100,6 +100,7 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
           </>
         )}
         <button
+          className="sidebar-collapse-btn"
           onClick={onToggleCollapse}
           aria-label={collapsed ? 'Išplėsti' : 'Suskleisti'}
           style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--color-sidebar-fg)', display: 'flex', padding: 4, flexShrink: 0, ...(collapsed ? { margin: '0 auto' } : {}) }}
@@ -175,7 +176,7 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
           <HelpCircle size={17} strokeWidth={1.75} style={{ opacity: 0.6, flexShrink: 0 }} />
           {!collapsed && 'Pagalba'}
         </Link>
-        <button onClick={handleSignOut} className="nav-item" title={collapsed ? 'Atsijungti' : undefined} style={{ color: '#f87171', ...(collapsed ? { justifyContent: 'center', padding: '10px 0' } : {}) }}>
+        <button onClick={handleSignOut} className="nav-item" title={collapsed ? 'Atsijungti' : undefined} style={{ color: '#b91c1c', ...(collapsed ? { justifyContent: 'center', padding: '10px 0' } : {}) }}>
           <LogOut size={17} strokeWidth={1.75} style={{ flexShrink: 0 }} />
           {!collapsed && 'Atsijungti'}
         </button>
