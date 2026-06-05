@@ -36,8 +36,7 @@ export default function AdminDefectsPage() {
 
 
   return (
-    <div>
-      <PageShell
+    <PageShell
         title="Defektai"
         subtitle={`${defects.length} pranešimų iš viso`}
         actions={<Btn variant="ghost" icon={<Download size={14} />}>Eksportuoti</Btn>}
@@ -67,14 +66,14 @@ export default function AdminDefectsPage() {
         </Select>
         <div style={{ display: 'flex', gap: 6, marginLeft: 'auto' }}>
           {STATUS_OPTIONS.slice(1).map(o => (
-            <span key={o.value} style={{ fontSize: 12, padding: '4px 10px', borderRadius: 'var(--radius-pill)', background: 'rgba(255,255,255,0.07)', color: 'rgba(255,255,255,0.7)', border: '1px solid rgba(255,255,255,0.12)' }}>
+            <span key={o.value} style={{ fontSize: 12, padding: '4px 10px', borderRadius: 'var(--radius-pill)', background: 'rgba(0,0,0,0.05)', color: 'var(--color-muted-ash)', border: '1px solid var(--color-ghost-border)' }}>
               {o.label}: {defects.filter(d => d.status === o.value).length}
             </span>
           ))}
         </div>
       </div>
 
-        <div style={{ height: 1, background: 'rgba(255,255,255,0.10)' }} />
+        <div style={{ height: 1, background: 'var(--color-ghost-border)' }} />
         {filtered.length === 0 ? (
           <EmptyState icon={Bug} title="Defektų nerasta" subtitle="Pakeiskite filtrus arba laukite naujų pranešimų." />
         ) : (
@@ -114,7 +113,6 @@ export default function AdminDefectsPage() {
             </tbody>
           </table></div>
         )}
-      </PageShell>
-    </div>
+  </PageShell>
   );
 }

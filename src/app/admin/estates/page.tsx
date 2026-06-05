@@ -38,7 +38,7 @@ export default function EstatesPage() {
   }
 
   return (
-    <div>
+    <>
       <PageShell
         title="Objektai"
         actions={
@@ -125,6 +125,6 @@ export default function EstatesPage() {
           </form>
         </DialogContent>
       </Dialog>
-    </div>
+    </>
   );
 }

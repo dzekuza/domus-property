@@ -71,7 +71,7 @@ function ComposeDialog({ open, onClose, onSubmit }: {
         <label style={{
           display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer',
           padding: '10px 12px', borderRadius: 12,
-          background: anonymous ? 'rgba(118,192,61,0.10)' : 'rgba(255,255,255,0.04)',
+          background: anonymous ? 'rgba(118,192,61,0.10)' : 'rgba(0,0,0,0.03)',
           border: `1px solid ${anonymous ? 'var(--color-accent)' : 'transparent'}`,
           transition: 'all 0.15s',
           userSelect: 'none',
@@ -83,8 +83,8 @@ function ComposeDialog({ open, onClose, onSubmit }: {
             style={{ width: 16, height: 16, accentColor: 'var(--color-accent)', cursor: 'pointer', flexShrink: 0 }}
           />
           <div>
-            <div style={{ fontSize: 13, fontWeight: 600, color: 'rgba(255,255,255,0.92)' }}>Rašyti anonimiškai</div>
-            <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)', marginTop: 1 }}>Jūsų vardas ir buto numeris nebus matomi</div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>Rašyti anonimiškai</div>
+            <div style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', marginTop: 1 }}>Jūsų vardas ir buto numeris nebus matomi</div>
           </div>
         </label>
 

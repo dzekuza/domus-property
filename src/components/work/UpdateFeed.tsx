@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Sparkles, Calendar, CalendarRange, Layers, X } from 'lucide-react';
 import Spinner from '@/components/shared/Spinner';
 import { useStore } from '@/lib/store';
-import Card from '@/components/shared/Card';
+
 import EmptyState from '@/components/shared/EmptyState';
 import UpdateCard from './UpdateCard';
 import Btn from '@/components/shared/Btn';
@@ -84,7 +84,7 @@ export default function UpdateFeed({
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       {/* AI Summary controls */}
       {!readOnly && (
-        <Card>
+        <div style={{ background: 'var(--color-surface-raised)', border: '1px solid var(--color-ghost-border)', borderRadius: 14, padding: 20 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: summaries.length > 0 ? 12 : 0, flexWrap: 'wrap' }}>
             <Sparkles size={15} style={{ color: 'var(--color-electric-violet)', flexShrink: 0 }} />
             <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-midnight-ink)', flex: 1 }}>AI Santrauka</span>
@@ -104,7 +104,7 @@ export default function UpdateFeed({
           </div>
           {showSummaries && Object.entries(latestSummaries).map(([period, summary]) =>
             summary ? (
-              <div key={period} style={{ padding: '12px 14px', background: 'var(--color-violet-tint)', borderRadius: 10, marginTop: 8 }}>
+              <div key={period} style={{ padding: '12px 14px', background: 'var(--color-purple-tint-md)', borderRadius: 10, marginTop: 8 }}>
                 <div style={{ display: 'flex', gap: 8, alignItems: 'baseline', marginBottom: 6 }}>
                   <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--color-electric-violet)', textTransform: 'uppercase' }}>
                     {period === 'daily' ? 'Dienos' : 'Savaitės'} santrauka
@@ -115,11 +115,11 @@ export default function UpdateFeed({
               </div>
             ) : null
           )}
-        </Card>
+        </div>
       )}
 
       {/* Updates list */}
-      <Card>
+      <div style={{ background: 'var(--color-surface-raised)', border: '1px solid var(--color-ghost-border)', borderRadius: 14, padding: 20 }}>
         {/* Grouping toolbar */}
         {allowGrouping && workerUpdates.length > 0 && (
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12, flexWrap: 'wrap' }}>
@@ -155,7 +155,7 @@ export default function UpdateFeed({
             ))}
           </div>
         )}
-      </Card>
+      </div>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import { useCallback, useMemo, useRef, useState } from 'react';
 import { Building2, Home, ImagePlus, Users, X } from 'lucide-react';
 import { useStore } from '@/lib/store';
 import type { CommunityMention } from '@/lib/types';
-import PageHeader from '@/components/layout/PageHeader';
+import PageShell from '@/components/layout/PageShell';
 import Btn from '@/components/shared/Btn';
 import EmptyState from '@/components/shared/EmptyState';
 import CommunityPostCard from '@/components/community/CommunityPostCard';
@@ -245,8 +245,8 @@ export default function AdminBendruomenePage() {
   }, [addCommunityPost]);
 
   return (
-    <div>
-      <PageHeader
+    <>
+      <PageShell
         title="Bendruomenė"
         subtitle="Visų namų bendruomenių įrašai"
         actions={
@@ -254,44 +254,45 @@ export default function AdminBendruomenePage() {
             Rašyti įrašą
           </Btn>
         }
-      />
-
-      {/* Estate filter */}
-      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 20 }}>
-        {[{ id: 'all', name: 'Visi namai' }, ...estates].map(e => (
-          <button
-            key={e.id}
-            onClick={() => setFilterEstateId(e.id)}
-            style={{
-              padding: '5px 14px', borderRadius: 'var(--radius-pill)', fontSize: 13, fontWeight: 500,
-              border: '1px solid',
-              borderColor: filterEstateId === e.id ? 'var(--color-electric-violet)' : 'rgba(255,255,255,0.12)',
-              color: filterEstateId === e.id ? 'var(--color-electric-violet)' : 'rgba(255,255,255,0.6)',
-              background: filterEstateId === e.id ? 'var(--color-violet-tint)' : 'transparent',
-              cursor: 'pointer', transition: 'all 0.15s',
-            }}
-          >
-            {e.name}
-          </button>
-        ))}
-      </div>
-
-      {posts.length === 0 ? (
-        <EmptyState icon={Users} title="Nėra įrašų" subtitle="Šiam namui dar nėra bendruomenės įrašų." />
-      ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-          {posts.map(post => (
-            <CommunityPostCard
-              key={post.id}
-              post={post}
-              currentUserId={userId}
-              canDelete={true}
-              onLike={toggleCommunityPostLike}
-              onDelete={deleteCommunityPost}
-            />
+        bodyStyle={{ padding: '20px 24px 28px' }}
+      >
+        {/* Estate filter */}
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 20 }}>
+          {[{ id: 'all', name: 'Visi namai' }, ...estates].map(e => (
+            <button
+              key={e.id}
+              onClick={() => setFilterEstateId(e.id)}
+              style={{
+                padding: '5px 14px', borderRadius: 'var(--radius-pill)', fontSize: 13, fontWeight: 500,
+                border: '1px solid',
+                borderColor: filterEstateId === e.id ? 'var(--color-electric-violet)' : 'var(--color-ghost-border)',
+                color: filterEstateId === e.id ? 'var(--color-electric-violet)' : 'var(--color-muted-ash)',
+                background: filterEstateId === e.id ? 'var(--color-violet-tint)' : 'transparent',
+                cursor: 'pointer', transition: 'all 0.15s',
+              }}
+            >
+              {e.name}
+            </button>
           ))}
         </div>
-      )}
+
+        {posts.length === 0 ? (
+          <EmptyState icon={Users} title="Nėra įrašų" subtitle="Šiam namui dar nėra bendruomenės įrašų." />
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            {posts.map(post => (
+              <CommunityPostCard
+                key={post.id}
+                post={post}
+                currentUserId={userId}
+                canDelete={true}
+                onLike={toggleCommunityPostLike}
+                onDelete={deleteCommunityPost}
+              />
+            ))}
+          </div>
+        )}
+      </PageShell>
 
       <AdminComposeDialog
         open={dialogOpen}
@@ -300,6 +301,6 @@ export default function AdminBendruomenePage() {
         estates={estates}
         units={units}
       />
-    </div>
+    </>
   );
 }

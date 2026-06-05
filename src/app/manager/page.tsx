@@ -66,7 +66,7 @@ export default function ManagerPage() {
         actions={
           <button
             onClick={() => { signOut(); router.push('/login'); }}
-            style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 10, padding: '7px 14px', color: 'rgba(255,255,255,0.7)', fontSize: 13, fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit' }}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'var(--color-surface-hover)', border: '1px solid var(--color-ghost-border)', borderRadius: 10, padding: '7px 14px', color: 'var(--color-muted-ash)', fontSize: 13, fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit' }}
           >
             <LogOut size={14} />
             Atsijungti

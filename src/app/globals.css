@@ -47,7 +47,7 @@
   --glass-shadow: 0 2px 16px rgba(0,0,0,0.10), 0 8px 32px rgba(0,0,0,0.10);
   --glass-shadow-hover: 0 4px 24px rgba(0,0,0,0.13), 0 16px 48px rgba(0,0,0,0.13);
   --glass-blur: blur(24px) saturate(200%);
-  --glass-sidebar-bg: rgba(22, 24, 30, 0.60);
+  --glass-sidebar-bg: rgba(255, 255, 255, 0.78);
   --glass-sidebar-blur: blur(32px) saturate(180%);
 
   /* Domus design tokens */
@@ -57,6 +57,9 @@
   --color-muted-ash: #4a4845;
   --color-muted-ash-2: #7a7774;
   --color-ghost-border: rgba(200, 205, 220, 0.5);
+  --color-surface-raised: rgba(0, 0, 0, 0.04);
+  --color-surface-hover: rgba(0, 0, 0, 0.06);
+  --color-surface-active: rgba(0, 0, 0, 0.12);
 
   /* Brand — lime green accent */
   --color-accent: #76c03d;
@@ -69,12 +72,12 @@
 
   /* Sidebar dark glass */
   --color-sidebar-bg: var(--glass-sidebar-bg);
-  --color-sidebar-fg: rgba(255,255,255,0.78);
-  --color-sidebar-fg-active: #8dd452;
-  --color-sidebar-active-bg: rgba(118,192,61,0.18);
-  --color-sidebar-border: rgba(255,255,255,0.10);
-  --color-sidebar-hover-bg: rgba(255,255,255,0.09);
-  --color-sidebar-user-bg: rgba(0,0,0,0.22);
+  --color-sidebar-fg: rgba(0,0,0,0.62);
+  --color-sidebar-fg-active: #4a8c1c;
+  --color-sidebar-active-bg: rgba(118,192,61,0.12);
+  --color-sidebar-border: rgba(0,0,0,0.08);
+  --color-sidebar-hover-bg: rgba(0,0,0,0.05);
+  --color-sidebar-user-bg: rgba(0,0,0,0.05);
 
   /* Brand green aliases */
   --color-teal: #76c03d;
@@ -92,6 +95,10 @@
   --color-electric-violet: var(--color-teal);
   --color-violet-tint: var(--color-teal-tint);
   --color-violet-tint-2: rgba(118,192,61,0.18);
+  --color-purple: #7c3aed;
+  --color-purple-tint: rgba(124,58,237,0.09);
+  --color-purple-tint-md: rgba(124,58,237,0.14);
+  --color-purple-tint-lg: rgba(124,58,237,0.18);
 
   --font-display: var(--font-display), 'Tomato Grotesk', ui-sans-serif, system-ui, sans-serif;
   --font-text: var(--font-text), 'Inter', ui-sans-serif, system-ui, sans-serif;
@@ -107,15 +114,15 @@
   --shadow-card-hover: var(--glass-shadow-hover);
 
   /* shadcn compat */
-  --card: rgba(24, 26, 32, 0.55);
-  --card-foreground: rgba(255, 255, 255, 0.92);
-  --popover: rgba(24, 26, 32, 0.92);
-  --popover-foreground: rgba(255, 255, 255, 0.92);
+  --card: rgba(255, 255, 255, 0.72);
+  --card-foreground: #1c1c1c;
+  --popover: rgba(255, 255, 255, 0.96);
+  --popover-foreground: #1c1c1c;
   --primary: #76c03d;
   --primary-foreground: #ffffff;
-  --secondary: rgba(255, 255, 255, 0.08);
-  --secondary-foreground: rgba(255, 255, 255, 0.92);
-  --muted: rgba(255, 255, 255, 0.06);
+  --secondary: rgba(0, 0, 0, 0.05);
+  --secondary-foreground: #1c1c1c;
+  --muted: rgba(0, 0, 0, 0.04);
   --muted-foreground: #7a7774;
   --accent: rgba(118,192,61,0.1);
   --accent-foreground: #174325;
@@ -145,7 +152,7 @@
     font-family: var(--font-text);
     /* Deep-blue fallback shown behind the animated MeshGradient shader
        (BackgroundShader) until/if WebGL paints. */
-    background: #0c1830;
+    background: #ffffff;
     color: var(--color-midnight-ink);
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
@@ -178,65 +185,58 @@
 */
 .glass {
   position: relative;
-  background: rgba(22, 24, 30, 0.55) !important;
-  backdrop-filter: blur(28px) saturate(180%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  /* drop shadow for depth + bright top edge for physical refraction */
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
-              inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
-  border-radius: 24px;
-  color: rgba(255, 255, 255, 0.92);
-  --color-midnight-ink: rgba(255, 255, 255, 0.95);
-  --color-muted-ash: rgba(255, 255, 255, 0.74);
-  --color-muted-ash-2: rgba(255, 255, 255, 0.56);
-  --color-ghost-border: rgba(255, 255, 255, 0.12);
-  --foreground: rgba(255, 255, 255, 0.95);
-  --muted-foreground: rgba(255, 255, 255, 0.60);
-}
-.glass:hover {
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.42),
-              inset 0 1px 0 rgba(255, 255, 255, 0.22) !important;
+  background: #ffffff !important;
+  backdrop-filter: blur(28px) saturate(160%) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-radius: 24px;
+  color: #1c1c1c;
+  --color-midnight-ink: #1c1c1c;
+  --color-muted-ash: #4a4845;
+  --color-muted-ash-2: #7a7774;
+  --color-ghost-border: rgba(0, 0, 0, 0.08);
+  --foreground: #1c1c1c;
+  --muted-foreground: #7a7774;
 }
 .glass-strong {
   position: relative;
-  background: rgba(18, 20, 26, 0.68) !important;
-  backdrop-filter: blur(28px) saturate(180%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.16) !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.40),
-              inset 0 1px 0 rgba(255, 255, 255, 0.22) !important;
+  background: #ffffff !important;
+  backdrop-filter: blur(32px) saturate(160%) !important;
+  border: 1px solid rgba(0, 0, 0, 0.09) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08),
+              0 16px 48px rgba(0, 0, 0, 0.12) !important;
   border-radius: 24px;
-  color: rgba(255, 255, 255, 0.95);
-  --color-midnight-ink: rgba(255, 255, 255, 0.97);
-  --color-muted-ash: rgba(255, 255, 255, 0.76);
-  --color-muted-ash-2: rgba(255, 255, 255, 0.58);
-  --color-ghost-border: rgba(255, 255, 255, 0.14);
-  --foreground: rgba(255, 255, 255, 0.97);
-  --muted-foreground: rgba(255, 255, 255, 0.62);
+  color: #1c1c1c;
+  --color-midnight-ink: #1c1c1c;
+  --color-muted-ash: #4a4845;
+  --color-muted-ash-2: #7a7774;
+  --color-ghost-border: rgba(0, 0, 0, 0.10);
+  --foreground: #1c1c1c;
+  --muted-foreground: #7a7774;
 }
 
-/* ── Table legibility on dark glass ── */
+/* ── Table legibility on light glass ── */
 .glass .domus-table th {
-  color: rgba(255, 255, 255, 0.50) !important;
-  border-bottom-color: rgba(255, 255, 255, 0.10) !important;
+  color: rgba(0, 0, 0, 0.45) !important;
+  border-bottom-color: rgba(0, 0, 0, 0.08) !important;
   background: transparent !important;
 }
 .glass .domus-table td {
-  color: rgba(255, 255, 255, 0.88) !important;
-  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+  color: rgba(0, 0, 0, 0.80) !important;
+  border-bottom-color: rgba(0, 0, 0, 0.06) !important;
 }
-.glass .domus-table tbody tr:hover td { background: rgba(255, 255, 255, 0.06) !important; }
+.glass .domus-table tbody tr:hover td { background: rgba(0, 0, 0, 0.03) !important; }
 
-/* ── Selects inside dark glass cards ── */
+/* ── Selects inside light glass cards ── */
 .glass [data-slot="select-trigger"] {
-  background: rgba(255, 255, 255, 0.07) !important;
-  border-color: rgba(255, 255, 255, 0.16) !important;
-  color: rgba(255, 255, 255, 0.90) !important;
+  background: rgba(0, 0, 0, 0.05) !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+  color: #1c1c1c !important;
 }
 .glass [data-slot="select-trigger"]:hover {
-  background: rgba(255, 255, 255, 0.13) !important;
+  background: rgba(0, 0, 0, 0.08) !important;
 }
 .glass [data-slot="select-trigger"] svg {
-  color: rgba(255, 255, 255, 0.55) !important;
+  color: rgba(0, 0, 0, 0.45) !important;
 }
 
 /* Hide the horizontal scrollbar on filter-pill rows */
@@ -251,92 +251,91 @@
   backdrop-filter: blur(16px) saturate(140%) !important;
 }
 
-/* Dialog content — DARK frosted glass panel. Token overrides flip inner
-   labels/text to light (same mechanism as .glass). */
+/* Dialog content — light frosted glass panel */
 [data-slot="dialog-content"] {
-  background: rgba(24, 26, 32, 0.80) !important;
-  backdrop-filter: blur(32px) saturate(180%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.14) !important;
-  color: rgba(255, 255, 255, 0.92);
-  --color-midnight-ink: rgba(255, 255, 255, 0.95);
-  --color-muted-ash: rgba(255, 255, 255, 0.74);
-  --color-muted-ash-2: rgba(255, 255, 255, 0.56);
-  --color-ghost-border: rgba(255, 255, 255, 0.14);
-  --foreground: rgba(255, 255, 255, 0.95);
-  --muted-foreground: rgba(255, 255, 255, 0.60);
+  background: #ffffff !important;
+  backdrop-filter: blur(32px) saturate(160%) !important;
+  border: 1px solid rgba(0, 0, 0, 0.09) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 24px 64px rgba(0,0,0,0.14) !important;
+  color: #1c1c1c;
+  --color-midnight-ink: #1c1c1c;
+  --color-muted-ash: #4a4845;
+  --color-muted-ash-2: #7a7774;
+  --color-ghost-border: rgba(0, 0, 0, 0.10);
+  --foreground: #1c1c1c;
+  --muted-foreground: #7a7774;
 }
 
 /* Dialog footer */
 [data-slot="dialog-footer"] {
-  background: rgba(255, 255, 255, 0.04) !important;
+  background: rgba(0, 0, 0, 0.03) !important;
   backdrop-filter: blur(8px) !important;
-  border-top: 1px solid rgba(255,255,255,0.10) !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.07) !important;
 }
 
-/* Inputs — DARK frosted glass */
+/* Inputs — light frosted glass */
 [data-slot="input"] {
-  background: rgba(255, 255, 255, 0.07) !important;
+  background: rgba(0, 0, 0, 0.04) !important;
   backdrop-filter: blur(8px) !important;
-  border-color: rgba(255, 255, 255, 0.16) !important;
-  color: rgba(255, 255, 255, 0.92) !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+  color: #1c1c1c !important;
   transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease !important;
 }
-[data-slot="input"]::placeholder { color: rgba(255, 255, 255, 0.40) !important; }
+[data-slot="input"]::placeholder { color: rgba(0, 0, 0, 0.35) !important; }
 [data-slot="input"]:focus-visible {
-  background: rgba(255, 255, 255, 0.12) !important;
+  background: rgba(0, 0, 0, 0.06) !important;
   border-color: var(--color-accent) !important;
   box-shadow: 0 0 0 3px rgba(118,192,61,0.18) !important;
 }
 
 /* Textarea — same as input */
 [data-slot="textarea"] {
-  background: rgba(255, 255, 255, 0.07) !important;
+  background: rgba(0, 0, 0, 0.04) !important;
   backdrop-filter: blur(8px) !important;
-  border-color: rgba(255, 255, 255, 0.16) !important;
-  color: rgba(255, 255, 255, 0.92) !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+  color: #1c1c1c !important;
   transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease !important;
 }
-[data-slot="textarea"]::placeholder { color: rgba(255, 255, 255, 0.40) !important; }
+[data-slot="textarea"]::placeholder { color: rgba(0, 0, 0, 0.35) !important; }
 [data-slot="textarea"]:focus-visible {
-  background: rgba(255, 255, 255, 0.12) !important;
+  background: rgba(0, 0, 0, 0.06) !important;
   border-color: var(--color-accent) !important;
   box-shadow: 0 0 0 3px rgba(118,192,61,0.18) !important;
 }
 
-/* Select trigger — DARK */
+/* Select trigger — light */
 [data-slot="select-trigger"] {
-  background: rgba(255, 255, 255, 0.07) !important;
+  background: rgba(0, 0, 0, 0.04) !important;
   backdrop-filter: blur(8px) !important;
-  border-color: rgba(255, 255, 255, 0.16) !important;
-  color: rgba(255, 255, 255, 0.90) !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+  color: #1c1c1c !important;
   transition: background 0.15s ease, border-color 0.15s ease !important;
 }
 [data-slot="select-trigger"]:hover {
-  background: rgba(255, 255, 255, 0.13) !important;
+  background: rgba(0, 0, 0, 0.07) !important;
 }
 [data-slot="select-trigger"]:focus-visible {
-  background: rgba(255, 255, 255, 0.14) !important;
+  background: rgba(0, 0, 0, 0.06) !important;
   border-color: var(--color-accent) !important;
   box-shadow: 0 0 0 3px rgba(118,192,61,0.18) !important;
 }
 
-/* Select dropdown popup — DARK */
+/* Select dropdown popup — light */
 [data-slot="select-content"] {
-  background: rgba(24, 26, 32, 0.92) !important;
-  backdrop-filter: blur(24px) saturate(180%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.10) !important;
-  color: rgba(255, 255, 255, 0.92) !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(24px) saturate(160%) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12) !important;
+  color: #1c1c1c !important;
 }
 
-/* Dropdown menu glass — DARK */
+/* Dropdown menu glass — light */
 [data-slot="dropdown-menu-content"] {
-  background: rgba(24, 26, 32, 0.92) !important;
-  backdrop-filter: blur(24px) saturate(180%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.10) !important;
-  color: rgba(255, 255, 255, 0.92) !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(24px) saturate(160%) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12) !important;
+  color: #1c1c1c !important;
 }
 
 /* ── Sidebar nav item ─────────────────────────────────────────── */
@@ -360,7 +359,7 @@
 }
 .nav-item:hover {
   background: var(--color-sidebar-hover-bg);
-  color: rgba(255,255,255,0.95);
+  color: rgba(0,0,0,0.85);
 }
 .nav-item.active {
   background: var(--color-sidebar-active-bg);
@@ -433,7 +432,7 @@
 .app-main {
   flex: 1;
   min-width: 0;
-  padding: 20px 28px 20px 20px;
+  padding: 10px 10px;
   max-width: 1400px;
 }
 
@@ -452,10 +451,10 @@
   width: 30px;
   height: 30px;
   border-radius: 8px;
-  background: rgba(255,255,255,0.1);
+  background: rgba(0,0,0,0.06);
   border: none;
   cursor: pointer;
-  color: rgba(255,255,255,0.7);
+  color: rgba(0,0,0,0.55);
   flex-shrink: 0;
   margin-left: auto;
 }
@@ -499,10 +498,10 @@
     width: 36px;
     height: 36px;
     border-radius: 9px;
-    border: 1px solid rgba(255,255,255,0.15);
-    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(0,0,0,0.10);
+    background: rgba(0,0,0,0.05);
     cursor: pointer;
-    color: rgba(255,255,255,0.85);
+    color: rgba(0,0,0,0.65);
     flex-shrink: 0;
   }
 
@@ -511,7 +510,7 @@
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-  .app-main { padding: 20px 24px; }
+  .app-main { padding: 10px 10px; }
   .app-main:has(> .worker-root) { padding: 0; }
 }
 
@@ -554,35 +553,35 @@
   -webkit-overflow-scrolling: touch;
 }
 
-/* ── PageHeader dark context — inputs & buttons on teal bg ──── */
+/* ── PageHeader light context — inputs & buttons ──── */
 .page-header input {
-  color: rgba(255,255,255,0.9) !important;
-  border-color: rgba(255,255,255,0.22) !important;
-  background: rgba(255,255,255,0.08) !important;
+  color: #1c1c1c !important;
+  border-color: rgba(0,0,0,0.15) !important;
+  background: rgba(0,0,0,0.05) !important;
 }
 .page-header input::placeholder {
-  color: rgba(255,255,255,0.38) !important;
+  color: rgba(0,0,0,0.35) !important;
 }
 .page-header input:focus {
   border-color: var(--color-teal) !important;
-  box-shadow: 0 0 0 3px rgba(103,205,205,0.2) !important;
+  box-shadow: 0 0 0 3px rgba(118,192,61,0.18) !important;
   outline: none !important;
 }
-/* Ghost / secondary buttons on dark header */
+/* Ghost / secondary buttons on light header */
 .page-header [data-variant="ghost"],
 .page-header [data-variant="secondary"] {
-  color: rgba(255,255,255,0.88) !important;
-  border-color: rgba(255,255,255,0.25) !important;
+  color: rgba(0,0,0,0.70) !important;
+  border-color: rgba(0,0,0,0.15) !important;
   background: transparent !important;
 }
 .page-header [data-variant="ghost"]:hover,
 .page-header [data-variant="secondary"]:hover {
-  background: rgba(255,255,255,0.1) !important;
-  border-color: rgba(255,255,255,0.4) !important;
+  background: rgba(0,0,0,0.06) !important;
+  border-color: rgba(0,0,0,0.25) !important;
 }
-/* All SVG icons inside header default to white-ish */
+/* All SVG icons inside header */
 .page-header svg {
-  color: rgba(255,255,255,0.5) !important;
+  color: rgba(0,0,0,0.45) !important;
 }
 /* Primary button icons stay fully white */
 .page-header [data-variant="primary"] svg {
@@ -714,4 +713,21 @@
   .role-tabs {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+/* ── Calendar event dot indicator ────────────────────────────── */
+.rdp-day.has-event button::after {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-electric-violet);
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.rdp-day.has-event button {
+  position: relative;
 }

@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { useStore } from '@/lib/store';
 import Avatar from '@/components/shared/Avatar';
 import Btn from '@/components/shared/Btn';
-import Card from '@/components/shared/Card';
+
 import type { WorkerSpecialty } from '@/lib/types';
 
 function generatePassword() {
@@ -49,17 +49,17 @@ export default function WorkerList({ engagementId }: Props) {
 
   const inputStyle: React.CSSProperties = {
     flex: 1, padding: '9px 12px', fontSize: 13,
-    border: '1px solid rgba(255,255,255,0.12)', borderRadius: 'var(--radius-input)',
-    outline: 'none', fontFamily: 'inherit', fontWeight: 400, color: 'rgba(255,255,255,0.9)',
-    background: 'rgba(255,255,255,0.07)', boxSizing: 'border-box',
+    border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)',
+    outline: 'none', fontFamily: 'inherit', fontWeight: 400, color: 'var(--foreground)',
+    background: 'var(--color-surface-raised)', boxSizing: 'border-box',
   };
 
   return (
-    <Card>
+    <div style={{ background: 'var(--color-surface-raised)', border: '1px solid var(--color-ghost-border)', borderRadius: 14, padding: 20 }}>
       <p style={{ fontSize: 15, fontWeight: 700, color: 'var(--color-midnight-ink)', marginBottom: 14 }}>Darbininkai ({workers.length})</p>
 
       <div style={{ overflow: 'hidden', maxHeight: adding ? 400 : 0, transition: 'max-height 0.35s cubic-bezier(0.22, 1, 0.36, 1), margin-bottom 0.35s cubic-bezier(0.22, 1, 0.36, 1)', marginBottom: adding ? 14 : 0 }}>
-        <div className="t-panel-slide" data-open={adding ? 'true' : 'false'} style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '12px 14px', background: 'rgba(255,255,255,0.06)', borderRadius: 12 }}>
+        <div className="t-panel-slide" data-open={adding ? 'true' : 'false'} style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '12px 14px', background: 'var(--color-surface-raised)', borderRadius: 12 }}>
           {/* Row 1 — name + email */}
           <div style={{ display: 'flex', gap: 8 }}>
             <input value={name} onChange={e => setName(e.target.value)} placeholder="Vardas Pavardė" style={inputStyle} />
@@ -128,15 +128,15 @@ export default function WorkerList({ engagementId }: Props) {
             <div key={worker.id} style={{
               display: 'flex', alignItems: 'center', gap: 10,
               padding: '10px 12px',
-              background: 'rgba(255,255,255,0.06)',
+              background: 'var(--color-surface-raised)',
               borderRadius: 12,
             }}>
-              <Avatar name={worker.name} bg="#fdf3df" size={32} />
+              <Avatar name={worker.name} bg="rgba(245,158,11,0.15)" size={32} />
               <div style={{ flex: 1, minWidth: 0 }}>
                 <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>{worker.name}</p>
                 <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }}>{worker.email}</p>
               </div>
-              <span style={{ fontSize: 11, fontWeight: 600, padding: '3px 10px', borderRadius: 100, background: '#fdf3df', color: '#854d0e', flexShrink: 0 }}>
+              <span style={{ fontSize: 11, fontWeight: 600, padding: '3px 10px', borderRadius: 100, background: 'rgba(245,158,11,0.15)', color: 'rgba(245,158,11,0.90)', flexShrink: 0 }}>
                 {worker.specialty}
               </span>
               <button
@@ -154,6 +154,6 @@ export default function WorkerList({ engagementId }: Props) {
       <Btn variant="ghost" size="sm" icon={<UserPlus size={13} />} onClick={() => setAdding(s => !s)} style={{ marginTop: 12, width: '100%', justifyContent: 'center' }}>
         Pridėti darbininką
       </Btn>
-    </Card>
+    </div>
   );
 }

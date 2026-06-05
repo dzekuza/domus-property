@@ -7,7 +7,7 @@ import type {
   Role, DefectStatus, ServiceKind, PurchaseStepId, DocumentFile, DefectRoom,
   ScheduleEvent, ScheduleEventType, ChatMessage,
   WorkEngagement, WorkerProfile, WorkerSpecialty, WorkUpdate, WorkAttachment, AISummary,
-  Expense, BulletinPost, BulletinCategory, CommunityPost, CommunityMention,
+  Expense, BulletinPost, BulletinCategory, CommunityPost, CommunityMention, ProgressUpdate,
 } from './types';
 import { SEED_USERS, SEED_ESTATES, SEED_UNITS, SEED_DEFECTS, SEED_CONTACTS, SEED_PHOTO_SECTIONS, SEED_SCHEDULE_EVENTS, SEED_CHAT_MESSAGES, SEED_WORK_ENGAGEMENTS, SEED_WORKER_PROFILES, SEED_WORK_UPDATES, SEED_BULLETIN_POSTS, SEED_COMMUNITY_POSTS } from './seed';
 import { toDataURL, generateId } from './files';
@@ -103,6 +103,10 @@ interface DomusStore {
   addCommunityPost: (estateId: string, body: string, imageFiles: File[], mentions: CommunityMention[], anonymous?: boolean) => Promise<void>;
   deleteCommunityPost: (id: string) => void;
   toggleCommunityPostLike: (id: string) => void;
+  // progress updates
+  progressUpdates: ProgressUpdate[];
+  addProgressUpdate: (input: { estateId?: string; title: string; body: string; notifiedUserIds: string[]; imageFiles?: File[] }) => Promise<void>;
+  deleteProgressUpdate: (id: string) => void;
 }
 
 let defectSeq = 204;
@@ -121,6 +125,7 @@ export const useStore = create<DomusStore>()(
       chatMessages: SEED_CHAT_MESSAGES,
       bulletinPosts: SEED_BULLETIN_POSTS,
       communityPosts: SEED_COMMUNITY_POSTS,
+      progressUpdates: [],
       workEngagements: SEED_WORK_ENGAGEMENTS,
       workerProfiles: SEED_WORKER_PROFILES,
       workUpdates: SEED_WORK_UPDATES,
@@ -526,6 +531,26 @@ export const useStore = create<DomusStore>()(
           ),
         }));
       },
+      async addProgressUpdate({ estateId, title, body, notifiedUserIds, imageFiles = [] }) {
+        const { session, users } = get();
+        const author = users.find(u => u.id === session.userId);
+        const imageUrls: string[] = await Promise.all(imageFiles.map(f => toDataURL(f)));
+        const update: ProgressUpdate = {
+          id: generateId(),
+          authorId: session.userId ?? '',
+          authorName: author?.fullName ?? 'Administratorius',
+          estateId,
+          title,
+          body,
+          notifiedUserIds,
+          imageUrls: imageUrls.length ? imageUrls : undefined,
+          createdAt: new Date().toISOString(),
+        };
+        set(s => ({ progressUpdates: [update, ...s.progressUpdates] }));
+      },
+      deleteProgressUpdate(id) {
+        set(s => ({ progressUpdates: s.progressUpdates.filter(p => p.id !== id) }));
+      },
     }),
     {
       name: 'domus.store.v1',
@@ -542,6 +567,7 @@ export const useStore = create<DomusStore>()(
         chatMessages: s.chatMessages,
         bulletinPosts: s.bulletinPosts,
         communityPosts: s.communityPosts,
+        progressUpdates: s.progressUpdates,
         workEngagements: s.workEngagements,
         workerProfiles: s.workerProfiles,
         workUpdates: s.workUpdates.map(({ audioDataUrl: _a, attachments, ...rest }) => ({

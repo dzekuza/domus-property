@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { Building2, Heart, Home, Trash2 } from 'lucide-react';
 import type { CommunityPost } from '@/lib/types';
 import { formatRelative } from '@/lib/fmt';
-import Card from '@/components/shared/Card';
 import Avatar from '@/components/shared/Avatar';
 
 interface Props {
@@ -31,47 +30,54 @@ export default function CommunityPostCard({
   const [lightbox, setLightbox] = useState<string | null>(null);
 
   return (
-    <Card>
+    <div style={{
+      background: 'var(--color-surface-raised)',
+      border: '1px solid var(--color-ghost-border)',
+      borderRadius: 14,
+      padding: 16,
+    }}>
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
         {post.isAnonymous
           ? <div style={{
               width: 38, height: 38, borderRadius: '50%', flexShrink: 0,
-              background: 'rgba(120,120,128,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 16, color: 'var(--color-ash)',
+              background: 'var(--color-surface-hover)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: 16, color: 'var(--color-muted-ash-2)',
             }}>?</div>
           : <Avatar name={post.authorName} size={38} />
         }
         <div style={{ flex: 1 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-            <span style={{ fontWeight: 600, fontSize: 14, color: post.isAnonymous ? 'var(--color-ash)' : 'var(--color-midnight-ink)', fontStyle: post.isAnonymous ? 'italic' : 'normal' }}>
+            <span style={{ fontWeight: 600, fontSize: 14, color: post.isAnonymous ? 'var(--color-muted-ash-2)' : 'var(--color-midnight-ink)', fontStyle: post.isAnonymous ? 'italic' : 'normal' }}>
               {post.authorName}
             </span>
             {!post.isAnonymous && (
-            <span style={{
-              fontSize: 11, fontWeight: 600, color: 'var(--color-electric-violet)',
-              background: 'var(--color-violet-tint)', borderRadius: 'var(--radius-pill)', padding: '2px 8px',
-            }}>
-              {post.unitNumber}
-            </span>
+              <span style={{
+                fontSize: 11, fontWeight: 600, color: 'var(--color-electric-violet)',
+                background: 'var(--color-violet-tint-2)', borderRadius: 'var(--radius-pill)', padding: '2px 8px',
+              }}>
+                {post.unitNumber}
+              </span>
             )}
             {isMentioned && (
               <span style={{
-                fontSize: 11, fontWeight: 600, color: '#fff',
+                fontSize: 11, fontWeight: 600, color: 'var(--foreground)',
                 background: 'var(--color-cta)', borderRadius: 'var(--radius-pill)', padding: '2px 8px',
               }}>
                 Jūs paminėtas
               </span>
             )}
           </div>
-          <div style={{ fontSize: 12, color: 'var(--color-ash)', marginTop: 1 }}>
+          <div style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', marginTop: 1 }}>
             {formatRelative(post.createdAt)}
           </div>
         </div>
         {showDelete && (
           <button
             onClick={() => onDelete(post.id)}
-            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4, color: 'var(--color-ash)', borderRadius: 8, display: 'flex' }}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4, color: 'var(--color-muted-ash-2)', borderRadius: 8, display: 'flex' }}
+            onMouseEnter={e => ((e.currentTarget as HTMLButtonElement).style.color = 'var(--color-danger)')}
+            onMouseLeave={e => ((e.currentTarget as HTMLButtonElement).style.color = 'var(--color-muted-ash-2)')}
             title="Ištrinti"
           >
             <Trash2 size={16} />
@@ -113,7 +119,7 @@ export default function CommunityPostCard({
             <span key={m.id} style={{
               display: 'inline-flex', alignItems: 'center', gap: 4,
               fontSize: 11, fontWeight: 500, color: 'var(--color-electric-violet)',
-              background: 'var(--color-violet-tint)', borderRadius: 'var(--radius-pill)', padding: '2px 8px',
+              background: 'var(--color-violet-tint-2)', borderRadius: 'var(--radius-pill)', padding: '2px 8px',
             }}>
               {m.type === 'estate' ? <Building2 size={10} /> : <Home size={10} />}
               @{m.label}
@@ -130,8 +136,8 @@ export default function CommunityPostCard({
             display: 'flex', alignItems: 'center', gap: 5, border: 'none',
             cursor: 'pointer', padding: '4px 10px', borderRadius: 'var(--radius-pill)',
             fontSize: 13, fontWeight: 500,
-            color: liked ? '#e53e3e' : 'var(--color-ash)',
-            background: liked ? 'rgba(229, 62, 62, 0.08)' : 'transparent',
+            color: liked ? '#e53e3e' : 'var(--color-muted-ash-2)',
+            background: liked ? 'rgba(229,62,62,0.12)' : 'transparent',
             transition: 'all 0.15s',
           }}
         >
@@ -152,6 +158,6 @@ export default function CommunityPostCard({
           <img src={lightbox} alt="" style={{ maxWidth: '90vw', maxHeight: '90vh', borderRadius: 12, objectFit: 'contain' }} />
         </div>
       )}
-    </Card>
+    </div>
   );
 }

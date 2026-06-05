@@ -14,7 +14,7 @@ import type { BulletinCategory } from '@/lib/types';
 
 const CATEGORIES: { value: BulletinCategory; label: string; color: string; bg: string; icon: LucideIcon }[] = [
   { value: 'Parduodu',    label: 'Parduodu',    color: '#076836', bg: 'rgba(7,104,54,0.09)',   icon: Tag      },
-  { value: 'Ieškau',     label: 'Ieškau',      color: '#7c3aed', bg: 'rgba(124,58,237,0.09)', icon: Search   },
+  { value: 'Ieškau',     label: 'Ieškau',      color: 'var(--color-purple)', bg: 'var(--color-purple-tint)', icon: Search   },
   { value: 'Informacija', label: 'Informacija', color: '#0369a1', bg: 'rgba(3,105,161,0.09)',  icon: Info     },
   { value: 'Prarasta',   label: 'Prarasta',    color: '#b45309', bg: 'rgba(180,83,9,0.09)',    icon: KeyRound },
 ];
@@ -93,8 +93,8 @@ export default function SkelbimaiPage() {
                   display: 'inline-flex', alignItems: 'center', gap: 5,
                   padding: '6px 14px', borderRadius: 'var(--radius-pill)', fontSize: 13, fontWeight: active ? 600 : 500,
                   cursor: 'pointer', border: 'none', fontFamily: 'inherit', transition: 'all 0.15s',
-                  background: active ? (cfg?.color ?? 'rgba(255,255,255,0.18)') : 'rgba(255,255,255,0.07)',
-                  color: active ? '#fff' : 'rgba(255,255,255,0.65)',
+                  background: active ? (cfg?.color ?? 'var(--color-surface-active)') : 'rgba(0,0,0,0.05)',
+                  color: active ? '#fff' : 'var(--color-muted-ash)',
                 }}
               >
                 {CatIcon && <CatIcon size={12} />}
@@ -112,8 +112,8 @@ export default function SkelbimaiPage() {
         {/* Posts grid */}
         {visible.length === 0 ? (
           <div style={{ padding: '48px 24px', textAlign: 'center' }}>
-            <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.50)', marginBottom: 6 }}>Skelbimų nėra</p>
-            <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.35)' }}>Būkite pirmi — parašykite skelbimą!</p>
+            <p style={{ fontSize: 15, color: 'var(--color-muted-ash)', marginBottom: 6 }}>Skelbimų nėra</p>
+            <p style={{ fontSize: 13, color: 'var(--color-muted-ash-2)' }}>Būkite pirmi — parašykite skelbimą!</p>
           </div>
         ) : (
           <div className="bulletin-grid">
@@ -124,8 +124,8 @@ export default function SkelbimaiPage() {
                 <div
                   key={post.id}
                   style={{
-                    background: 'rgba(255,255,255,0.05)',
-                    border: '1px solid rgba(255,255,255,0.09)',
+                    background: 'var(--color-surface-raised)',
+                    border: '1px solid var(--color-ghost-border)',
                     borderRadius: 14,
                     display: 'flex', flexDirection: 'column', overflow: 'hidden', height: '100%',
                   }}
@@ -140,41 +140,41 @@ export default function SkelbimaiPage() {
                         <button
                           onClick={() => deleteBulletinPost(post.id)}
                           title="Ištrinti skelbimą"
-                          style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.40)', padding: 4, borderRadius: 6, display: 'flex', alignItems: 'center' }}
+                          style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--color-muted-ash-2)', padding: 4, borderRadius: 6, display: 'flex', alignItems: 'center' }}
                           onMouseEnter={e => ((e.currentTarget as HTMLButtonElement).style.color = 'var(--color-danger)')}
-                          onMouseLeave={e => ((e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,255,255,0.40)')}
+                          onMouseLeave={e => ((e.currentTarget as HTMLButtonElement).style.color = 'var(--color-muted-ash-2)')}
                         >
                           <Trash2 size={14} />
                         </button>
                       )}
                     </div>
-                    <p style={{ fontSize: 15, fontWeight: 700, color: 'rgba(255,255,255,0.92)', lineHeight: 1.3, fontFamily: 'var(--font-display)' }}>
+                    <p style={{ fontSize: 15, fontWeight: 700, color: 'var(--color-midnight-ink)', lineHeight: 1.3, fontFamily: 'var(--font-display)' }}>
                       {post.title}
                     </p>
-                    <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.60)', lineHeight: 1.6, flex: 1 }}>
+                    <p style={{ fontSize: 13, color: 'var(--color-muted-ash)', lineHeight: 1.6, flex: 1 }}>
                       {post.body}
                     </p>
                     {post.contact && (
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '7px 10px', background: 'rgba(255,255,255,0.06)', borderRadius: 8 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '7px 10px', background: 'var(--color-surface-raised)', borderRadius: 8 }}>
                         {post.contact.includes('@')
-                          ? <Mail size={13} style={{ color: 'rgba(255,255,255,0.55)', flexShrink: 0 }} />
-                          : <Phone size={13} style={{ color: 'rgba(255,255,255,0.55)', flexShrink: 0 }} />
+                          ? <Mail size={13} style={{ color: 'var(--color-muted-ash-2)', flexShrink: 0 }} />
+                          : <Phone size={13} style={{ color: 'var(--color-muted-ash-2)', flexShrink: 0 }} />
                         }
-                        <span style={{ fontSize: 13, fontWeight: 500, color: 'rgba(255,255,255,0.88)' }}>{post.contact}</span>
+                        <span style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-midnight-ink)' }}>{post.contact}</span>
                       </div>
                     )}
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px', borderTop: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px', borderTop: '1px solid var(--color-ghost-border)', background: 'rgba(0,0,0,0.02)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                      <div style={{ width: 22, height: 22, borderRadius: '50%', background: 'rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.55)', flexShrink: 0, border: '1px solid rgba(255,255,255,0.10)' }}>
+                      <div style={{ width: 22, height: 22, borderRadius: '50%', background: 'var(--color-surface-hover)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 700, color: 'var(--color-muted-ash)', flexShrink: 0, border: '1px solid var(--color-ghost-border)' }}>
                         {post.authorName[0]}
                       </div>
-                      <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.50)', fontWeight: 500 }}>
+                      <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', fontWeight: 500 }}>
                         {post.authorName}
                         <span style={{ opacity: 0.6 }}> · Butas {post.unitNumber}</span>
                       </span>
                     </div>
-                    <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', flexShrink: 0, marginLeft: 8 }}>
+                    <span style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', flexShrink: 0, marginLeft: 8 }}>
                       {relativeTime(post.createdAt)}
                     </span>
                   </div>
@@ -217,7 +217,7 @@ export default function SkelbimaiPage() {
               {errors.body && <p style={{ fontSize: 12, color: 'var(--color-danger)', marginTop: -2 }}>{errors.body}</p>}
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <label style={{ fontSize: 13, fontWeight: 500 }}>Kontaktai <span style={{ fontSize: 12, fontWeight: 400, color: 'rgba(255,255,255,0.45)' }}>(neprivaloma)</span></label>
+              <label style={{ fontSize: 13, fontWeight: 500 }}>Kontaktai <span style={{ fontSize: 12, fontWeight: 400, color: 'var(--color-muted-ash-2)' }}>(neprivaloma)</span></label>
               <Input placeholder="Telefonas arba el. paštas" value={form.contact} onChange={e => setForm(f => ({ ...f, contact: e.target.value }))} />
             </div>
             <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', paddingTop: 4 }}>

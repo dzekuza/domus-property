@@ -16,8 +16,8 @@ const serviceIcons: Record<ServiceKind, React.FC<{ size?: number; strokeWidth?: 
 };
 
 const innerCard: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.05)',
-  border: '1px solid rgba(255,255,255,0.09)',
+  background: 'var(--color-surface-raised)',
+  border: '1px solid var(--color-ghost-border)',
   borderRadius: 14,
   padding: '20px',
 };
@@ -46,19 +46,19 @@ export default function SutartysPage() {
           return (
             <div key={svc.id} style={innerCard}>
               <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 12 }}>
-                <div style={{ width: 44, height: 44, borderRadius: 10, background: 'rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ width: 44, height: 44, borderRadius: 10, background: 'var(--color-surface-hover)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Icon size={22} strokeWidth={1.5} style={{ color: 'var(--color-electric-violet)' }} />
                 </div>
                 <StatusPill type="service" value={svc.status} />
               </div>
-              <p style={{ fontSize: 15, fontWeight: 600, color: 'rgba(255,255,255,0.92)' }}>{meta.name}</p>
-              <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.50)', marginTop: 2 }}>{meta.provider}</p>
-              <div style={{ height: 1, background: 'rgba(255,255,255,0.09)', margin: '12px 0' }} />
+              <p style={{ fontSize: 15, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>{meta.name}</p>
+              <p style={{ fontSize: 13, color: 'var(--color-muted-ash-2)', marginTop: 2 }}>{meta.provider}</p>
+              <div style={{ height: 1, background: 'var(--color-ghost-border)', margin: '12px 0' }} />
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 {svc.date ? (
-                  <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.50)' }}>Aktyvuota: {svc.date}</span>
+                  <span style={{ fontSize: 13, color: 'var(--color-muted-ash-2)' }}>Aktyvuota: {svc.date}</span>
                 ) : (
-                  <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.50)' }}>Dar neaktyvuota</span>
+                  <span style={{ fontSize: 13, color: 'var(--color-muted-ash-2)' }}>Dar neaktyvuota</span>
                 )}
                 {svc.status === 'done'
                   ? <Btn variant="ghost" size="sm">Sutartis</Btn>

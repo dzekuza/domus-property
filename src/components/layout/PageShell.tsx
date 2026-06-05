@@ -11,7 +11,7 @@ interface Props {
   actions?: React.ReactNode;
   statusBadge?: { label: string; active: boolean };
   meta?: MetaItem[];
-  children: React.ReactNode;
+  children?: React.ReactNode;
   /** Extra styles for the body region (e.g. padding for non-table content). */
   bodyStyle?: React.CSSProperties;
 }
@@ -33,10 +33,10 @@ export default function PageShell({
           <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 10 }}>
             {breadcrumbs.map((bc, i) => (
               <span key={i} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                {i > 0 && <ChevronRight size={12} style={{ color: 'rgba(255,255,255,0.25)' }} />}
+                {i > 0 && <ChevronRight size={12} style={{ color: 'var(--color-muted-ash-2)' }} />}
                 {bc.href
-                  ? <Link href={bc.href} style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)', textDecoration: 'none' }}>{bc.label}</Link>
-                  : <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)' }}>{bc.label}</span>
+                  ? <Link href={bc.href} style={{ fontSize: 12, color: 'var(--color-muted-ash)', textDecoration: 'none' }}>{bc.label}</Link>
+                  : <span style={{ fontSize: 12, color: 'var(--color-muted-ash)' }}>{bc.label}</span>
                 }
               </span>
             ))}
@@ -51,13 +51,13 @@ export default function PageShell({
               fontWeight: 600,
               letterSpacing: '-0.03em',
               lineHeight: 1.15,
-              color: '#ffffff',
+              color: 'var(--foreground)',
               margin: 0,
             }}>
               {title}
             </h1>
             {subtitle && (
-              <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', marginTop: 5, fontWeight: 400 }}>
+              <p style={{ fontSize: 13, color: 'var(--muted-foreground)', marginTop: 5, fontWeight: 400 }}>
                 {subtitle}
               </p>
             )}
@@ -66,8 +66,8 @@ export default function PageShell({
                 {statusBadge && (
                   <span style={{
                     fontSize: 11, fontWeight: 700, padding: '3px 12px', borderRadius: 100,
-                    background: statusBadge.active ? 'rgba(118,192,61,0.2)' : 'rgba(255,255,255,0.1)',
-                    color: statusBadge.active ? '#8dd452' : 'rgba(255,255,255,0.45)',
+                    background: statusBadge.active ? 'rgba(118,192,61,0.2)' : 'rgba(0,0,0,0.08)',
+                    color: statusBadge.active ? '#8dd452' : 'var(--color-muted-ash)',
                     letterSpacing: '0.03em',
                   }}>
                     {statusBadge.label}
@@ -75,8 +75,8 @@ export default function PageShell({
                 )}
                 {meta?.map(({ label, value }) => (
                   <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                    <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{label}</span>
-                    <span style={{ fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,0.7)' }}>{value}</span>
+                    <span style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{label}</span>
+                    <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--color-muted-ash)' }}>{value}</span>
                   </div>
                 ))}
               </div>
@@ -87,7 +87,7 @@ export default function PageShell({
       </div>
 
       {/* Divider */}
-      <div style={{ height: 1, background: 'rgba(255,255,255,0.10)' }} />
+      <div style={{ height: 1, background: 'var(--color-ghost-border)' }} />
 
       {/* Body region */}
       <div style={bodyStyle}>{children}</div>

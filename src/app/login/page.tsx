@@ -43,15 +43,15 @@ export default function LoginPage() {
     width: '100%',
     padding: '12px 16px',
     fontSize: 14,
-    border: '1px solid rgba(255,255,255,0.16)',
+    border: '1px solid var(--color-ghost-border)',
     borderRadius: 10,
     outline: 'none',
     fontFamily: 'inherit',
     fontWeight: 400,
     boxSizing: 'border-box',
-    background: 'rgba(255,255,255,0.07)',
+    background: 'var(--color-surface-raised)',
     transition: 'border-color 0.15s, box-shadow 0.15s',
-    color: 'rgba(255,255,255,0.92)',
+    color: 'var(--foreground)',
   };
 
   const quickAccounts: { label: string; name: string; email: string; r: Role }[] = [
@@ -94,8 +94,8 @@ export default function LoginPage() {
                   fontFamily: 'inherit',
                   borderRadius: 9,
                   transition: 'background 0.15s, color 0.15s, box-shadow 0.15s',
-                  background: role === r ? 'rgba(255,255,255,0.92)' : 'transparent',
-                  color: role === r ? '#11141a' : 'rgba(255,255,255,0.7)',
+                  background: role === r ? 'var(--color-midnight-ink)' : 'transparent',
+                  color: role === r ? '#fff' : 'var(--color-muted-ash)',
                   boxShadow: role === r ? '0 1px 4px rgba(0,0,0,0.18)' : 'none',
                   lineHeight: 1.3,
                 }}
@@ -116,7 +116,7 @@ export default function LoginPage() {
                 required
                 style={inputStyle}
                 onFocus={e => { e.currentTarget.style.borderColor = 'var(--color-teal)'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(103,205,205,0.15)'; }}
-                onBlur={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.16)'; e.currentTarget.style.boxShadow = 'none'; }}
+                onBlur={e => { e.currentTarget.style.borderColor = 'var(--color-ghost-border)'; e.currentTarget.style.boxShadow = 'none'; }}
               />
             </div>
             <div>
@@ -129,7 +129,7 @@ export default function LoginPage() {
                 required
                 style={inputStyle}
                 onFocus={e => { e.currentTarget.style.borderColor = 'var(--color-teal)'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(103,205,205,0.15)'; }}
-                onBlur={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.16)'; e.currentTarget.style.boxShadow = 'none'; }}
+                onBlur={e => { e.currentTarget.style.borderColor = 'var(--color-ghost-border)'; e.currentTarget.style.boxShadow = 'none'; }}
               />
             </div>
             {error && (
@@ -145,7 +145,7 @@ export default function LoginPage() {
 
         {/* Quick sign-in */}
         <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <p style={{ textAlign: 'center', fontSize: 12, color: 'rgba(255,255,255,0.6)', marginBottom: 2, fontWeight: 400 }}>Greitas prisijungimas</p>
+          <p style={{ textAlign: 'center', fontSize: 12, color: 'var(--muted-foreground)', marginBottom: 2, fontWeight: 400 }}>Greitas prisijungimas</p>
           {quickAccounts.map(({ label, name, email: e, r }) => (
             <button
               key={r}
@@ -158,7 +158,7 @@ export default function LoginPage() {
                 transition: 'border-color 0.15s, box-shadow 0.15s',
               }}
               onMouseEnter={ev => { (ev.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-teal)'; }}
-              onMouseLeave={ev => { (ev.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.12)'; }}
+              onMouseLeave={ev => { (ev.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-ghost-border)'; }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <div style={{ width: 30, height: 30, borderRadius: '50%', background: 'var(--color-sidebar-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
@@ -169,7 +169,7 @@ export default function LoginPage() {
                   <div style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', fontWeight: 400 }}>{label}</div>
                 </div>
               </div>
-              <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)', background: 'rgba(255,255,255,0.06)', padding: '3px 9px', borderRadius: 100, fontWeight: 400 }}>{e}</span>
+              <span style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', background: 'rgba(0,0,0,0.05)', padding: '3px 9px', borderRadius: 100, fontWeight: 400 }}>{e}</span>
             </button>
           ))}
         </div>

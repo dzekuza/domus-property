@@ -18,7 +18,7 @@ export default function Card({ children, flat, style, className }: CardProps) {
           padding: 24,
           border: 'none',
           boxShadow: 'none',
-          color: 'rgba(255, 255, 255, 0.92)',
+          color: 'var(--foreground)',
           ...style,
         }}
       >

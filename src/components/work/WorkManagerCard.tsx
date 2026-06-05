@@ -5,7 +5,7 @@ import { UserCog, CheckCircle, RotateCcw } from 'lucide-react';
 import { useStore } from '@/lib/store';
 import Avatar from '@/components/shared/Avatar';
 import Btn from '@/components/shared/Btn';
-import Card from '@/components/shared/Card';
+
 import { formatDate } from '@/lib/fmt';
 import type { WorkEngagement } from '@/lib/types';
 
@@ -32,19 +32,19 @@ export default function WorkManagerCard({ unitId, engagement, onCreated }: Props
 
   const inputStyle: React.CSSProperties = {
     flex: 1, padding: '9px 12px', fontSize: 13,
-    border: '1px solid rgba(255,255,255,0.12)', borderRadius: 'var(--radius-input)',
-    outline: 'none', fontFamily: 'inherit', fontWeight: 400, color: 'rgba(255,255,255,0.9)',
-    background: 'rgba(255,255,255,0.07)', boxSizing: 'border-box',
+    border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)',
+    outline: 'none', fontFamily: 'inherit', fontWeight: 400, color: 'var(--foreground)',
+    background: 'var(--color-surface-raised)', boxSizing: 'border-box',
   };
 
   if (!engagement) {
     return (
-      <Card>
+      <div style={{ background: 'var(--color-surface-raised)', border: '1px solid var(--color-ghost-border)', borderRadius: 14, padding: 20 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
           <UserCog size={16} style={{ color: 'var(--color-electric-violet)' }} />
           <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--color-midnight-ink)' }}>Pakviesti darbo vadovą</p>
         </div>
-        <p style={{ fontSize: 13, color: 'var(--color-muted-ash-2)', marginBottom: 14 }}>
+        <p style={{ fontSize: 13, color: 'var(--color-muted-ash)', marginBottom: 14 }}>
           Darbo vadovas organizuos trumpalaikius remonto darbus jūsų bute ir teiks ataskaitas.
         </p>
         {!inviting ? (
@@ -61,24 +61,24 @@ export default function WorkManagerCard({ unitId, engagement, onCreated }: Props
             </div>
           </div>
         )}
-      </Card>
+      </div>
     );
   }
 
   const isActive = engagement.status === 'active';
 
   return (
-    <Card>
+    <div style={{ background: 'var(--color-surface-raised)', border: '1px solid var(--color-ghost-border)', borderRadius: 14, padding: 20 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12, flexWrap: 'wrap' }}>
-        <Avatar name={engagement.managerName} bg="#e8f5ee" size={34} />
+        <Avatar name={engagement.managerName} bg="rgba(118,192,61,0.20)" size={34} />
         <div style={{ flex: 1, minWidth: 0 }}>
           <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>{engagement.managerName}</p>
           <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }}>{engagement.managerEmail}</p>
         </div>
         <span style={{
           fontSize: 11, fontWeight: 700, padding: '3px 12px', borderRadius: 100, flexShrink: 0,
-          background: isActive ? '#dcfce7' : 'rgba(255,255,255,0.08)',
-          color: isActive ? '#166534' : 'var(--color-muted-ash)',
+          background: isActive ? 'rgba(118,192,61,0.20)' : 'rgba(0,0,0,0.06)',
+          color: isActive ? 'var(--color-accent)' : 'var(--color-muted-ash)',
         }}>
           {isActive ? 'Aktyvus' : 'Užbaigtas'}
         </span>
@@ -98,6 +98,6 @@ export default function WorkManagerCard({ unitId, engagement, onCreated }: Props
           </Btn>
         )}
       </div>
-    </Card>
+    </div>
   );
 }

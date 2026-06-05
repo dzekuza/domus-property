@@ -246,6 +246,18 @@ export interface CommunityPost {
   isAnonymous?: boolean;
 }
 
+export interface ProgressUpdate {
+  id: string;
+  authorId: string;
+  authorName: string;
+  estateId?: string;
+  title: string;
+  body: string;
+  notifiedUserIds: string[];
+  imageUrls?: string[];
+  createdAt: string;
+}
+
 export interface Expense {
   id: string;
   engagementId: string;

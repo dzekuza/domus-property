@@ -19,8 +19,8 @@ const serviceIcons: Record<ServiceKind, React.FC<{ size?: number; strokeWidth?: 
 };
 
 const innerSection: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.05)',
-  border: '1px solid rgba(255,255,255,0.09)',
+  background: 'var(--color-surface-raised)',
+  border: '1px solid var(--color-ghost-border)',
   borderRadius: 14,
   padding: 20,
 };
@@ -50,9 +50,9 @@ export default function UnitEditorPage({ params }: { params: Promise<{ id: strin
 
   const inputStyle: React.CSSProperties = {
     width: '100%', padding: '10px 14px', fontSize: 14,
-    background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)',
+    background: 'var(--color-surface-raised)', border: '1px solid var(--color-ghost-border)',
     borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit',
-    fontWeight: 500, boxSizing: 'border-box', color: 'rgba(255,255,255,0.92)',
+    fontWeight: 500, boxSizing: 'border-box', color: 'var(--foreground)',
   };
 
   return (
@@ -66,7 +66,7 @@ export default function UnitEditorPage({ params }: { params: Promise<{ id: strin
       ]}
       actions={
         <>
-          <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.50)', padding: '5px 10px', background: 'rgba(255,255,255,0.08)', borderRadius: 'var(--radius-pill)' }}>
+          <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', padding: '5px 10px', background: 'var(--color-surface-hover)', borderRadius: 'var(--radius-pill)' }}>
             Automatiškai išsaugota
           </span>
           {owner && (
@@ -79,7 +79,7 @@ export default function UnitEditorPage({ params }: { params: Promise<{ id: strin
       bodyStyle={{ padding: 0 }}
     >
       {/* Tab bar */}
-      <div style={{ display: 'flex', borderBottom: '1px solid rgba(255,255,255,0.10)', gap: 0, padding: '0 24px' }}>
+      <div style={{ display: 'flex', borderBottom: '1px solid var(--color-ghost-border)', gap: 0, padding: '0 24px' }}>
         {tabs.map(t => (
           <button
             key={t}
@@ -88,7 +88,7 @@ export default function UnitEditorPage({ params }: { params: Promise<{ id: strin
               padding: '14px 16px', fontSize: 14, fontWeight: 500, cursor: 'pointer',
               border: 'none', background: 'none', fontFamily: 'inherit',
               borderBottom: `2px solid ${tab === t ? 'var(--color-electric-violet)' : 'transparent'}`,
-              color: tab === t ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.55)',
+              color: tab === t ? 'var(--color-midnight-ink)' : 'var(--color-muted-ash)',
               marginBottom: -1,
             }}
           >
@@ -112,7 +112,7 @@ export default function UnitEditorPage({ params }: { params: Promise<{ id: strin
                 { label: 'Kambariai', key: 'rooms', type: 'number' },
               ].map(field => (
                 <div key={field.key}>
-                  <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6, color: 'rgba(255,255,255,0.70)' }}>{field.label}</label>
+                  <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6, color: 'var(--color-muted-ash)' }}>{field.label}</label>
                   <input
                     type={field.type ?? 'text'}
                     value={(form as Record<string, string>)[field.key]}
@@ -126,7 +126,7 @@ export default function UnitEditorPage({ params }: { params: Promise<{ id: strin
                 </div>
               ))}
               <div style={{ gridColumn: '1 / -1' }}>
-                <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6, color: 'rgba(255,255,255,0.70)' }}>Pastabos</label>
+                <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6, color: 'var(--color-muted-ash)' }}>Pastabos</label>
                 <textarea
                   value={form.notes}
                   rows={3}
@@ -146,18 +146,18 @@ export default function UnitEditorPage({ params }: { params: Promise<{ id: strin
               return (
                 <div key={step.id} style={innerSection}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: docs.length > 0 ? 12 : 0 }}>
-                    <p style={{ fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,0.92)' }}>{step.id}. {step.title}</p>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>{step.id}. {step.title}</p>
                     <label>
                       <Btn variant="ghost" size="sm" icon={<Upload size={13} />} onClick={() => document.getElementById(`doc-upload-${step.id}`)?.click()}>Įkelti dokumentą</Btn>
                       <input id={`doc-upload-${step.id}`} type="file" style={{ display: 'none' }} onChange={async e => { if (e.target.files?.[0]) await uploadDocument(unitId, step.id, e.target.files[0]); }} />
                     </label>
                   </div>
                   {docs.map(doc => (
-                    <div key={doc.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', background: 'rgba(255,255,255,0.06)', borderRadius: 8, marginTop: 6 }}>
-                      <FileText size={14} style={{ color: 'rgba(255,255,255,0.45)' }} />
-                      <span style={{ flex: 1, fontSize: 13, color: 'rgba(255,255,255,0.88)' }}>{doc.name}</span>
-                      <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)' }}>{formatBytes(doc.sizeBytes)}</span>
-                      <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)' }}>{formatDate(doc.uploadedAt)}</span>
+                    <div key={doc.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', background: 'var(--color-surface-raised)', borderRadius: 8, marginTop: 6 }}>
+                      <FileText size={14} style={{ color: 'var(--color-muted-ash-2)' }} />
+                      <span style={{ flex: 1, fontSize: 13, color: 'var(--color-midnight-ink)' }}>{doc.name}</span>
+                      <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }}>{formatBytes(doc.sizeBytes)}</span>
+                      <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }}>{formatDate(doc.uploadedAt)}</span>
                       <a href={doc.url} download={doc.name}><Btn variant="ghost" size="sm" icon={<Download size={12} />}>Atsisiųsti</Btn></a>
                       <button onClick={() => deleteDocument(unitId, step.id, doc.id)} style={{ border: 'none', background: 'none', cursor: 'pointer', color: 'var(--color-danger)', display: 'flex', padding: 4 }}><Trash2 size={14} /></button>
                     </div>
@@ -185,7 +185,7 @@ export default function UnitEditorPage({ params }: { params: Promise<{ id: strin
                 </div>
               ))}
               {unit.photoUrls.length === 0 && (
-                <p style={{ gridColumn: '1/-1', fontSize: 14, color: 'rgba(255,255,255,0.40)', textAlign: 'center', padding: '24px 0' }}>Nuotraukų dar nėra.</p>
+                <p style={{ gridColumn: '1/-1', fontSize: 14, color: 'var(--color-muted-ash-2)', textAlign: 'center', padding: '24px 0' }}>Nuotraukų dar nėra.</p>
               )}
             </div>
           </div>
@@ -199,12 +199,12 @@ export default function UnitEditorPage({ params }: { params: Promise<{ id: strin
               const Icon = serviceIcons[svc.id];
               return (
                 <div key={svc.id} style={{ ...innerSection, display: 'flex', alignItems: 'center', gap: 14 }}>
-                  <div style={{ width: 40, height: 40, borderRadius: 8, background: 'rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 8, background: 'var(--color-surface-hover)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <Icon size={20} strokeWidth={1.5} style={{ color: 'var(--color-electric-violet)' }} />
                   </div>
                   <div style={{ flex: 1 }}>
-                    <p style={{ fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,0.92)' }}>{meta.name}</p>
-                    <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.50)' }}>{meta.provider}</p>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>{meta.name}</p>
+                    <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }}>{meta.provider}</p>
                   </div>
                   <Switch checked={svc.status === 'done'} onCheckedChange={checked => setServiceContractStatus(unitId, svc.id, checked ? 'done' : 'pending')} />
                 </div>
@@ -217,11 +217,11 @@ export default function UnitEditorPage({ params }: { params: Promise<{ id: strin
         {tab === 'Savininko eiga' && (
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, alignItems: 'start' }}>
             <div style={innerSection}>
-              <h3 style={{ fontSize: 14, fontWeight: 600, marginBottom: 14, color: 'rgba(255,255,255,0.92)' }}>Žingsniai (matomi savininkui)</h3>
+              <h3 style={{ fontSize: 14, fontWeight: 600, marginBottom: 14, color: 'var(--color-midnight-ink)' }}>Žingsniai (matomi savininkui)</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
                 {PURCHASE_STEPS.map((step, i) => (
-                  <div key={step.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 0', borderBottom: i < PURCHASE_STEPS.length - 1 ? '1px solid rgba(255,255,255,0.08)' : 'none' }}>
-                    <p style={{ fontSize: 13, flex: 1, paddingRight: 12, color: 'rgba(255,255,255,0.88)' }}>{step.id}. {step.title}</p>
+                  <div key={step.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 0', borderBottom: i < PURCHASE_STEPS.length - 1 ? '1px solid var(--color-ghost-border)' : 'none' }}>
+                    <p style={{ fontSize: 13, flex: 1, paddingRight: 12, color: 'var(--color-midnight-ink)' }}>{step.id}. {step.title}</p>
                     <Switch checked={unit.visibleSteps[step.id]} onCheckedChange={checked => toggleStepVisibility(unitId, step.id as PurchaseStepId, checked)} />
                   </div>
                 ))}
@@ -230,22 +230,22 @@ export default function UnitEditorPage({ params }: { params: Promise<{ id: strin
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               <div style={innerSection}>
-                <h3 style={{ fontSize: 14, fontWeight: 600, marginBottom: 14, color: 'rgba(255,255,255,0.92)' }}>Pakviesti savininką</h3>
+                <h3 style={{ fontSize: 14, fontWeight: 600, marginBottom: 14, color: 'var(--color-midnight-ink)' }}>Pakviesti savininką</h3>
                 <div style={{ display: 'flex', gap: 8 }}>
                   <input
                     placeholder="el.pastas@mail.lt"
                     defaultValue={owner?.email ?? ''}
-                    style={{ flex: 1, padding: '10px 14px', fontSize: 13, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500, color: 'rgba(255,255,255,0.92)' }}
+                    style={{ flex: 1, padding: '10px 14px', fontSize: 13, background: 'var(--color-surface-raised)', border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500, color: 'var(--foreground)' }}
                   />
                   <Btn variant="primary" size="sm">Siųsti kvietimą</Btn>
                 </div>
               </div>
               {owner && (
                 <div style={innerSection}>
-                  <h3 style={{ fontSize: 14, fontWeight: 600, marginBottom: 10, color: 'rgba(255,255,255,0.92)' }}>Savininko informacija</h3>
-                  <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.50)' }}>Savininkas: <strong style={{ color: 'rgba(255,255,255,0.92)' }}>{owner.fullName}</strong></p>
-                  <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.50)', marginTop: 4 }}>{owner.email}</p>
-                  <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.50)', marginTop: 4 }}>{owner.phone}</p>
+                  <h3 style={{ fontSize: 14, fontWeight: 600, marginBottom: 10, color: 'var(--color-midnight-ink)' }}>Savininko informacija</h3>
+                  <p style={{ fontSize: 13, color: 'var(--color-muted-ash)' }}>Savininkas: <strong style={{ color: 'var(--color-midnight-ink)' }}>{owner.fullName}</strong></p>
+                  <p style={{ fontSize: 13, color: 'var(--color-muted-ash-2)', marginTop: 4 }}>{owner.email}</p>
+                  <p style={{ fontSize: 13, color: 'var(--color-muted-ash-2)', marginTop: 4 }}>{owner.phone}</p>
                 </div>
               )}
             </div>

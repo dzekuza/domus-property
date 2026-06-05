@@ -3,8 +3,7 @@
 import { useState } from 'react';
 import { Image as ImageIcon, X, ChevronLeft, ChevronRight, Download } from 'lucide-react';
 import { useStore } from '@/lib/store';
-import PageHeader from '@/components/layout/PageHeader';
-import Card from '@/components/shared/Card';
+import PageShell from '@/components/layout/PageShell';
 import EmptyState from '@/components/shared/EmptyState';
 import Btn from '@/components/shared/Btn';
 
@@ -22,33 +21,45 @@ export default function NuotraukosPage() {
   function next() { if (!lightbox) return; setLightbox({ ...lightbox, idx: (lightbox.idx + 1) % lightbox.urls.length }); }
 
   return (
-    <div>
-      <PageHeader title="Nuotraukos" actions={<Btn variant="ghost" icon={<Download size={14} />}>Atsisiųsti visas</Btn>} />
-
-      {sections.length === 0 ? (
-        <Card><EmptyState icon={ImageIcon} title="Nuotraukų dar nėra" subtitle="Nuotraukos bus pridėtos kai butas bus paruoštas." /></Card>
-      ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-          {sections.map(section => (
-            <Card key={section.id}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
-                <div>
-                  <h2 style={{ fontSize: 16, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>{section.title}</h2>
-                  <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', marginTop: 2 }}>{section.date} · {section.photoUrls.length} nuotraukos</p>
+    <>
+      <PageShell
+        title="Nuotraukos"
+        actions={<Btn variant="ghost" icon={<Download size={14} />}>Atsisiųsti visas</Btn>}
+        bodyStyle={{ padding: '16px 24px 24px' }}
+      >
+        {sections.length === 0 ? (
+          <EmptyState icon={ImageIcon} title="Nuotraukų dar nėra" subtitle="Nuotraukos bus pridėtos kai butas bus paruoštas." />
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            {sections.map(section => (
+              <div
+                key={section.id}
+                style={{
+                  background: 'var(--color-surface-raised)',
+                  border: '1px solid var(--color-ghost-border)',
+                  borderRadius: 14,
+                  padding: 16,
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+                  <div>
+                    <h2 style={{ fontSize: 15, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>{section.title}</h2>
+                    <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', marginTop: 2 }}>{section.date} · {section.photoUrls.length} nuotraukos</p>
+                  </div>
+                  <Btn variant="ghost" size="sm" onClick={() => openLightbox(section.photoUrls, 0)}>Žiūrėti visas</Btn>
                 </div>
-                <Btn variant="ghost" size="sm" onClick={() => openLightbox(section.photoUrls, 0)}>Žiūrėti visas</Btn>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10 }}>
+                  {section.photoUrls.slice(0, 4).map((url, idx) => (
+                    <button key={idx} onClick={() => openLightbox(section.photoUrls, idx)} style={{ border: 'none', padding: 0, cursor: 'pointer', borderRadius: 'var(--radius-image)', overflow: 'hidden', aspectRatio: '4/3' }}>
+                      <img src={url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                    </button>
+                  ))}
+                </div>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10 }}>
-                {section.photoUrls.slice(0, 4).map((url, idx) => (
-                  <button key={idx} onClick={() => openLightbox(section.photoUrls, idx)} style={{ border: 'none', padding: 0, cursor: 'pointer', borderRadius: 'var(--radius-image)', overflow: 'hidden', aspectRatio: '4/3' }}>
-                    <img src={url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                  </button>
-                ))}
-              </div>
-            </Card>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+      </PageShell>
 
       {/* Lightbox */}
       {lightbox && (
@@ -68,6 +79,6 @@ export default function NuotraukosPage() {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

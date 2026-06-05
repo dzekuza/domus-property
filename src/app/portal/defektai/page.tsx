@@ -22,8 +22,8 @@ const filters: { label: string; value: DefectStatus | 'all' }[] = [
 ];
 
 const innerItem: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.05)',
-  border: '1px solid rgba(255,255,255,0.09)',
+  background: 'var(--color-surface-raised)',
+  border: '1px solid var(--color-ghost-border)',
   borderRadius: 14,
   overflow: 'hidden',
 };
@@ -63,9 +63,9 @@ export default function DefektaiPage() {
 
   const pillStyle = (active: boolean): React.CSSProperties => ({
     padding: '6px 14px', borderRadius: 'var(--radius-pill)', fontSize: 13, fontWeight: 500, cursor: 'pointer',
-    background: active ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.06)',
-    color: active ? '#fff' : 'rgba(255,255,255,0.6)',
-    border: active ? 'none' : '1px solid rgba(255,255,255,0.10)',
+    background: active ? 'var(--color-surface-active)' : 'rgba(0,0,0,0.04)',
+    color: active ? 'var(--color-midnight-ink)' : 'var(--color-muted-ash)',
+    border: active ? 'none' : '1px solid var(--color-ghost-border)',
   });
 
   return (
@@ -94,19 +94,19 @@ export default function DefektaiPage() {
                   <button onClick={() => setOpenCard(isOpen ? null : defect.id)} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 14, padding: '16px 20px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left' }}>
                     <div style={{ flex: 1 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 3 }}>
-                        <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)', fontWeight: 500 }}>{defect.id}</span>
-                        <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.30)' }}>·</span>
-                        <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)' }}>{defect.room}</span>
+                        <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', fontWeight: 500 }}>{defect.id}</span>
+                        <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }}>·</span>
+                        <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }}>{defect.room}</span>
                       </div>
-                      <p style={{ fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,0.92)' }}>{defect.title}</p>
-                      <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)', marginTop: 2 }}>Pateikta {formatRelative(defect.createdAt)} · {defect.messages.length} žinutės</p>
+                      <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>{defect.title}</p>
+                      <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', marginTop: 2 }}>Pateikta {formatRelative(defect.createdAt)} · {defect.messages.length} žinutės</p>
                     </div>
                     <StatusPill type="defect" value={defect.status} />
-                    {isOpen ? <ChevronUp size={16} style={{ color: 'rgba(255,255,255,0.45)' }} /> : <ChevronDown size={16} style={{ color: 'rgba(255,255,255,0.45)' }} />}
+                    {isOpen ? <ChevronUp size={16} style={{ color: 'var(--color-muted-ash-2)' }} /> : <ChevronDown size={16} style={{ color: 'var(--color-muted-ash-2)' }} />}
                   </button>
 
                   {isOpen && (
-                    <div className="fade-in" style={{ borderTop: '1px solid rgba(255,255,255,0.09)', padding: '16px 20px' }}>
+                    <div className="fade-in" style={{ borderTop: '1px solid var(--color-ghost-border)', padding: '16px 20px' }}>
                       {defect.messages.map(msg => {
                         const author = users.find(u => u.id === msg.authorUserId);
                         const isAdmin = author?.role === 'admin';
@@ -115,10 +115,10 @@ export default function DefektaiPage() {
                             <Avatar name={author?.fullName ?? '?'} bg={author?.avatarBg} size={32} />
                             <div style={{ flex: 1 }}>
                               <div style={{ display: 'flex', gap: 8, alignItems: 'baseline', marginBottom: 4 }}>
-                                <span style={{ fontSize: 13, fontWeight: 600, color: 'rgba(255,255,255,0.92)' }}>{author?.fullName}</span>
-                                <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)' }}>{formatRelative(msg.createdAt)}</span>
+                                <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>{author?.fullName}</span>
+                                <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }}>{formatRelative(msg.createdAt)}</span>
                               </div>
-                              <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.80)' }}>{msg.body}</p>
+                              <p style={{ fontSize: 14, color: 'var(--color-muted-ash)' }}>{msg.body}</p>
                             </div>
                           </div>
                         );
@@ -129,7 +129,7 @@ export default function DefektaiPage() {
                           onChange={e => setReply(r => ({ ...r, [defect.id]: e.target.value }))}
                           placeholder="Rašykite atsakymą…"
                           onKeyDown={e => e.key === 'Enter' && handleReply(defect.id)}
-                          style={{ flex: 1, padding: '10px 14px', fontSize: 14, background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.92)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500 }}
+                          style={{ flex: 1, padding: '10px 14px', fontSize: 14, background: 'var(--color-surface-raised)', color: 'var(--foreground)', border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500 }}
                         />
                         <Btn variant="primary" size="sm" icon={<Send size={13} />} onClick={() => handleReply(defect.id)}>Siųsti</Btn>
                       </div>
@@ -157,11 +157,11 @@ export default function DefektaiPage() {
             </div>
             <div>
               <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6 }}>Trumpas pavadinimas</label>
-              <input value={title} onChange={e => setTitle(e.target.value)} placeholder="pvz. Nutekėjimas po kriaukle" style={{ width: '100%', padding: '10px 14px', fontSize: 14, background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.92)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500, boxSizing: 'border-box' }} />
+              <input value={title} onChange={e => setTitle(e.target.value)} placeholder="pvz. Nutekėjimas po kriaukle" style={{ width: '100%', padding: '10px 14px', fontSize: 14, background: 'var(--color-surface-raised)', color: 'var(--foreground)', border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500, boxSizing: 'border-box' }} />
             </div>
             <div>
               <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6 }}>Aprašymas</label>
-              <textarea value={body} onChange={e => setBody(e.target.value)} rows={4} placeholder="Aprašykite problemą detaliau…" style={{ width: '100%', padding: '10px 14px', fontSize: 14, background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.92)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500, resize: 'vertical', boxSizing: 'border-box' }} />
+              <textarea value={body} onChange={e => setBody(e.target.value)} rows={4} placeholder="Aprašykite problemą detaliau…" style={{ width: '100%', padding: '10px 14px', fontSize: 14, background: 'var(--color-surface-raised)', color: 'var(--foreground)', border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500, resize: 'vertical', boxSizing: 'border-box' }} />
             </div>
             <Btn variant="primary" disabled={submitting || !title.trim() || !body.trim()} onClick={handleSubmitDefect} style={{ justifyContent: 'center' }}>
               {submitting ? 'Siunčiama…' : 'Pateikti pranešimą'}

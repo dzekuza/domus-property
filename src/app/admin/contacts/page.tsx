@@ -28,14 +28,14 @@ export default function AdminContactsPage() {
 
   const pillStyle = (active: boolean): React.CSSProperties => ({
     padding: '6px 14px', borderRadius: 'var(--radius-pill)', fontSize: 13, fontWeight: 500, cursor: 'pointer', whiteSpace: 'nowrap',
-    background: active ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.07)',
-    color: active ? '#11141a' : 'rgba(255,255,255,0.72)',
-    border: active ? '1px solid transparent' : '1px solid rgba(255,255,255,0.14)',
+    background: active ? 'var(--color-midnight-ink)' : 'rgba(0,0,0,0.05)',
+    color: active ? '#fff' : 'var(--color-muted-ash)',
+    border: active ? '1px solid transparent' : '1px solid var(--color-ghost-border)',
     transition: 'background 0.15s, color 0.15s',
   });
 
   return (
-    <div>
+    <>
       <PageShell
         title="Kontaktai"
         subtitle={`${contacts.length} specialistų`}
@@ -130,6 +130,6 @@ export default function AdminContactsPage() {
           </form>
         </DialogContent>
       </Dialog>
-    </div>
+    </>
   );
 }

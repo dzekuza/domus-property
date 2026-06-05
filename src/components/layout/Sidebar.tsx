@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import {
   Home, AlertTriangle, Image, FileText, UserRoundCog, Settings,
   Building2, Bug, Users, LogOut, HelpCircle, Eye, X, Calendar, MessageSquare, HardHat,
-  PanelLeftClose, PanelLeftOpen, Megaphone,
+  PanelLeftClose, PanelLeftOpen, Megaphone, ClipboardList,
 } from 'lucide-react';
 import { useStore } from '@/lib/store';
 import { initials } from '@/lib/fmt';
@@ -29,6 +29,7 @@ const adminNav = [
   { href: '/admin/contacts',     label: 'Kontaktai',    icon: Users },
   { href: '/admin/tvarkarastis', label: 'Tvarkaraštis', icon: Calendar },
   { href: '/admin/bendruomene',  label: 'Bendruomenė',  icon: MessageSquare },
+  { href: '/admin/darbu-eiga',   label: 'Darbu eiga',   icon: ClipboardList },
 ];
 
 const managerNav = [
@@ -67,7 +68,7 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
         background: 'var(--glass-sidebar-bg)',
         backdropFilter: 'var(--glass-sidebar-blur)',
         WebkitBackdropFilter: 'var(--glass-sidebar-blur)',
-        border: '1px solid rgba(255,255,255,0.14)',
+        border: '1px solid var(--color-sidebar-border)',
         borderRadius: 18,
         display: 'flex',
         flexDirection: 'column',
@@ -81,10 +82,10 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
       <div style={{ padding: '16px 12px 14px', display: 'flex', alignItems: 'center', minHeight: 56, gap: 8 }}>
         {!collapsed && (
           <>
-            <img src="/logo-white.svg" alt="Miteda" style={{ height: 26, width: 'auto', flexShrink: 0 }} />
+            <img src="/darkmite.svg" alt="Miteda" style={{ height: 26, width: 'auto', flexShrink: 0 }} />
             <span style={{
               fontSize: 10, fontWeight: 600,
-              background: 'rgba(103,205,205,0.18)',
+              background: 'var(--color-teal-tint)',
               color: 'var(--color-teal)',
               padding: '2px 8px',
               borderRadius: 100,
@@ -101,7 +102,7 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
         <button
           onClick={onToggleCollapse}
           aria-label={collapsed ? 'Išplėsti' : 'Suskleisti'}
-          style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.45)', display: 'flex', padding: 4, flexShrink: 0, ...(collapsed ? { margin: '0 auto' } : {}) }}
+          style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--color-sidebar-fg)', display: 'flex', padding: 4, flexShrink: 0, ...(collapsed ? { margin: '0 auto' } : {}) }}
         >
           <div className="t-icon-swap" data-state={collapsed ? 'a' : 'b'}>
             <span className="t-icon" data-icon="a"><PanelLeftOpen size={16} /></span>
@@ -141,7 +142,7 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
           fontSize: 10,
           letterSpacing: '0.08em',
           textTransform: 'uppercase',
-          color: 'rgba(255,255,255,0.35)',
+          color: 'var(--color-muted-ash-2)',
           fontWeight: 600,
         }}>
           {session.role === 'admin' ? 'Valdymas' : session.role === 'work_manager' ? 'Projektas' : session.role === 'worker' ? 'Darbai' : 'Mano butas'}
@@ -187,7 +188,7 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
         background: 'var(--color-sidebar-user-bg)',
         borderRadius: 12,
         display: 'flex', alignItems: 'center', justifyContent: collapsed ? 'center' : 'flex-start', gap: 10,
-        border: '1px solid rgba(255,255,255,0.06)',
+        border: '1px solid var(--color-sidebar-border)',
       }}>
         <div style={{
           width: 34, height: 34, borderRadius: '50%',
@@ -200,8 +201,8 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
         </div>
         {!collapsed && (
           <div style={{ minWidth: 0 }}>
-            <div style={{ fontSize: 13, fontWeight: 600, color: '#fff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{effUser?.fullName}</div>
-            <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{effUser?.email}</div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-midnight-ink)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{effUser?.fullName}</div>
+            <div style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{effUser?.email}</div>
           </div>
         )}
       </div>

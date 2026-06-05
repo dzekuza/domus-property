@@ -27,13 +27,14 @@ export default function Btn({ variant = 'primary', size = 'md', icon, children, 
 
   const variants: Record<string, React.CSSProperties> = {
     primary: {
-      background: '#ffffff',
-      color: '#0d0f14',
+      background: 'var(--color-accent)',
+      color: '#ffffff',
       ...sizes[size],
     },
     secondary: {
-      background: 'var(--color-sidebar-bg)',
-      color: '#ffffff',
+      background: 'var(--color-surface-raised)',
+      color: 'var(--color-midnight-ink)',
+      border: '1px solid var(--color-ghost-border)',
       ...sizes[size],
     },
     ghost: {
