@@ -52,8 +52,8 @@ export default function TranslationBlock({ updateId, sourceText, translations, o
   return (
     <div style={{ marginTop: 8 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-        <Languages size={13} style={{ color: 'var(--color-muted-ash-2)', flexShrink: 0 }} />
-        <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }}>Versti:</span>
+        <Languages size={13} style={{ color: 'rgba(255,255,255,0.6)', flexShrink: 0 }} />
+        <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)' }}>Versti:</span>
         {LANGS.map(l => (
           <button
             key={l.code}
@@ -61,18 +61,18 @@ export default function TranslationBlock({ updateId, sourceText, translations, o
             style={{
               padding: '3px 10px', fontSize: 11, fontWeight: 600, borderRadius: 100,
               cursor: 'pointer', border: 'none', fontFamily: 'inherit',
-              background: selectedLang === l.code ? 'var(--color-sidebar-bg)' : 'var(--color-cloud-canvas)',
-              color: selectedLang === l.code ? '#fff' : 'var(--color-muted-ash)',
+              background: selectedLang === l.code ? 'rgba(255,255,255,0.16)' : 'rgba(255,255,255,0.07)',
+              color: selectedLang === l.code ? '#fff' : 'rgba(255,255,255,0.7)',
               transition: 'background 0.12s, color 0.12s',
             }}
           >
             {l.label}
           </button>
         ))}
-        {loading && <Spinner size={13} color="var(--color-muted-ash-2)" />}
+        {loading && <Spinner size={13} color="rgba(255,255,255,0.6)" />}
       </div>
       {translatedText && (
-        <div style={{ marginTop: 8, padding: '10px 14px', background: 'var(--color-cloud-canvas)', borderRadius: 10, fontSize: 13, color: 'var(--color-midnight-ink)', lineHeight: 1.5 }}>
+        <div style={{ marginTop: 8, padding: '10px 14px', background: 'rgba(255,255,255,0.08)', borderRadius: 10, fontSize: 13, color: 'rgba(255,255,255,0.9)', lineHeight: 1.5 }}>
           {translatedText}
         </div>
       )}

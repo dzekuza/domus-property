@@ -1,4 +1,4 @@
-import type { User, Estate, Unit, Defect, Contact, PhotoSection, PurchaseStepId, ScheduleEvent, ChatMessage, WorkEngagement, WorkerProfile, WorkUpdate, BulletinPost } from './types';
+import type { User, Estate, Unit, Defect, Contact, PhotoSection, PurchaseStepId, ScheduleEvent, ChatMessage, WorkEngagement, WorkerProfile, WorkUpdate, BulletinPost, CommunityPost } from './types';
 import { PURCHASE_STEPS, SERVICE_KINDS } from './constants';
 
 const ALL_STEP_IDS = PURCHASE_STEPS.map(s => s.id) as PurchaseStepId[];
@@ -543,5 +543,30 @@ export const SEED_BULLETIN_POSTS: BulletinPost[] = [
     category: 'Prarasta', title: 'Pamestas raktas',
     body: 'Praradau namo raktą su mėlynu raktų pakabuку. Jei radote — prašau susisiekti.',
     contact: '+370 698 76543', createdAt: '2026-05-26T11:00:00Z',
+  },
+];
+
+// ─── Community posts ──────────────────────────────────────────────────────────
+
+export const SEED_COMMUNITY_POSTS: CommunityPost[] = [
+  {
+    id: 'cp1', estateId: 'e1', authorId: 'u1', authorName: 'Andrius Kazlauskas', unitNumber: 'B-12',
+    body: 'Sveiki kaimynai! Ar kas nors žino, kada planuojama tvarkyti lauko apšvietimą prie B laiptinės? Vakarais tamsu ir nesaugu.',
+    createdAt: '2026-06-04T18:30:00Z', likedBy: ['u3'],
+  },
+  {
+    id: 'cp2', estateId: 'e1', authorId: 'u3', authorName: 'Laura Jankauskienė', unitNumber: 'A-05',
+    body: 'Atradau puikų parko taką netoli mūsų namo — idealus pasivaikščiojimams su vaikais. Rekomenduoju!',
+    createdAt: '2026-06-03T10:15:00Z', likedBy: ['u1'],
+  },
+  {
+    id: 'cp3', estateId: 'e1', authorId: 'u1', authorName: 'Andrius Kazlauskas', unitNumber: 'B-12',
+    body: 'Dėmesio! Rytoj nuo 9 iki 13 val. bus išjungtas karštas vanduo — planuojami profilaktiniai darbai.',
+    createdAt: '2026-06-02T16:00:00Z', likedBy: ['u3'],
+  },
+  {
+    id: 'cp4', estateId: 'e1', authorId: 'u3', authorName: 'Laura Jankauskienė', unitNumber: 'A-05',
+    body: 'Organizuojame kaimynų susitikimą birželio 15 d. 18 val. kieme. Ateikite pabendrauti!',
+    createdAt: '2026-06-01T12:00:00Z', likedBy: ['u1'],
   },
 ];

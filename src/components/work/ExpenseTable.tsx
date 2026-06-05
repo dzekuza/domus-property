@@ -41,17 +41,17 @@ export default function ExpenseTable({ engagementId }: Props) {
           Išlaidų dar nėra. Pridėkite sąskaitą teikiant ataskaitą.
         </p>
       ) : (
-        <div style={{ borderRadius: 10, overflow: 'hidden', border: '1px solid var(--color-ghost-border)' }}>
+        <div style={{ borderRadius: 10, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.12)' }}>
           {/* Table header */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 88px 80px 24px', gap: 8, padding: '7px 12px', background: 'var(--color-cloud-canvas)', fontSize: 10, fontWeight: 700, color: 'var(--color-muted-ash-2)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 88px 80px 24px', gap: 8, padding: '7px 12px', background: 'rgba(255,255,255,0.06)', fontSize: 10, fontWeight: 700, color: 'var(--color-muted-ash-2)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
             <span>Tiekėjas</span><span>Data</span><span style={{ textAlign: 'right' }}>Suma</span><span />
           </div>
 
           {expenses.map((exp, idx) => (
-            <div key={exp.id} style={{ borderTop: idx === 0 ? 'none' : '1px solid var(--color-ghost-border)' }}>
+            <div key={exp.id} style={{ borderTop: idx === 0 ? 'none' : '1px solid rgba(255,255,255,0.10)' }}>
               <div
                 onClick={() => setExpanded(s => s === exp.id ? null : exp.id)}
-                style={{ display: 'grid', gridTemplateColumns: '1fr 88px 80px 24px', gap: 8, padding: '10px 12px', cursor: 'pointer', background: expanded === exp.id ? 'var(--color-cloud-canvas)' : 'transparent', transition: 'background 0.12s' }}
+                style={{ display: 'grid', gridTemplateColumns: '1fr 88px 80px 24px', gap: 8, padding: '10px 12px', cursor: 'pointer', background: expanded === exp.id ? 'rgba(255,255,255,0.06)' : 'transparent', transition: 'background 0.12s' }}
               >
                 <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-midnight-ink)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{exp.vendorName}</span>
                 <span style={{ fontSize: 12, color: 'var(--color-muted-ash)' }}>{exp.billDate}</span>
@@ -68,10 +68,10 @@ export default function ExpenseTable({ engagementId }: Props) {
                 <div
                   className="t-panel-slide"
                   data-open={expanded === exp.id ? 'true' : 'false'}
-                  style={{ padding: '10px 12px 14px', background: 'var(--color-cloud-canvas)', borderTop: '1px solid var(--color-ghost-border)' }}
+                  style={{ padding: '10px 12px 14px', background: 'rgba(255,255,255,0.06)', borderTop: '1px solid rgba(255,255,255,0.10)' }}
                 >
                   <div style={{ display: 'flex', gap: 14, marginBottom: 10 }}>
-                    <img src={exp.billImageDataUrl} alt="Sąskaita" style={{ width: 72, height: 72, objectFit: 'contain', borderRadius: 8, border: '1px solid var(--color-ghost-border)', background: '#fff', flexShrink: 0 }} />
+                    <img src={exp.billImageDataUrl} alt="Sąskaita" style={{ width: 72, height: 72, objectFit: 'contain', borderRadius: 8, border: '1px solid rgba(255,255,255,0.15)', background: '#fff', flexShrink: 0 }} />
                     <div>
                       <p style={{ fontSize: 10, color: 'var(--color-muted-ash-2)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 2 }}>Pateikė</p>
                       <p style={{ fontSize: 12, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>{exp.submittedByName}</p>

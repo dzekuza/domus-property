@@ -4,8 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Bug, Download } from 'lucide-react';
 import { useStore } from '@/lib/store';
-import PageHeader from '@/components/layout/PageHeader';
-import Card from '@/components/shared/Card';
+import PageShell from '@/components/layout/PageShell';
 import StatusPill from '@/components/shared/StatusPill';
 import Btn from '@/components/shared/Btn';
 import EmptyState from '@/components/shared/EmptyState';
@@ -38,14 +37,13 @@ export default function AdminDefectsPage() {
 
   return (
     <div>
-      <PageHeader
+      <PageShell
         title="Defektai"
         subtitle={`${defects.length} pranešimų iš viso`}
         actions={<Btn variant="ghost" icon={<Download size={14} />}>Eksportuoti</Btn>}
-      />
-
-      {/* Filters */}
-      <div style={{ display: 'flex', gap: 10, marginBottom: 20, alignItems: 'center', flexWrap: 'wrap' }}>
+      >
+        {/* Filters */}
+        <div style={{ display: 'flex', gap: 10, padding: '16px 20px', alignItems: 'center', flexWrap: 'wrap' }}>
         <Select value={estateFilter} onValueChange={v => { if (v) setEstateFilter(v); }}>
           <SelectTrigger className="rounded-full">
             <SelectValue />
@@ -69,14 +67,14 @@ export default function AdminDefectsPage() {
         </Select>
         <div style={{ display: 'flex', gap: 6, marginLeft: 'auto' }}>
           {STATUS_OPTIONS.slice(1).map(o => (
-            <span key={o.value} style={{ fontSize: 12, padding: '4px 10px', borderRadius: 'var(--radius-pill)', background: 'var(--color-cloud-canvas)', color: 'var(--color-muted-ash)' }}>
+            <span key={o.value} style={{ fontSize: 12, padding: '4px 10px', borderRadius: 'var(--radius-pill)', background: 'rgba(255,255,255,0.07)', color: 'rgba(255,255,255,0.7)', border: '1px solid rgba(255,255,255,0.12)' }}>
               {o.label}: {defects.filter(d => d.status === o.value).length}
             </span>
           ))}
         </div>
       </div>
 
-      <Card style={{ padding: 0, overflow: 'hidden' }}>
+        <div style={{ height: 1, background: 'rgba(255,255,255,0.10)' }} />
         {filtered.length === 0 ? (
           <EmptyState icon={Bug} title="Defektų nerasta" subtitle="Pakeiskite filtrus arba laukite naujų pranešimų." />
         ) : (
@@ -116,7 +114,7 @@ export default function AdminDefectsPage() {
             </tbody>
           </table></div>
         )}
-      </Card>
+      </PageShell>
     </div>
   );
 }

@@ -3,8 +3,7 @@
 import { useState } from 'react';
 import { Plus, Trash2, Calendar, Clock, Scissors, Sparkles, Wrench, Eye, HelpCircle } from 'lucide-react';
 import { useStore } from '@/lib/store';
-import PageHeader from '@/components/layout/PageHeader';
-import Card from '@/components/shared/Card';
+import PageShell from '@/components/layout/PageShell';
 import Btn from '@/components/shared/Btn';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -14,16 +13,24 @@ import type { ScheduleEventType } from '@/lib/types';
 const EVENT_TYPES: ScheduleEventType[] = ['Žolės pjovimas', 'Valymas', 'Remontas', 'Apžiūra', 'Kita'];
 
 const TYPE_META: Record<ScheduleEventType, { icon: React.FC<{ size?: number; strokeWidth?: number; style?: React.CSSProperties }>, color: string, bg: string }> = {
-  'Žolės pjovimas': { icon: Scissors,   color: 'var(--color-success)',         bg: 'var(--color-success-tint)' },
-  'Valymas':        { icon: Sparkles,   color: 'var(--color-electric-violet)', bg: 'var(--color-violet-tint)' },
-  'Remontas':       { icon: Wrench,     color: 'var(--color-warning)',         bg: 'var(--color-warning-tint)' },
-  'Apžiūra':        { icon: Eye,        color: 'var(--color-muted-ash)',       bg: 'var(--color-cloud-canvas)' },
-  'Kita':           { icon: HelpCircle, color: 'var(--color-muted-ash-2)',     bg: 'var(--color-cloud-canvas)' },
+  'Žolės pjovimas': { icon: Scissors,   color: 'var(--color-success)',         bg: 'rgba(118,192,61,0.12)' },
+  'Valymas':        { icon: Sparkles,   color: 'var(--color-electric-violet)', bg: 'rgba(124,58,237,0.12)' },
+  'Remontas':       { icon: Wrench,     color: 'var(--color-warning)',         bg: 'rgba(184,110,0,0.12)' },
+  'Apžiūra':        { icon: Eye,        color: 'rgba(255,255,255,0.55)',       bg: 'rgba(255,255,255,0.07)' },
+  'Kita':           { icon: HelpCircle, color: 'rgba(255,255,255,0.40)',       bg: 'rgba(255,255,255,0.07)' },
 };
 
 function isUpcoming(date: string) {
   return new Date(date) >= new Date(new Date().toDateString());
 }
+
+const innerRow: React.CSSProperties = {
+  display: 'flex', gap: 14, alignItems: 'center',
+  padding: '14px 16px',
+  background: 'rgba(255,255,255,0.04)',
+  border: '1px solid rgba(255,255,255,0.08)',
+  borderRadius: 12,
+};
 
 export default function AdminTvarkarastisPage() {
   const { estates, scheduleEvents, createScheduleEvent, deleteScheduleEvent } = useStore();
@@ -46,10 +53,15 @@ export default function AdminTvarkarastisPage() {
     setShowModal(false);
   }
 
-  const inputStyle: React.CSSProperties = { width: '100%', padding: '10px 14px', fontSize: 14, border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500, boxSizing: 'border-box' };
+  const inputStyle: React.CSSProperties = {
+    width: '100%', padding: '10px 14px', fontSize: 14,
+    background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)',
+    borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit',
+    fontWeight: 500, boxSizing: 'border-box', color: 'rgba(255,255,255,0.92)',
+  };
 
   function EventList({ events, emptyLabel }: { events: typeof filtered; emptyLabel: string }) {
-    if (events.length === 0) return <p style={{ fontSize: 13, color: 'var(--color-muted-ash-2)', padding: '16px 0' }}>{emptyLabel}</p>;
+    if (events.length === 0) return <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.40)', padding: '12px 0' }}>{emptyLabel}</p>;
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {events.map(event => {
@@ -57,26 +69,26 @@ export default function AdminTvarkarastisPage() {
           const Icon = meta.icon;
           const estateName = estates.find(e => e.id === event.estateId)?.name;
           return (
-            <Card key={event.id} style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
+            <div key={event.id} style={innerRow}>
               <div style={{ width: 40, height: 40, borderRadius: 8, background: meta.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                 <Icon size={18} strokeWidth={1.5} style={{ color: meta.color }} />
               </div>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 2 }}>
-                  <p style={{ fontSize: 14, fontWeight: 600 }}>{event.title}</p>
-                  <span style={{ fontSize: 11, background: 'var(--color-cloud-canvas)', color: 'var(--color-muted-ash-2)', padding: '2px 8px', borderRadius: 100 }}>{event.type}</span>
+                  <p style={{ fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,0.92)' }}>{event.title}</p>
+                  <span style={{ fontSize: 11, background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.50)', padding: '2px 8px', borderRadius: 100 }}>{event.type}</span>
                 </div>
                 <div style={{ display: 'flex', gap: 12 }}>
-                  <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', display: 'flex', alignItems: 'center', gap: 4 }}><Calendar size={12} /> {formatDate(event.date)}</span>
-                  {event.time && <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', display: 'flex', alignItems: 'center', gap: 4 }}><Clock size={12} /> {event.time}</span>}
-                  <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }}>{estateName}</span>
+                  <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)', display: 'flex', alignItems: 'center', gap: 4 }}><Calendar size={12} />{formatDate(event.date)}</span>
+                  {event.time && <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)', display: 'flex', alignItems: 'center', gap: 4 }}><Clock size={12} />{event.time}</span>}
+                  <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)' }}>{estateName}</span>
                 </div>
-                {event.description && <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', marginTop: 3 }}>{event.description}</p>}
+                {event.description && <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)', marginTop: 3 }}>{event.description}</p>}
               </div>
               <button onClick={() => deleteScheduleEvent(event.id)} style={{ border: 'none', background: 'none', cursor: 'pointer', color: 'var(--color-danger)', padding: 6, display: 'flex', borderRadius: 6 }}>
                 <Trash2 size={15} />
               </button>
-            </Card>
+            </div>
           );
         })}
       </div>
@@ -84,8 +96,8 @@ export default function AdminTvarkarastisPage() {
   }
 
   return (
-    <div>
-      <PageHeader
+    <>
+      <PageShell
         title="Tvarkaraštis"
         subtitle={`${scheduleEvents.length} įvykių iš viso`}
         actions={
@@ -104,25 +116,23 @@ export default function AdminTvarkarastisPage() {
             <Btn variant="primary" icon={<Plus size={15} />} onClick={() => setShowModal(true)}>Naujas įvykis</Btn>
           </>
         }
-      />
+        bodyStyle={{ padding: '20px 24px 24px' }}
+      >
+        <div style={{ marginBottom: 28 }}>
+          <p style={{ fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.07em', color: 'rgba(255,255,255,0.38)', marginBottom: 10 }}>
+            Planuojami ({upcoming.length})
+          </p>
+          <EventList events={upcoming} emptyLabel="Planuojamų įvykių nėra." />
+        </div>
 
-      {/* Upcoming */}
-      <div style={{ marginBottom: 32 }}>
-        <p style={{ fontSize: 12, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--color-muted-ash-2)', marginBottom: 12 }}>
-          Planuojami ({upcoming.length})
-        </p>
-        <EventList events={upcoming} emptyLabel="Planuojamų įvykių nėra." />
-      </div>
+        <div>
+          <p style={{ fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.07em', color: 'rgba(255,255,255,0.38)', marginBottom: 10 }}>
+            Praėję ({past.length})
+          </p>
+          <EventList events={past} emptyLabel="Praėjusių įvykių nėra." />
+        </div>
+      </PageShell>
 
-      {/* Past */}
-      <div>
-        <p style={{ fontSize: 12, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--color-muted-ash-2)', marginBottom: 12 }}>
-          Praėję ({past.length})
-        </p>
-        <EventList events={past} emptyLabel="Praėjusių įvykių nėra." />
-      </div>
-
-      {/* Create modal */}
       <Dialog open={showModal} onOpenChange={setShowModal}>
         <DialogContent>
           <DialogHeader><DialogTitle>Naujas įvykis</DialogTitle></DialogHeader>
@@ -130,9 +140,7 @@ export default function AdminTvarkarastisPage() {
             <div>
               <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6 }}>Objektas</label>
               <Select value={form.estateId} onValueChange={v => { if (v) setForm(f => ({ ...f, estateId: v })); }}>
-                <SelectTrigger className="w-full">
-                  <SelectValue />
-                </SelectTrigger>
+                <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
                     {estates.map(e => <SelectItem key={e.id} value={e.id}>{e.name}</SelectItem>)}
@@ -143,9 +151,7 @@ export default function AdminTvarkarastisPage() {
             <div>
               <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6 }}>Tipas</label>
               <Select value={form.type} onValueChange={v => setForm(f => ({ ...f, type: v as ScheduleEventType }))}>
-                <SelectTrigger className="w-full">
-                  <SelectValue />
-                </SelectTrigger>
+                <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
                     {EVENT_TYPES.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
@@ -175,6 +181,6 @@ export default function AdminTvarkarastisPage() {
           </form>
         </DialogContent>
       </Dialog>
-    </div>
+    </>
   );
 }

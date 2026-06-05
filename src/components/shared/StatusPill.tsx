@@ -2,7 +2,7 @@ import { Check } from 'lucide-react';
 import type { DefectStatus, StepStatus } from '@/lib/types';
 
 const defectMap: Record<DefectStatus, { label: string; bg: string; color: string }> = {
-  open:     { label: 'Atviras',    bg: 'var(--color-cloud-canvas)',  color: 'var(--color-muted-ash)' },
+  open:     { label: 'Atviras',    bg: 'rgba(255,255,255,0.10)',  color: 'rgba(255,255,255,0.7)' },
   progress: { label: 'Vykdomas',  bg: 'var(--color-danger-tint)',   color: 'var(--color-danger)' },
   resolved: { label: 'Išspręstas', bg: 'var(--color-success-tint)', color: 'var(--color-success)' },
   rejected: { label: 'Atmestas',  bg: 'var(--color-danger-tint)',   color: 'var(--color-danger)' },
@@ -11,8 +11,8 @@ const defectMap: Record<DefectStatus, { label: string; bg: string; color: string
 const stepMap: Record<StepStatus, { label: string; bg: string; color: string }> = {
   done:        { label: 'Atlikta',    bg: 'var(--color-success-tint)', color: 'var(--color-success)' },
   progress:    { label: 'Vykdoma',   bg: 'var(--color-danger-tint)',  color: 'var(--color-danger)' },
-  pending:     { label: 'Laukiama',  bg: 'var(--color-cloud-canvas)', color: 'var(--color-muted-ash)' },
-  not_started: { label: 'Nepradėta', bg: 'var(--color-cloud-canvas)', color: 'var(--color-muted-ash-2)' },
+  pending:     { label: 'Laukiama',  bg: 'rgba(255,255,255,0.10)', color: 'rgba(255,255,255,0.7)' },
+  not_started: { label: 'Nepradėta', bg: 'rgba(255,255,255,0.10)', color: 'rgba(255,255,255,0.7)' },
 };
 
 const estateStatusMap: Record<string, { bg: string; color: string }> = {
@@ -24,13 +24,13 @@ const estateStatusMap: Record<string, { bg: string; color: string }> = {
 const unitStatusMap: Record<string, { label: string; bg: string; color: string }> = {
   sold:      { label: 'Parduotas',   bg: 'var(--color-success-tint)', color: 'var(--color-success)' },
   reserved:  { label: 'Rezervuotas', bg: 'var(--color-warning-tint)', color: 'var(--color-warning)' },
-  available: { label: 'Laisvas',     bg: 'var(--color-cloud-canvas)', color: 'var(--color-muted-ash)' },
+  available: { label: 'Laisvas',     bg: 'rgba(255,255,255,0.10)', color: 'rgba(255,255,255,0.7)' },
 };
 
 const serviceStatusMap: Record<string, { label: string; bg: string; color: string }> = {
   done:     { label: 'Aktyvuota', bg: 'var(--color-success-tint)', color: 'var(--color-success)' },
   progress: { label: 'Vykdoma',  bg: 'var(--color-danger-tint)',  color: 'var(--color-danger)' },
-  pending:  { label: 'Laukiama', bg: 'var(--color-cloud-canvas)', color: 'var(--color-muted-ash)' },
+  pending:  { label: 'Laukiama', bg: 'rgba(255,255,255,0.10)', color: 'rgba(255,255,255,0.7)' },
 };
 
 interface Props {
@@ -40,8 +40,8 @@ interface Props {
 
 export default function StatusPill({ type, value }: Props) {
   let label = value;
-  let bg = 'var(--color-cloud-canvas)';
-  let color = 'var(--color-muted-ash)';
+  let bg = 'rgba(255,255,255,0.10)';
+  let color = 'rgba(255,255,255,0.7)';
 
   if (type === 'defect') {
     const m = defectMap[value as DefectStatus];

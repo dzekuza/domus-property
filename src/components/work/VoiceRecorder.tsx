@@ -80,14 +80,14 @@ export default function VoiceRecorder({ onRecorded }: Props) {
           style={{
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
             padding: '16px 24px', borderRadius: 16,
-            background: 'var(--color-cloud-canvas)',
-            border: '2px dashed var(--color-ghost-border)',
+            background: 'rgba(255,255,255,0.06)',
+            border: '2px dashed rgba(255,255,255,0.18)',
             cursor: 'pointer', fontFamily: 'inherit',
             color: 'var(--color-muted-ash)', fontSize: 14, fontWeight: 500,
             transition: 'border-color 0.15s, background 0.15s',
           }}
           onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-teal)'; }}
-          onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-ghost-border)'; }}
+          onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.18)'; }}
         >
           <Mic size={20} style={{ color: 'var(--color-accent)' }} />
           Spustelėkite norėdami įrašyti
@@ -95,9 +95,9 @@ export default function VoiceRecorder({ onRecorded }: Props) {
       )}
 
       {state === 'recording' && (
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 20px', background: '#fff5f5', border: '1px solid #fca5a5', borderRadius: 14 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 20px', background: 'rgba(220,38,38,0.15)', border: '1px solid rgba(220,38,38,0.35)', borderRadius: 14 }}>
           <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#ef4444', animation: 'pulse 1s infinite' }} />
-          <span style={{ fontSize: 14, fontWeight: 500, color: '#dc2626' }}>Įrašoma… {fmt(seconds)}</span>
+          <span style={{ fontSize: 14, fontWeight: 500, color: '#fca5a5' }}>Įrašoma… {fmt(seconds)}</span>
           <button
             onClick={stopRecording}
             style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 6, padding: '8px 14px', background: '#dc2626', color: '#fff', border: 'none', borderRadius: 'var(--radius-pill)', cursor: 'pointer', fontFamily: 'inherit', fontSize: 13, fontWeight: 600 }}
@@ -109,12 +109,12 @@ export default function VoiceRecorder({ onRecorded }: Props) {
 
       {state === 'stopped' && audioUrl && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', background: 'var(--color-cloud-canvas)', borderRadius: 12 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', background: 'rgba(255,255,255,0.06)', borderRadius: 12 }}>
             <button onClick={togglePlay} style={{ width: 34, height: 34, borderRadius: '50%', background: 'var(--color-sidebar-bg)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', flexShrink: 0 }}>
               {playing ? <Pause size={14} /> : <Play size={14} />}
             </button>
             <span style={{ fontSize: 13, color: 'var(--color-muted-ash)' }}>Įrašas ({fmt(seconds)})</span>
-            <button onClick={reset} style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 4, padding: '6px 12px', background: 'transparent', border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-pill)', cursor: 'pointer', fontFamily: 'inherit', fontSize: 12, color: 'var(--color-muted-ash)' }}>
+            <button onClick={reset} style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 4, padding: '6px 12px', background: 'transparent', border: '1px solid rgba(255,255,255,0.18)', borderRadius: 'var(--radius-pill)', cursor: 'pointer', fontFamily: 'inherit', fontSize: 12, color: 'var(--color-muted-ash)' }}>
               <RotateCcw size={11} /> Įrašyti iš naujo
             </button>
           </div>

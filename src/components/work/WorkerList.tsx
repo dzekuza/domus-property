@@ -49,9 +49,9 @@ export default function WorkerList({ engagementId }: Props) {
 
   const inputStyle: React.CSSProperties = {
     flex: 1, padding: '9px 12px', fontSize: 13,
-    border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)',
-    outline: 'none', fontFamily: 'inherit', fontWeight: 400,
-    background: 'var(--color-paper-white)', boxSizing: 'border-box',
+    border: '1px solid rgba(255,255,255,0.12)', borderRadius: 'var(--radius-input)',
+    outline: 'none', fontFamily: 'inherit', fontWeight: 400, color: 'rgba(255,255,255,0.9)',
+    background: 'rgba(255,255,255,0.07)', boxSizing: 'border-box',
   };
 
   return (
@@ -59,7 +59,7 @@ export default function WorkerList({ engagementId }: Props) {
       <p style={{ fontSize: 15, fontWeight: 700, color: 'var(--color-midnight-ink)', marginBottom: 14 }}>Darbininkai ({workers.length})</p>
 
       <div style={{ overflow: 'hidden', maxHeight: adding ? 400 : 0, transition: 'max-height 0.35s cubic-bezier(0.22, 1, 0.36, 1), margin-bottom 0.35s cubic-bezier(0.22, 1, 0.36, 1)', marginBottom: adding ? 14 : 0 }}>
-        <div className="t-panel-slide" data-open={adding ? 'true' : 'false'} style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '12px 14px', background: 'var(--color-cloud-canvas)', borderRadius: 12 }}>
+        <div className="t-panel-slide" data-open={adding ? 'true' : 'false'} style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '12px 14px', background: 'rgba(255,255,255,0.06)', borderRadius: 12 }}>
           {/* Row 1 — name + email */}
           <div style={{ display: 'flex', gap: 8 }}>
             <input value={name} onChange={e => setName(e.target.value)} placeholder="Vardas Pavardė" style={inputStyle} />
@@ -128,7 +128,7 @@ export default function WorkerList({ engagementId }: Props) {
             <div key={worker.id} style={{
               display: 'flex', alignItems: 'center', gap: 10,
               padding: '10px 12px',
-              background: 'var(--color-cloud-canvas)',
+              background: 'rgba(255,255,255,0.06)',
               borderRadius: 12,
             }}>
               <Avatar name={worker.name} bg="#fdf3df" size={32} />

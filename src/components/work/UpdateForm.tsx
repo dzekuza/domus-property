@@ -183,9 +183,9 @@ export default function UpdateForm({ engagementId, authorId, authorName, authorR
       style={{
         flex: 1, padding: '9px 0', fontSize: 13, fontWeight: 600,
         cursor: 'pointer', border: 'none', fontFamily: 'inherit', borderRadius: 9,
-        background: tab === t ? 'var(--color-paper-white)' : 'transparent',
-        color: tab === t ? 'var(--color-sidebar-bg)' : 'var(--color-muted-ash-2)',
-        boxShadow: tab === t ? '0 1px 4px rgba(0,0,0,0.08)' : 'none',
+        background: tab === t ? 'rgba(255,255,255,0.14)' : 'transparent',
+        color: tab === t ? 'rgba(255,255,255,0.95)' : 'var(--color-muted-ash-2)',
+        boxShadow: 'none',
         display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
         transition: 'background 0.15s, color 0.15s',
       }}
@@ -228,7 +228,7 @@ export default function UpdateForm({ engagementId, authorId, authorName, authorR
                     {images.length > 0 && (
                       <div style={{ display: 'flex', gap: 4, marginTop: 6 }}>
                         {images.map(img => (
-                          <img key={img.id} src={img.dataUrl} alt={img.name} style={{ width: 36, height: 36, objectFit: 'cover', borderRadius: 6, border: '1px solid var(--color-ghost-border)' }} />
+                          <img key={img.id} src={img.dataUrl} alt={img.name} style={{ width: 36, height: 36, objectFit: 'cover', borderRadius: 6, border: '1px solid rgba(255,255,255,0.12)' }} />
                         ))}
                       </div>
                     )}
@@ -248,7 +248,7 @@ export default function UpdateForm({ engagementId, authorId, authorName, authorR
       )}
 
       {/* Tab switcher */}
-      <div style={{ display: 'flex', background: 'var(--color-cloud-canvas)', padding: 4, borderRadius: 12, gap: 4, marginBottom: 16 }}>
+      <div style={{ display: 'flex', background: 'rgba(255,255,255,0.06)', padding: 4, borderRadius: 12, gap: 4, marginBottom: 16 }}>
         {tabBtn('text', <Type size={13} />, 'Tekstas')}
         {tabBtn('voice', <Mic size={13} />, 'Balsas')}
       </div>
@@ -259,7 +259,7 @@ export default function UpdateForm({ engagementId, authorId, authorName, authorR
           onChange={e => setText(e.target.value)}
           rows={4}
           placeholder="Aprašykite šiandienos darbus…"
-          style={{ width: '100%', padding: '10px 14px', fontSize: 14, border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 400, resize: 'vertical', boxSizing: 'border-box', lineHeight: 1.6 }}
+          style={{ width: '100%', padding: '10px 14px', fontSize: 14, background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 400, color: 'rgba(255,255,255,0.9)', resize: 'vertical', boxSizing: 'border-box', lineHeight: 1.6 }}
         />
       )}
 
@@ -278,9 +278,9 @@ export default function UpdateForm({ engagementId, authorId, authorName, authorR
                 {transcribing ? 'Transkribuojama…' : 'Transkribuoti (AI)'}
               </Btn>
               {transcription && (
-                <div style={{ padding: '10px 14px', background: 'var(--color-violet-tint)', borderRadius: 10 }}>
+                <div style={{ padding: '10px 14px', background: 'rgba(139,92,246,0.15)', borderRadius: 10, border: '1px solid rgba(139,92,246,0.25)' }}>
                   <p style={{ fontSize: 12, fontWeight: 600, color: 'var(--color-electric-violet)', marginBottom: 4 }}>Transkripcija:</p>
-                  <p style={{ fontSize: 13, color: 'var(--color-midnight-ink)', lineHeight: 1.5 }}>{transcription}</p>
+                  <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.9)', lineHeight: 1.5 }}>{transcription}</p>
                 </div>
               )}
               <div>
@@ -290,7 +290,7 @@ export default function UpdateForm({ engagementId, authorId, authorName, authorR
                   onChange={e => setText(e.target.value)}
                   rows={3}
                   placeholder="Pastabos prie įrašo…"
-                  style={{ width: '100%', padding: '10px 14px', fontSize: 14, border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 400, resize: 'vertical', boxSizing: 'border-box' }}
+                  style={{ width: '100%', padding: '10px 14px', fontSize: 14, background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 400, color: 'rgba(255,255,255,0.9)', resize: 'vertical', boxSizing: 'border-box' }}
                 />
               </div>
             </>
@@ -303,7 +303,7 @@ export default function UpdateForm({ engagementId, authorId, authorName, authorR
         {attachments.length > 0 && (
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 8 }}>
             {attachments.map(att => (
-              <div key={att.id} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '5px 10px', background: 'var(--color-cloud-canvas)', borderRadius: 8, fontSize: 12 }}>
+              <div key={att.id} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '5px 10px', background: 'rgba(255,255,255,0.08)', borderRadius: 8, fontSize: 12, color: 'rgba(255,255,255,0.85)' }}>
                 {att.mimeType.startsWith('image/') ? (
                   <img src={att.dataUrl} alt={att.name} style={{ width: 24, height: 24, objectFit: 'cover', borderRadius: 4 }} />
                 ) : (
@@ -349,12 +349,12 @@ export default function UpdateForm({ engagementId, authorId, authorName, authorR
 
         {/* Bill preview + extracted data */}
         {billImage && (
-          <div style={{ marginTop: 10, padding: '10px 12px', background: 'var(--color-cloud-canvas)', borderRadius: 10, border: '1px solid var(--color-ghost-border)', display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+          <div style={{ marginTop: 10, padding: '10px 12px', background: 'rgba(255,255,255,0.06)', borderRadius: 10, border: '1px solid rgba(255,255,255,0.10)', display: 'flex', gap: 12, alignItems: 'flex-start' }}>
             <div style={{ position: 'relative', flexShrink: 0 }}>
-              <img src={billImage.dataUrl} alt="Sąskaita" style={{ width: 56, height: 56, objectFit: 'contain', borderRadius: 6, border: '1px solid var(--color-ghost-border)', background: '#fff' }} />
+              <img src={billImage.dataUrl} alt="Sąskaita" style={{ width: 56, height: 56, objectFit: 'contain', borderRadius: 6, border: '1px solid rgba(255,255,255,0.15)', background: '#fff' }} />
               <button
                 onClick={() => { setBillImage(null); setBillData(null); setBillError(false); }}
-                style={{ position: 'absolute', top: -6, right: -6, width: 16, height: 16, borderRadius: '50%', background: 'var(--color-muted-ash)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0 }}
+                style={{ position: 'absolute', top: -6, right: -6, width: 16, height: 16, borderRadius: '50%', background: 'rgba(0,0,0,0.6)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0 }}
               >
                 <X size={9} style={{ color: '#fff' }} />
               </button>
@@ -396,7 +396,7 @@ export default function UpdateForm({ engagementId, authorId, authorName, authorR
             onClick={() => setToOwner(s => !s)}
             style={{
               width: 36, height: 20, borderRadius: 10, position: 'relative', flexShrink: 0,
-              background: toOwner ? 'var(--color-accent)' : 'var(--color-ghost-border)',
+              background: toOwner ? 'var(--color-accent)' : 'rgba(255,255,255,0.18)',
               transition: 'background 0.2s', cursor: 'pointer',
             }}
           >

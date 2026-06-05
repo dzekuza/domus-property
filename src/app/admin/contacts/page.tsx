@@ -4,8 +4,7 @@ import { useState } from 'react';
 import { Plus, Pencil, Trash2, Phone, Mail } from 'lucide-react';
 import { useStore } from '@/lib/store';
 import { CONTACT_CATEGORIES } from '@/lib/constants';
-import PageHeader from '@/components/layout/PageHeader';
-import Card from '@/components/shared/Card';
+import PageShell from '@/components/layout/PageShell';
 import Avatar from '@/components/shared/Avatar';
 import Btn from '@/components/shared/Btn';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -29,30 +28,29 @@ export default function AdminContactsPage() {
 
   const pillStyle = (active: boolean): React.CSSProperties => ({
     padding: '6px 14px', borderRadius: 'var(--radius-pill)', fontSize: 13, fontWeight: 500, cursor: 'pointer', whiteSpace: 'nowrap',
-    background: active ? 'var(--color-midnight-ink)' : 'var(--color-paper-white)',
-    color: active ? '#fff' : 'var(--color-muted-ash)',
-    border: active ? 'none' : '1px solid var(--color-ghost-border)',
+    background: active ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.07)',
+    color: active ? '#11141a' : 'rgba(255,255,255,0.72)',
+    border: active ? '1px solid transparent' : '1px solid rgba(255,255,255,0.14)',
+    transition: 'background 0.15s, color 0.15s',
   });
 
   return (
     <div>
-      <PageHeader
+      <PageShell
         title="Kontaktai"
         subtitle={`${contacts.length} specialistų`}
         actions={<Btn variant="primary" icon={<Plus size={15} />} onClick={() => setShowModal(true)}>Naujas kontaktas</Btn>}
-      />
+      >
+        {/* Category pills */}
+        <div className="hide-scrollbar" style={{ display: 'flex', gap: 6, padding: '16px 20px 4px', overflowX: 'auto' }}>
+          <button style={pillStyle(filter === 'Visi')} onClick={() => setFilter('Visi')}>Visi ({contacts.length})</button>
+          {CONTACT_CATEGORIES.map(cat => (
+            <button key={cat} style={pillStyle(filter === cat)} onClick={() => setFilter(cat)}>
+              {cat} ({contacts.filter(c => c.category === cat).length})
+            </button>
+          ))}
+        </div>
 
-      {/* Category pills */}
-      <div style={{ display: 'flex', gap: 6, marginBottom: 20, overflowX: 'auto', paddingBottom: 4 }}>
-        <button style={pillStyle(filter === 'Visi')} onClick={() => setFilter('Visi')}>Visi ({contacts.length})</button>
-        {CONTACT_CATEGORIES.map(cat => (
-          <button key={cat} style={pillStyle(filter === cat)} onClick={() => setFilter(cat)}>
-            {cat} ({contacts.filter(c => c.category === cat).length})
-          </button>
-        ))}
-      </div>
-
-      <Card style={{ padding: 0, overflow: 'hidden' }}>
         <div className="table-scroll"><table className="domus-table">
           <thead>
             <tr>
@@ -98,7 +96,7 @@ export default function AdminContactsPage() {
             ))}
           </tbody>
         </table></div>
-      </Card>
+      </PageShell>
 
       <Dialog open={showModal} onOpenChange={setShowModal}>
         <DialogContent>

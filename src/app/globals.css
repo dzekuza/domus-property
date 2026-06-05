@@ -40,15 +40,15 @@
   --foreground: #1c1c1c;
 
   /* Glass design tokens */
-  --glass-bg: rgba(255, 255, 255, 0.68);
-  --glass-bg-strong: rgba(255, 255, 255, 0.82);
-  --glass-border: rgba(255, 255, 255, 0.55);
-  --glass-border-subtle: rgba(200, 205, 220, 0.45);
-  --glass-shadow: 0 2px 12px rgba(0,0,0,0.06), 0 8px 32px rgba(0,0,0,0.07);
-  --glass-shadow-hover: 0 4px 20px rgba(0,0,0,0.09), 0 16px 48px rgba(0,0,0,0.10);
-  --glass-blur: blur(20px) saturate(180%);
-  --glass-sidebar-bg: rgba(6, 28, 16, 0.82);
-  --glass-sidebar-blur: blur(28px) saturate(160%);
+  --glass-bg: rgba(255, 255, 255, 0.78);
+  --glass-bg-strong: rgba(255, 255, 255, 0.90);
+  --glass-border: rgba(255, 255, 255, 0.70);
+  --glass-border-subtle: rgba(200, 205, 220, 0.50);
+  --glass-shadow: 0 2px 16px rgba(0,0,0,0.10), 0 8px 32px rgba(0,0,0,0.10);
+  --glass-shadow-hover: 0 4px 24px rgba(0,0,0,0.13), 0 16px 48px rgba(0,0,0,0.13);
+  --glass-blur: blur(24px) saturate(200%);
+  --glass-sidebar-bg: rgba(22, 24, 30, 0.60);
+  --glass-sidebar-blur: blur(32px) saturate(180%);
 
   /* Domus design tokens */
   --color-midnight-ink: #1c1c1c;
@@ -107,15 +107,15 @@
   --shadow-card-hover: var(--glass-shadow-hover);
 
   /* shadcn compat */
-  --card: rgba(255, 255, 255, 0.68);
-  --card-foreground: #1c1c1c;
-  --popover: rgba(255, 255, 255, 0.88);
-  --popover-foreground: #1c1c1c;
+  --card: rgba(24, 26, 32, 0.55);
+  --card-foreground: rgba(255, 255, 255, 0.92);
+  --popover: rgba(24, 26, 32, 0.92);
+  --popover-foreground: rgba(255, 255, 255, 0.92);
   --primary: #76c03d;
   --primary-foreground: #ffffff;
-  --secondary: #f0ede8;
-  --secondary-foreground: #1c1c1c;
-  --muted: #f0ede8;
+  --secondary: rgba(255, 255, 255, 0.08);
+  --secondary-foreground: rgba(255, 255, 255, 0.92);
+  --muted: rgba(255, 255, 255, 0.06);
   --muted-foreground: #7a7774;
   --accent: rgba(118,192,61,0.1);
   --accent-foreground: #174325;
@@ -143,12 +143,9 @@
   }
   body {
     font-family: var(--font-text);
-    background: var(--background);
-    background-image:
-      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(118, 192, 61, 0.10) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 50% at 80% 80%, rgba(103, 180, 255, 0.09) 0%, transparent 55%),
-      radial-gradient(ellipse 50% 40% at 55% 40%, rgba(200, 160, 255, 0.06) 0%, transparent 50%);
-    background-attachment: fixed;
+    /* Deep-blue fallback shown behind the animated MeshGradient shader
+       (BackgroundShader) until/if WebGL paints. */
+    background: #0c1830;
     color: var(--color-midnight-ink);
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
@@ -164,23 +161,87 @@
 }
 
 /* ── Glass utilities ─────────────────────────────────────────── */
+/*
+  Dark "liquid glass" (iOS 26 style). Blur is applied DIRECTLY on the element.
+
+  IMPORTANT: do NOT add a manual `-webkit-backdrop-filter` line alongside
+  `backdrop-filter`. Lightning CSS (Tailwind v4's bundler) drops BOTH
+  declarations when it sees the manual webkit pairing, silently removing the
+  blur at build time. Write only the standard `backdrop-filter` — Lightning CSS
+  auto-prefixes for Safari based on browser targets.
+
+  Text legibility: the card redefines the app's text-color tokens to light
+  values *within its own scope*, so every descendant that reads
+  `var(--color-midnight-ink)` / `var(--color-muted-ash*)` — including inline
+  styles across all pages — automatically flips to light. Colored status
+  badges keep their own hues and stay legible on dark.
+*/
 .glass {
-  background: var(--glass-bg) !important;
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border) !important;
-  box-shadow: var(--glass-shadow) !important;
+  position: relative;
+  background: rgba(22, 24, 30, 0.55) !important;
+  backdrop-filter: blur(28px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  /* drop shadow for depth + bright top edge for physical refraction */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
+              inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+  border-radius: 24px;
+  color: rgba(255, 255, 255, 0.92);
+  --color-midnight-ink: rgba(255, 255, 255, 0.95);
+  --color-muted-ash: rgba(255, 255, 255, 0.74);
+  --color-muted-ash-2: rgba(255, 255, 255, 0.56);
+  --color-ghost-border: rgba(255, 255, 255, 0.12);
+  --foreground: rgba(255, 255, 255, 0.95);
+  --muted-foreground: rgba(255, 255, 255, 0.60);
 }
 .glass:hover {
-  box-shadow: var(--glass-shadow-hover) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.42),
+              inset 0 1px 0 rgba(255, 255, 255, 0.22) !important;
 }
 .glass-strong {
-  background: var(--glass-bg-strong) !important;
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border) !important;
-  box-shadow: var(--glass-shadow) !important;
+  position: relative;
+  background: rgba(18, 20, 26, 0.68) !important;
+  backdrop-filter: blur(28px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.40),
+              inset 0 1px 0 rgba(255, 255, 255, 0.22) !important;
+  border-radius: 24px;
+  color: rgba(255, 255, 255, 0.95);
+  --color-midnight-ink: rgba(255, 255, 255, 0.97);
+  --color-muted-ash: rgba(255, 255, 255, 0.76);
+  --color-muted-ash-2: rgba(255, 255, 255, 0.58);
+  --color-ghost-border: rgba(255, 255, 255, 0.14);
+  --foreground: rgba(255, 255, 255, 0.97);
+  --muted-foreground: rgba(255, 255, 255, 0.62);
 }
+
+/* ── Table legibility on dark glass ── */
+.glass .domus-table th {
+  color: rgba(255, 255, 255, 0.50) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.10) !important;
+  background: transparent !important;
+}
+.glass .domus-table td {
+  color: rgba(255, 255, 255, 0.88) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+.glass .domus-table tbody tr:hover td { background: rgba(255, 255, 255, 0.06) !important; }
+
+/* ── Selects inside dark glass cards ── */
+.glass [data-slot="select-trigger"] {
+  background: rgba(255, 255, 255, 0.07) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  color: rgba(255, 255, 255, 0.90) !important;
+}
+.glass [data-slot="select-trigger"]:hover {
+  background: rgba(255, 255, 255, 0.13) !important;
+}
+.glass [data-slot="select-trigger"] svg {
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+/* Hide the horizontal scrollbar on filter-pill rows */
+.hide-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.hide-scrollbar::-webkit-scrollbar { display: none; }
 
 /* ── shadcn component glass overrides (data-slot targeting) ── */
 
@@ -188,86 +249,94 @@
 [data-slot="dialog-overlay"] {
   background: rgba(0, 0, 0, 0.22) !important;
   backdrop-filter: blur(16px) saturate(140%) !important;
-  -webkit-backdrop-filter: blur(16px) saturate(140%) !important;
 }
 
-/* Dialog content — frosted glass panel */
+/* Dialog content — DARK frosted glass panel. Token overrides flip inner
+   labels/text to light (same mechanism as .glass). */
 [data-slot="dialog-content"] {
-  background: rgba(248, 250, 253, 0.82) !important;
+  background: rgba(24, 26, 32, 0.80) !important;
   backdrop-filter: blur(32px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(32px) saturate(180%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.65) !important;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.14) !important;
+  color: rgba(255, 255, 255, 0.92);
+  --color-midnight-ink: rgba(255, 255, 255, 0.95);
+  --color-muted-ash: rgba(255, 255, 255, 0.74);
+  --color-muted-ash-2: rgba(255, 255, 255, 0.56);
+  --color-ghost-border: rgba(255, 255, 255, 0.14);
+  --foreground: rgba(255, 255, 255, 0.95);
+  --muted-foreground: rgba(255, 255, 255, 0.60);
 }
 
 /* Dialog footer */
 [data-slot="dialog-footer"] {
-  background: rgba(240, 243, 248, 0.5) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
   backdrop-filter: blur(8px) !important;
-  border-top: 1px solid rgba(255,255,255,0.4) !important;
+  border-top: 1px solid rgba(255,255,255,0.10) !important;
 }
 
-/* Inputs — frosted glass with subtle tint */
+/* Inputs — DARK frosted glass */
 [data-slot="input"] {
-  background: rgba(255, 255, 255, 0.45) !important;
+  background: rgba(255, 255, 255, 0.07) !important;
   backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
-  border-color: rgba(200, 210, 230, 0.6) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
   transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease !important;
 }
+[data-slot="input"]::placeholder { color: rgba(255, 255, 255, 0.40) !important; }
 [data-slot="input"]:focus-visible {
-  background: rgba(255, 255, 255, 0.72) !important;
+  background: rgba(255, 255, 255, 0.12) !important;
   border-color: var(--color-accent) !important;
   box-shadow: 0 0 0 3px rgba(118,192,61,0.18) !important;
 }
 
 /* Textarea — same as input */
 [data-slot="textarea"] {
-  background: rgba(255, 255, 255, 0.45) !important;
+  background: rgba(255, 255, 255, 0.07) !important;
   backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
-  border-color: rgba(200, 210, 230, 0.6) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
   transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease !important;
 }
+[data-slot="textarea"]::placeholder { color: rgba(255, 255, 255, 0.40) !important; }
 [data-slot="textarea"]:focus-visible {
-  background: rgba(255, 255, 255, 0.72) !important;
+  background: rgba(255, 255, 255, 0.12) !important;
   border-color: var(--color-accent) !important;
   box-shadow: 0 0 0 3px rgba(118,192,61,0.18) !important;
 }
 
-/* Select trigger */
+/* Select trigger — DARK */
 [data-slot="select-trigger"] {
-  background: rgba(255, 255, 255, 0.45) !important;
+  background: rgba(255, 255, 255, 0.07) !important;
   backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
-  border-color: rgba(200, 210, 230, 0.6) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  color: rgba(255, 255, 255, 0.90) !important;
   transition: background 0.15s ease, border-color 0.15s ease !important;
 }
 [data-slot="select-trigger"]:hover {
-  background: rgba(255, 255, 255, 0.62) !important;
+  background: rgba(255, 255, 255, 0.13) !important;
 }
 [data-slot="select-trigger"]:focus-visible {
-  background: rgba(255, 255, 255, 0.72) !important;
+  background: rgba(255, 255, 255, 0.14) !important;
   border-color: var(--color-accent) !important;
   box-shadow: 0 0 0 3px rgba(118,192,61,0.18) !important;
 }
 
-/* Select dropdown popup */
+/* Select dropdown popup — DARK */
 [data-slot="select-content"] {
-  background: rgba(245, 248, 252, 0.88) !important;
+  background: rgba(24, 26, 32, 0.92) !important;
   backdrop-filter: blur(24px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.6) !important;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.7) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.10) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
 }
 
-/* Dropdown menu glass */
+/* Dropdown menu glass — DARK */
 [data-slot="dropdown-menu-content"] {
-  background: rgba(245, 248, 252, 0.88) !important;
+  background: rgba(24, 26, 32, 0.92) !important;
   backdrop-filter: blur(24px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.6) !important;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.7) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.10) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
 }
 
 /* ── Sidebar nav item ─────────────────────────────────────────── */
@@ -303,7 +372,7 @@
 }
 
 /* ── Table ───────────────────────────────────────────────────── */
-.domus-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+.domus-table { width: 100%; border-collapse: separate; border-spacing: 0; background: transparent; }
 .domus-table th {
   text-align: left;
   font-size: 11px;
@@ -312,18 +381,20 @@
   color: var(--color-muted-ash-2);
   font-weight: 600;
   padding: 12px 16px;
-  border-bottom: 1px solid var(--color-ghost-border);
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(8px);
 }
 .domus-table td {
   padding: 14px 16px;
-  border-bottom: 1px solid var(--color-ghost-border);
+  border-bottom: 1px solid rgba(255,255,255,0.22);
   font-size: 14px;
   color: var(--color-midnight-ink);
   vertical-align: middle;
+  background: transparent;
 }
 .domus-table tr:last-child td { border-bottom: none; }
-.domus-table tbody tr { transition: background 0.1s; }
-.domus-table tbody tr:hover td { background: rgba(118,192,61,0.06); cursor: pointer; }
+.domus-table tbody tr { transition: background 0.12s; }
 
 /* ── Animations ──────────────────────────────────────────────── */
 @keyframes spin {
@@ -346,7 +417,7 @@
 .app-wrapper {
   display: flex;
   min-height: 100dvh;
-  background: var(--background);
+  background: transparent;
 }
 
 .app-sidebar-overlay {
@@ -355,7 +426,6 @@
   inset: 0;
   background: rgba(0,0,0,0.35);
   backdrop-filter: blur(8px) saturate(120%);
-  -webkit-backdrop-filter: blur(8px) saturate(120%);
   z-index: 199;
 }
 .app-sidebar-overlay.open { display: block; }
@@ -363,7 +433,7 @@
 .app-main {
   flex: 1;
   min-width: 0;
-  padding: 28px 36px;
+  padding: 20px 28px 20px 20px;
   max-width: 1400px;
 }
 
@@ -634,7 +704,7 @@
 .role-tabs {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  background: var(--color-cloud-canvas);
+  background: rgba(200, 210, 220, 0.28);
   padding: 4px;
   margin: 16px 16px 0;
   border-radius: 12px;

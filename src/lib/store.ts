@@ -7,9 +7,9 @@ import type {
   Role, DefectStatus, ServiceKind, PurchaseStepId, DocumentFile, DefectRoom,
   ScheduleEvent, ScheduleEventType, ChatMessage,
   WorkEngagement, WorkerProfile, WorkerSpecialty, WorkUpdate, WorkAttachment, AISummary,
-  Expense, BulletinPost, BulletinCategory,
+  Expense, BulletinPost, BulletinCategory, CommunityPost, CommunityMention,
 } from './types';
-import { SEED_USERS, SEED_ESTATES, SEED_UNITS, SEED_DEFECTS, SEED_CONTACTS, SEED_PHOTO_SECTIONS, SEED_SCHEDULE_EVENTS, SEED_CHAT_MESSAGES, SEED_WORK_ENGAGEMENTS, SEED_WORKER_PROFILES, SEED_WORK_UPDATES, SEED_BULLETIN_POSTS } from './seed';
+import { SEED_USERS, SEED_ESTATES, SEED_UNITS, SEED_DEFECTS, SEED_CONTACTS, SEED_PHOTO_SECTIONS, SEED_SCHEDULE_EVENTS, SEED_CHAT_MESSAGES, SEED_WORK_ENGAGEMENTS, SEED_WORKER_PROFILES, SEED_WORK_UPDATES, SEED_BULLETIN_POSTS, SEED_COMMUNITY_POSTS } from './seed';
 import { toDataURL, generateId } from './files';
 
 interface Session {
@@ -98,6 +98,11 @@ interface DomusStore {
   bulletinPosts: BulletinPost[];
   addBulletinPost: (input: { category: BulletinCategory; title: string; body: string; contact?: string }) => void;
   deleteBulletinPost: (id: string) => void;
+  // community
+  communityPosts: CommunityPost[];
+  addCommunityPost: (estateId: string, body: string, imageFiles: File[], mentions: CommunityMention[], anonymous?: boolean) => Promise<void>;
+  deleteCommunityPost: (id: string) => void;
+  toggleCommunityPostLike: (id: string) => void;
 }
 
 let defectSeq = 204;
@@ -115,6 +120,7 @@ export const useStore = create<DomusStore>()(
       scheduleEvents: SEED_SCHEDULE_EVENTS,
       chatMessages: SEED_CHAT_MESSAGES,
       bulletinPosts: SEED_BULLETIN_POSTS,
+      communityPosts: SEED_COMMUNITY_POSTS,
       workEngagements: SEED_WORK_ENGAGEMENTS,
       workerProfiles: SEED_WORKER_PROFILES,
       workUpdates: SEED_WORK_UPDATES,
@@ -486,6 +492,40 @@ export const useStore = create<DomusStore>()(
       deleteBulletinPost(id) {
         set(s => ({ bulletinPosts: s.bulletinPosts.filter(p => p.id !== id) }));
       },
+      // ── Community mutations ───────────────────────────────────────────────
+      async addCommunityPost(estateId, body, imageFiles, mentions, anonymous = false) {
+        const { session, users, units } = get();
+        const user = users.find(u => u.id === session.userId);
+        const unit = units.find(u => u.ownerUserId === session.userId);
+        const imageUrls = await Promise.all(imageFiles.map(toDataURL));
+        const post: CommunityPost = {
+          id: `cp-${generateId()}`,
+          estateId,
+          authorId: session.userId ?? '',
+          authorName: anonymous ? 'Anonimas' : (user?.fullName ?? 'Savininkas'),
+          unitNumber: anonymous ? '—' : (unit?.number ?? (user?.role === 'admin' ? 'Admin' : '—')),
+          body,
+          createdAt: new Date().toISOString(),
+          likedBy: [],
+          imageUrls,
+          mentions,
+          isAnonymous: anonymous || undefined,
+        };
+        set(s => ({ communityPosts: [post, ...s.communityPosts] }));
+      },
+      deleteCommunityPost(id) {
+        set(s => ({ communityPosts: s.communityPosts.filter(p => p.id !== id) }));
+      },
+      toggleCommunityPostLike(id) {
+        const userId = get().session.userId ?? '';
+        set(s => ({
+          communityPosts: s.communityPosts.map(p =>
+            p.id === id
+              ? { ...p, likedBy: p.likedBy.includes(userId) ? p.likedBy.filter(uid => uid !== userId) : [...p.likedBy, userId] }
+              : p
+          ),
+        }));
+      },
     }),
     {
       name: 'domus.store.v1',
@@ -501,6 +541,7 @@ export const useStore = create<DomusStore>()(
         scheduleEvents: s.scheduleEvents,
         chatMessages: s.chatMessages,
         bulletinPosts: s.bulletinPosts,
+        communityPosts: s.communityPosts,
         workEngagements: s.workEngagements,
         workerProfiles: s.workerProfiles,
         workUpdates: s.workUpdates.map(({ audioDataUrl: _a, attachments, ...rest }) => ({

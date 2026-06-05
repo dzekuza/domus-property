@@ -32,8 +32,8 @@ function MiniAudioPlayer({ src }: { src: string }) {
     <div style={{
       display: 'flex', alignItems: 'center', gap: 10,
       padding: '8px 12px',
-      background: 'var(--color-paper-white)',
-      border: '1px solid var(--color-ghost-border)',
+      background: 'rgba(255,255,255,0.06)',
+      border: '1px solid rgba(255,255,255,0.10)',
       borderRadius: 12, marginTop: 10,
     }}>
       <audio
@@ -63,7 +63,7 @@ function MiniAudioPlayer({ src }: { src: string }) {
 
       {/* Progress track */}
       <div
-        style={{ flex: 1, height: 3, background: 'var(--color-ghost-border)', borderRadius: 100, overflow: 'hidden', cursor: 'pointer' }}
+        style={{ flex: 1, height: 3, background: 'rgba(255,255,255,0.15)', borderRadius: 100, overflow: 'hidden', cursor: 'pointer' }}
         onClick={e => {
           if (!audioRef.current || !duration) return;
           const rect = (e.currentTarget as HTMLDivElement).getBoundingClientRect();
@@ -73,7 +73,7 @@ function MiniAudioPlayer({ src }: { src: string }) {
         <div style={{ height: '100%', background: 'var(--color-teal)', width: `${pct}%`, transition: 'width 0.1s linear', borderRadius: 100 }} />
       </div>
 
-      <span style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', fontVariantNumeric: 'tabular-nums', flexShrink: 0, letterSpacing: '0.02em' }}>
+      <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)', fontVariantNumeric: 'tabular-nums', flexShrink: 0, letterSpacing: '0.02em' }}>
         {fmt(current)} / {fmt(duration)}
       </span>
     </div>
@@ -110,9 +110,9 @@ export default function UpdateCard({ update, selectable = false, selected = fals
       <div
         style={{
           display: 'flex', gap: 0, padding: '14px',
-          background: selected ? 'rgba(232,119,60,0.08)' : 'var(--color-cloud-canvas)',
+          background: selected ? 'rgba(232,119,60,0.12)' : 'rgba(255,255,255,0.06)',
           borderRadius: 12,
-          border: selected ? '1.5px solid var(--color-accent)' : '1.5px solid transparent',
+          border: selected ? '1.5px solid var(--color-accent)' : '1.5px solid rgba(255,255,255,0.10)',
           cursor: selectable ? 'pointer' : 'default',
           transition: 'background 0.15s, border-color 0.15s',
         }}
@@ -120,8 +120,8 @@ export default function UpdateCard({ update, selectable = false, selected = fals
       >
         {selectable && (
           <div style={{
-            width: 18, height: 18, borderRadius: 5, border: `2px solid ${selected ? 'var(--color-accent)' : 'var(--color-ghost-border)'}`,
-            background: selected ? 'var(--color-accent)' : 'rgba(255,255,255,0.55)',
+            width: 18, height: 18, borderRadius: 5, border: `2px solid ${selected ? 'var(--color-accent)' : 'rgba(255,255,255,0.25)'}`,
+            background: selected ? 'var(--color-accent)' : 'rgba(255,255,255,0.10)',
             display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, alignSelf: 'center',
             transition: 'background 0.15s, border-color 0.15s',
           }}>
@@ -132,7 +132,7 @@ export default function UpdateCard({ update, selectable = false, selected = fals
           {/* Header row */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 6, flexWrap: 'wrap' }}>
             <Avatar name={update.authorName} bg={roleBg} size={28} />
-            <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--color-midnight-ink)', letterSpacing: '-0.01em' }}>
+            <span style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.92)', letterSpacing: '-0.01em' }}>
               {update.authorName}
             </span>
 
@@ -146,14 +146,14 @@ export default function UpdateCard({ update, selectable = false, selected = fals
               </span>
             )}
 
-            <span style={{ marginLeft: 'auto', fontSize: 11, color: 'var(--color-muted-ash-2)', letterSpacing: '0.01em' }}>
+            <span style={{ marginLeft: 'auto', fontSize: 11, color: 'rgba(255,255,255,0.6)', letterSpacing: '0.01em' }}>
               {formatRelative(update.createdAt)}
             </span>
           </div>
 
           {/* Body text */}
           {update.text && (
-            <p style={{ fontSize: 14, color: 'var(--color-midnight-ink)', lineHeight: 1.65, margin: 0 }}>
+            <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.92)', lineHeight: 1.65, margin: 0 }}>
               {update.text}
             </p>
           )}
@@ -171,7 +171,7 @@ export default function UpdateCard({ update, selectable = false, selected = fals
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: 4,
                   fontSize: 11, fontWeight: 500,
-                  color: 'var(--color-muted-ash-2)',
+                  color: 'rgba(255,255,255,0.6)',
                   background: 'none', border: 'none', cursor: 'pointer',
                   fontFamily: 'inherit', padding: '2px 0',
                   letterSpacing: '0.01em',
@@ -189,11 +189,11 @@ export default function UpdateCard({ update, selectable = false, selected = fals
                   data-open={showTranscription ? 'true' : 'false'}
                   style={{
                     marginTop: 6, padding: '10px 12px',
-                    background: 'var(--color-cloud-canvas)',
+                    background: 'rgba(255,255,255,0.08)',
                     borderRadius: 10, fontSize: 13,
-                    color: 'var(--color-midnight-ink)',
+                    color: 'rgba(255,255,255,0.85)',
                     lineHeight: 1.6, fontStyle: 'italic',
-                    borderLeft: '2px solid var(--color-ghost-border)',
+                    borderLeft: '2px solid rgba(255,255,255,0.12)',
                   }}
                 >
                   {update.transcription}
@@ -209,12 +209,12 @@ export default function UpdateCard({ update, selectable = false, selected = fals
                 const isImage = att.mimeType.startsWith('image/');
                 return isImage ? (
                   <button key={att.id} onClick={() => setLightboxUrl(att.dataUrl ?? null)}
-                    style={{ width: 64, height: 64, borderRadius: 8, overflow: 'hidden', border: '1px solid var(--color-ghost-border)', cursor: 'zoom-in', padding: 0, background: 'none' }}>
+                    style={{ width: 64, height: 64, borderRadius: 8, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.12)', cursor: 'zoom-in', padding: 0, background: 'none' }}>
                     <img src={att.dataUrl} alt={att.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </button>
                 ) : (
                   <a key={att.id} href={att.dataUrl} download={att.name}
-                    style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '5px 10px', background: 'var(--color-cloud-canvas)', borderRadius: 8, fontSize: 12, color: 'var(--color-midnight-ink)', textDecoration: 'none' }}>
+                    style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '5px 10px', background: 'rgba(255,255,255,0.08)', borderRadius: 8, fontSize: 12, color: 'rgba(255,255,255,0.85)', textDecoration: 'none' }}>
                     <Paperclip size={11} />
                     {att.name}
                   </a>
@@ -225,9 +225,9 @@ export default function UpdateCard({ update, selectable = false, selected = fals
 
           {/* Bill summary */}
           {update.billSummary && (
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 8, padding: '4px 10px', background: 'var(--color-cloud-canvas)', borderRadius: 8, fontSize: 12 }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 8, padding: '4px 10px', background: 'rgba(255,255,255,0.08)', borderRadius: 8, fontSize: 12 }}>
               <Receipt size={11} style={{ color: 'var(--color-accent)', flexShrink: 0 }} />
-              <span style={{ fontWeight: 600, color: 'var(--color-midnight-ink)' }}>{update.billSummary.vendorName ?? 'Sąskaita'}</span>
+              <span style={{ fontWeight: 600, color: 'rgba(255,255,255,0.92)' }}>{update.billSummary.vendorName ?? 'Sąskaita'}</span>
               {update.billSummary.totalAmount != null && (
                 <span style={{ color: 'var(--color-accent)', fontWeight: 700 }}>{update.billSummary.totalAmount.toFixed(2)} {update.billSummary.currency ?? 'EUR'}</span>
               )}
@@ -242,14 +242,14 @@ export default function UpdateCard({ update, selectable = false, selected = fals
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: 5,
                   fontSize: 11, fontWeight: 500,
-                  color: 'var(--color-muted-ash-2)',
+                  color: 'rgba(255,255,255,0.6)',
                   background: 'none', border: 'none', cursor: 'pointer',
                   fontFamily: 'inherit', padding: '2px 0',
                   letterSpacing: '0.01em',
                   transition: 'color 0.15s',
                 }}
-                onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = 'var(--color-midnight-ink)'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = 'var(--color-muted-ash-2)'; }}
+                onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,255,255,0.92)'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,255,255,0.6)'; }}
               >
                 <Languages size={11} />
                 Versti
