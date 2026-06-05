@@ -68,7 +68,6 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
         margin: '10px 0 10px 10px',
         background: 'var(--glass-sidebar-bg)',
         backdropFilter: 'var(--glass-sidebar-blur)',
-        WebkitBackdropFilter: 'var(--glass-sidebar-blur)',
         border: '1px solid var(--color-sidebar-border)',
         borderRadius: 18,
         display: 'flex',

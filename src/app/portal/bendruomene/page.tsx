@@ -55,7 +55,7 @@ function InlineCompose({ onSubmit }: {
       flexDirection: 'column',
       gap: 10,
       marginBottom: 20,
-      padding: '12px 14px',
+      padding: 0,
     }}>
       {/* Textarea with controls inset at bottom-left */}
       <div style={{ position: 'relative' }}>
@@ -63,8 +63,8 @@ function InlineCompose({ onSubmit }: {
           placeholder="Pasidalinkite naujiena ar klausimu su kaimynais…"
           value={body}
           onChange={e => setBody(e.target.value)}
-          rows={3}
-          style={{ resize: 'none', fontSize: 14, background: 'transparent', border: '1px solid rgba(255,255,255,0.12)', paddingBottom: 40 }}
+          rows={5}
+          className="resize-none border-white/12 bg-transparent pb-10"
         />
         <div style={{ position: 'absolute', bottom: 8, left: 10, display: 'flex', alignItems: 'center', gap: 8 }}>
           <button onClick={() => fileRef.current?.click()} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '4px 8px', borderRadius: 6, background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.10)', cursor: 'pointer', color: 'var(--muted-foreground)', fontSize: 12 }}>

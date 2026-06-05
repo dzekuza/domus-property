@@ -119,43 +119,41 @@ export default function UpdateFeed({
       )}
 
       {/* Updates list */}
-      <div style={{ background: 'var(--color-surface-raised)', border: '1px solid var(--color-ghost-border)', borderRadius: 14, padding: 20 }}>
-        {/* Grouping toolbar */}
-        {allowGrouping && workerUpdates.length > 0 && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12, flexWrap: 'wrap' }}>
-            {!groupMode ? (
-              <Btn variant="ghost" size="sm" icon={<Layers size={12} />} onClick={onToggleGroupMode}>
-                Grupuoti darbininkų ataskaitas
+      {/* Grouping toolbar */}
+      {allowGrouping && workerUpdates.length > 0 && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4, flexWrap: 'wrap' }}>
+          {!groupMode ? (
+            <Btn variant="ghost" size="sm" icon={<Layers size={12} />} onClick={onToggleGroupMode}>
+              Grupuoti darbininkų ataskaitas
+            </Btn>
+          ) : (
+            <>
+              <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', flex: 1 }}>
+                {selectedIds.size === 0 ? 'Spustelėkite ataskaitas žemiau…' : `Pasirinkta: ${selectedIds.size} — žiūrėkite formą viršuje`}
+              </span>
+              <Btn variant="ghost" size="sm" icon={<X size={12} />} onClick={onCancelGroup}>
+                Atšaukti
               </Btn>
-            ) : (
-              <>
-                <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', flex: 1 }}>
-                  {selectedIds.size === 0 ? 'Spustelėkite ataskaitas žemiau…' : `Pasirinkta: ${selectedIds.size} — žiūrėkite formą viršuje`}
-                </span>
-                <Btn variant="ghost" size="sm" icon={<X size={12} />} onClick={onCancelGroup}>
-                  Atšaukti
-                </Btn>
-              </>
-            )}
-          </div>
-        )}
+            </>
+          )}
+        </div>
+      )}
 
-        {updates.length === 0 ? (
-          <EmptyState icon={Sparkles} title="Ataskaitų dar nėra" subtitle="Darbininkai ataskaitų dar nepateikė." />
-        ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {updates.map(u => (
-              <UpdateCard
-                key={u.id}
-                update={u}
-                selectable={groupMode && u.authorRole === 'worker'}
-                selected={selectedIds.has(u.id)}
-                onToggle={() => onToggleSelect?.(u.id)}
-              />
-            ))}
-          </div>
-        )}
-      </div>
+      {updates.length === 0 ? (
+        <EmptyState icon={Sparkles} title="Ataskaitų dar nėra" subtitle="Darbininkai ataskaitų dar nepateikė." />
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {updates.map(u => (
+            <UpdateCard
+              key={u.id}
+              update={u}
+              selectable={groupMode && u.authorRole === 'worker'}
+              selected={selectedIds.has(u.id)}
+              onToggle={() => onToggleSelect?.(u.id)}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
