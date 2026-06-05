@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
+import BackgroundShader from '@/components/ui/background-shader';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -29,7 +30,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="lt" className={`${inter.variable} ${tomatoGrotesk.variable}`}>
-      <body style={{ minHeight: '100vh' }}>{children}</body>
+      <body style={{ minHeight: '100vh' }}>
+        <BackgroundShader />
+        {children}
+      </body>
     </html>
   );
 }

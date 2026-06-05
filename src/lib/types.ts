@@ -226,6 +226,26 @@ export interface BulletinPost {
   pinned?: boolean;
 }
 
+export interface CommunityMention {
+  type: 'estate' | 'unit';
+  id: string;
+  label: string;
+}
+
+export interface CommunityPost {
+  id: string;
+  estateId: string;
+  authorId: string;
+  authorName: string;
+  unitNumber: string;
+  body: string;
+  createdAt: string;
+  likedBy: string[];
+  imageUrls?: string[];
+  mentions?: CommunityMention[];
+  isAnonymous?: boolean;
+}
+
 export interface Expense {
   id: string;
   engagementId: string;

@@ -32,9 +32,9 @@ export default function WorkManagerCard({ unitId, engagement, onCreated }: Props
 
   const inputStyle: React.CSSProperties = {
     flex: 1, padding: '9px 12px', fontSize: 13,
-    border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)',
-    outline: 'none', fontFamily: 'inherit', fontWeight: 400,
-    background: 'var(--color-paper-white)', boxSizing: 'border-box',
+    border: '1px solid rgba(255,255,255,0.12)', borderRadius: 'var(--radius-input)',
+    outline: 'none', fontFamily: 'inherit', fontWeight: 400, color: 'rgba(255,255,255,0.9)',
+    background: 'rgba(255,255,255,0.07)', boxSizing: 'border-box',
   };
 
   if (!engagement) {
@@ -77,7 +77,7 @@ export default function WorkManagerCard({ unitId, engagement, onCreated }: Props
         </div>
         <span style={{
           fontSize: 11, fontWeight: 700, padding: '3px 12px', borderRadius: 100, flexShrink: 0,
-          background: isActive ? '#dcfce7' : 'var(--color-cloud-canvas)',
+          background: isActive ? '#dcfce7' : 'rgba(255,255,255,0.08)',
           color: isActive ? '#166534' : 'var(--color-muted-ash)',
         }}>
           {isActive ? 'Aktyvus' : 'Užbaigtas'}

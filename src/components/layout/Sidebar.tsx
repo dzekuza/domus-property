@@ -28,6 +28,7 @@ const adminNav = [
   { href: '/admin/defects',      label: 'Defektai',     icon: Bug },
   { href: '/admin/contacts',     label: 'Kontaktai',    icon: Users },
   { href: '/admin/tvarkarastis', label: 'Tvarkaraštis', icon: Calendar },
+  { href: '/admin/bendruomene',  label: 'Bendruomenė',  icon: MessageSquare },
 ];
 
 const managerNav = [
@@ -59,10 +60,15 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
       className={`app-sidebar${isOpen ? ' open' : ''}`}
       style={{
         width: collapsed ? 60 : 256,
-        height: '100vh',
+        height: 'calc(100dvh - 20px)',
         position: 'sticky',
-        top: 0,
-        background: 'var(--color-sidebar-bg)',
+        top: 10,
+        margin: '10px 0 10px 10px',
+        background: 'var(--glass-sidebar-bg)',
+        backdropFilter: 'var(--glass-sidebar-blur)',
+        WebkitBackdropFilter: 'var(--glass-sidebar-blur)',
+        border: '1px solid rgba(255,255,255,0.14)',
+        borderRadius: 18,
         display: 'flex',
         flexDirection: 'column',
         flexShrink: 0,

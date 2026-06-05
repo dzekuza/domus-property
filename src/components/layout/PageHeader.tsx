@@ -17,12 +17,16 @@ interface Props {
 export default function PageHeader({ title, subtitle, breadcrumbs, actions, statusBadge, meta }: Props) {
   return (
     <div className="page-header" style={{
-      background: 'var(--color-sidebar-bg)',
+      background: 'var(--glass-sidebar-bg)',
+      backdropFilter: 'var(--glass-sidebar-blur)',
+      WebkitBackdropFilter: 'var(--glass-sidebar-blur)',
       borderRadius: 20,
+      border: '1px solid rgba(255,255,255,0.09)',
       padding: '28px 32px',
       marginBottom: 28,
       position: 'relative',
       overflow: 'hidden',
+      boxShadow: '0 4px 24px rgba(0,0,0,0.18)',
     }}>
       {/* Subtle texture dot */}
       <div style={{

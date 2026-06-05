@@ -1,3 +1,5 @@
+import GlassCard from './GlassCard';
+
 interface CardProps {
   children: React.ReactNode;
   flat?: boolean;
@@ -6,19 +8,36 @@ interface CardProps {
 }
 
 export default function Card({ children, flat, style, className }: CardProps) {
+  if (flat) {
+    return (
+      <div
+        className={className}
+        style={{
+          background: 'rgba(22, 24, 30, 0.45)',
+          borderRadius: 20,
+          padding: 24,
+          border: 'none',
+          boxShadow: 'none',
+          color: 'rgba(255, 255, 255, 0.92)',
+          ...style,
+        }}
+      >
+        {children}
+      </div>
+    );
+  }
+
+  const { padding, ...restStyle } = style ?? {};
+  const paddingValue = padding != null ? String(padding) : '24px';
+
   return (
-    <div
+    <GlassCard
       className={className}
-      style={{
-        background: flat ? 'var(--color-cloud-canvas)' : 'var(--color-paper-white)',
-        border: flat ? 'none' : '1px solid var(--color-ghost-border)',
-        borderRadius: 'var(--radius-card)',
-        boxShadow: flat ? 'none' : 'var(--shadow-card)',
-        padding: 24,
-        ...style,
-      }}
+      padding={paddingValue}
+      cornerRadius={20}
+      style={restStyle}
     >
       {children}
-    </div>
+    </GlassCard>
   );
 }

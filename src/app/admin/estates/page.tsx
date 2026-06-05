@@ -4,8 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Plus, Search, Building2 } from 'lucide-react';
 import { useStore } from '@/lib/store';
-import PageHeader from '@/components/layout/PageHeader';
-import Card from '@/components/shared/Card';
+import PageShell from '@/components/layout/PageShell';
 import StatusPill from '@/components/shared/StatusPill';
 import Btn from '@/components/shared/Btn';
 import EmptyState from '@/components/shared/EmptyState';
@@ -40,7 +39,7 @@ export default function EstatesPage() {
 
   return (
     <div>
-      <PageHeader
+      <PageShell
         title="Objektai"
         actions={
           <>
@@ -51,9 +50,7 @@ export default function EstatesPage() {
             <Btn variant="primary" icon={<Plus size={15} />} onClick={() => setShowModal(true)}>Naujas objektas</Btn>
           </>
         }
-      />
-
-      <Card style={{ padding: 0, overflow: 'hidden' }}>
+      >
         {filtered.length === 0 ? (
           <EmptyState icon={Building2} title="Objektų nerasta" subtitle="Pakeiskite paieškos užklausą arba sukurkite naują objektą." action={{ label: 'Naujas objektas', onClick: () => setShowModal(true) }} />
         ) : (
@@ -101,7 +98,7 @@ export default function EstatesPage() {
             </tbody>
           </table></div>
         )}
-      </Card>
+      </PageShell>
 
       <Dialog open={showModal} onOpenChange={setShowModal}>
         <DialogContent>

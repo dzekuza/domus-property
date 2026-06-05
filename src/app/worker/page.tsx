@@ -222,8 +222,8 @@ export default function WorkerPage() {
       <div style={{ minHeight: '100dvh', background: 'var(--background)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
         <style>{PULSE_STYLE}</style>
         <div style={{ textAlign: 'center' }}>
-          <p style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 700, color: 'var(--color-midnight-ink)', marginBottom: 8 }}>Projektas nepriskirtas</p>
-          <p style={{ fontSize: 14, color: 'var(--color-muted-ash-2)' }}>Kreipkitės į darbo vadovą dėl priskyrimo.</p>
+          <p style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 700, color: 'rgba(255,255,255,0.92)', marginBottom: 8 }}>Projektas nepriskirtas</p>
+          <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.6)' }}>Kreipkitės į darbo vadovą dėl priskyrimo.</p>
         </div>
       </div>
     );
@@ -287,10 +287,10 @@ export default function WorkerPage() {
 
         {/* Greeting */}
         <div style={{ animation: 'slide-up 0.3s ease' }}>
-          <p style={{ fontFamily: 'var(--font-display)', fontSize: 26, fontWeight: 800, color: 'var(--color-midnight-ink)', letterSpacing: '-0.03em', lineHeight: 1.2 }}>
+          <p style={{ fontFamily: 'var(--font-display)', fontSize: 26, fontWeight: 800, color: 'rgba(255,255,255,0.92)', letterSpacing: '-0.03em', lineHeight: 1.2 }}>
             Sveiki, {user?.fullName.split(' ')[0]}
           </p>
-          <p style={{ fontSize: 13, color: 'var(--color-muted-ash-2)', marginTop: 4 }}>Pateikite šios dienos ataskaitą</p>
+          <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)', marginTop: 4 }}>Pateikite šios dienos ataskaitą</p>
         </div>
 
         {/* ── Main submission zone ── */}
@@ -553,18 +553,18 @@ export default function WorkerPage() {
         {updates.length > 0 && (
           <div style={{ animation: 'slide-up 0.4s ease' }}>
             <button
+              className="glass"
               onClick={() => setShowHistory(s => !s)}
               style={{
                 width: '100%', display: 'flex', alignItems: 'center', gap: 10,
-                padding: '14px 18px', background: 'var(--color-paper-white)',
-                border: '1px solid var(--color-ghost-border)', borderRadius: 16,
+                padding: '14px 18px', borderRadius: 16,
                 cursor: 'pointer', fontFamily: 'inherit',
                 transition: 'border-color 0.15s',
               }}
               onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-teal)'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-ghost-border)'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.12)'; }}
             >
-              <div style={{ width: 32, height: 32, borderRadius: 10, background: 'var(--color-cloud-canvas)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <div style={{ width: 32, height: 32, borderRadius: 10, background: 'rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                 <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--color-midnight-ink)' }}>{updates.length}</span>
               </div>
               <div style={{ flex: 1, textAlign: 'left' }}>
@@ -581,9 +581,9 @@ export default function WorkerPage() {
             {showHistory && (
               <div style={{ marginTop: 8, display: 'flex', flexDirection: 'column', gap: 6, animation: 'slide-up 0.2s ease' }}>
                 {[...updates].reverse().map(update => (
-                  <div key={update.id} style={{ padding: '12px 18px', background: 'var(--color-paper-white)', border: '1px solid var(--color-ghost-border)', borderRadius: 14 }}>
+                  <div key={update.id} className="glass" style={{ padding: '12px 18px', borderRadius: 14 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
-                      <span style={{ fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 100, background: update.inputType === 'voice' ? 'rgba(103,205,205,0.15)' : 'var(--color-cloud-canvas)', color: update.inputType === 'voice' ? 'var(--color-sidebar-bg)' : 'var(--color-muted-ash)' }}>
+                      <span style={{ fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 100, background: update.inputType === 'voice' ? 'rgba(103,205,205,0.15)' : 'rgba(255,255,255,0.08)', color: update.inputType === 'voice' ? 'var(--color-teal)' : 'var(--color-muted-ash)' }}>
                         {update.inputType === 'voice' ? 'Balsas' : 'Tekstas'}
                       </span>
                       {update.attachments.length > 0 && (
@@ -596,9 +596,9 @@ export default function WorkerPage() {
                       <div style={{ display: 'flex', gap: 6, marginTop: 8, flexWrap: 'wrap' }}>
                         {update.attachments.map(att =>
                           att.mimeType.startsWith('image/') ? (
-                            <img key={att.id} src={att.dataUrl} alt={att.name} style={{ width: 48, height: 48, objectFit: 'cover', borderRadius: 8, border: '1px solid var(--color-ghost-border)' }} />
+                            <img key={att.id} src={att.dataUrl} alt={att.name} style={{ width: 48, height: 48, objectFit: 'cover', borderRadius: 8, border: '1px solid rgba(255,255,255,0.12)' }} />
                           ) : (
-                            <span key={att.id} style={{ fontSize: 11, padding: '3px 8px', background: 'var(--color-cloud-canvas)', borderRadius: 8, color: 'var(--color-muted-ash)' }}>{att.name}</span>
+                            <span key={att.id} style={{ fontSize: 11, padding: '3px 8px', background: 'rgba(255,255,255,0.08)', borderRadius: 8, color: 'var(--color-muted-ash)' }}>{att.name}</span>
                           )
                         )}
                       </div>
