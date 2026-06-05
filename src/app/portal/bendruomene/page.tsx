@@ -7,13 +7,10 @@ import PageShell from '@/components/layout/PageShell';
 import Btn from '@/components/shared/Btn';
 import EmptyState from '@/components/shared/EmptyState';
 import CommunityPostCard from '@/components/community/CommunityPostCard';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
 
-function ComposeDialog({ open, onClose, onSubmit }: {
-  open: boolean;
-  onClose: () => void;
+
+function InlineCompose({ onSubmit }: {
   onSubmit: (body: string, files: File[], anonymous: boolean) => Promise<void>;
 }) {
   const [body, setBody] = useState('');
@@ -47,81 +44,70 @@ function ComposeDialog({ open, onClose, onSubmit }: {
     await onSubmit(trimmed, imageFiles, anonymous);
     setBody(''); setImageFiles([]); setImagePreviews([]); setAnonymous(false);
     setSubmitting(false);
-    onClose();
-  }
-
-  function handleClose() {
-    setBody(''); setImageFiles([]); setImagePreviews([]); setAnonymous(false);
-    onClose();
   }
 
   return (
-    <Dialog open={open} onOpenChange={v => !v && handleClose()}>
-      <DialogContent style={{ maxWidth: 520 }}>
-        <DialogHeader><DialogTitle>Naujas įrašas</DialogTitle></DialogHeader>
-
+    <div style={{
+      background: 'rgba(255,255,255,0.06)',
+      border: '1px solid rgba(255,255,255,0.10)',
+      borderRadius: 16,
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 10,
+      marginBottom: 20,
+      padding: '12px 14px',
+    }}>
+      {/* Textarea with controls inset at bottom-left */}
+      <div style={{ position: 'relative' }}>
         <Textarea
           placeholder="Pasidalinkite naujiena ar klausimu su kaimynais…"
           value={body}
           onChange={e => setBody(e.target.value)}
-          rows={5}
-          style={{ resize: 'none', fontSize: 14 }}
+          rows={3}
+          style={{ resize: 'none', fontSize: 14, background: 'transparent', border: '1px solid rgba(255,255,255,0.12)', paddingBottom: 40 }}
         />
+        <div style={{ position: 'absolute', bottom: 8, left: 10, display: 'flex', alignItems: 'center', gap: 8 }}>
+          <button onClick={() => fileRef.current?.click()} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '4px 8px', borderRadius: 6, background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.10)', cursor: 'pointer', color: 'var(--muted-foreground)', fontSize: 12 }}>
+            <ImagePlus size={13} /> Nuotrauka
+          </button>
+          <label style={{ display: 'flex', alignItems: 'center', gap: 5, cursor: 'pointer', fontSize: 12, color: 'var(--muted-foreground)' }}>
+            <input
+              type="checkbox"
+              checked={anonymous}
+              onChange={e => setAnonymous(e.target.checked)}
+              style={{ width: 13, height: 13, accentColor: 'var(--color-accent)', cursor: 'pointer' }}
+            />
+            Anonimiškai
+          </label>
+        </div>
+      </div>
 
-        <label style={{
-          display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer',
-          padding: '10px 12px', borderRadius: 12,
-          background: anonymous ? 'rgba(118,192,61,0.10)' : 'rgba(0,0,0,0.03)',
-          border: `1px solid ${anonymous ? 'var(--color-accent)' : 'transparent'}`,
-          transition: 'all 0.15s',
-          userSelect: 'none',
-        }}>
-          <input
-            type="checkbox"
-            checked={anonymous}
-            onChange={e => setAnonymous(e.target.checked)}
-            style={{ width: 16, height: 16, accentColor: 'var(--color-accent)', cursor: 'pointer', flexShrink: 0 }}
-          />
-          <div>
-            <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>Rašyti anonimiškai</div>
-            <div style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', marginTop: 1 }}>Jūsų vardas ir buto numeris nebus matomi</div>
-          </div>
-        </label>
+      {imagePreviews.length > 0 && (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 6 }}>
+          {imagePreviews.map((src, i) => (
+            <div key={i} style={{ position: 'relative', aspectRatio: '1', borderRadius: 10, overflow: 'hidden' }}>
+              <img src={src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <button onClick={() => removeImage(i)} style={{ position: 'absolute', top: 4, right: 4, width: 20, height: 20, background: 'rgba(0,0,0,0.55)', borderRadius: '50%', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
+                <X size={11} />
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
 
-        {imagePreviews.length > 0 && (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 6 }}>
-            {imagePreviews.map((src, i) => (
-              <div key={i} style={{ position: 'relative', aspectRatio: '1', borderRadius: 10, overflow: 'hidden' }}>
-                <img src={src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                <button onClick={() => removeImage(i)} style={{ position: 'absolute', top: 4, right: 4, width: 20, height: 20, background: 'rgba(0,0,0,0.55)', borderRadius: '50%', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
-                  <X size={11} />
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Btn variant="primary" size="sm" onClick={handleSubmit} disabled={!body.trim() || submitting}>
+          {submitting ? 'Skelbiama…' : 'Skelbti'}
+        </Btn>
+      </div>
 
-        <input ref={fileRef} type="file" accept="image/*" multiple hidden onChange={e => handleImageFiles(e.target.files)} />
-
-        <DialogFooter style={{ justifyContent: 'space-between' }}>
-          <Button variant="ghost" size="sm" onClick={() => fileRef.current?.click()} style={{ gap: 6 }}>
-            <ImagePlus size={15} /> Nuotrauka
-          </Button>
-          <div style={{ display: 'flex', gap: 8 }}>
-            <Button variant="ghost" onClick={handleClose}>Atšaukti</Button>
-            <Button onClick={handleSubmit} disabled={!body.trim() || submitting}>
-              {submitting ? 'Skelbiama…' : 'Skelbti'}
-            </Button>
-          </div>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+      <input ref={fileRef} type="file" accept="image/*" multiple hidden onChange={e => handleImageFiles(e.target.files)} />
+    </div>
   );
 }
 
 export default function BendruomenePage() {
   const { session, units, estates, communityPosts, addCommunityPost, deleteCommunityPost, toggleCommunityPostLike } = useStore();
-  const [dialogOpen, setDialogOpen] = useState(false);
 
   const userId = session.userId ?? '';
   const unit = units.find(u => u.ownerUserId === userId);
@@ -135,33 +121,30 @@ export default function BendruomenePage() {
   }, [addCommunityPost, estateId]);
 
   return (
-    <>
-      <PageShell
-        title="Bendruomenė"
-        subtitle="Bendruomenės naujienos ir įrašai"
-        actions={<Btn variant="primary" size="sm" onClick={() => setDialogOpen(true)}>Rašyti įrašą</Btn>}
-        bodyStyle={{ padding: '20px 24px 28px' }}
-      >
-        {posts.length === 0 ? (
-          <EmptyState icon={Users} title="Čia dar nėra įrašų" subtitle="Būkite pirmas — pasidalinkite naujiena su kaimynais." />
-        ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            {posts.map(post => (
-              <CommunityPostCard
-                key={post.id}
-                post={post}
-                currentUserId={userId}
-                currentUnitId={unit?.id}
-                currentEstateId={estateId}
-                onLike={toggleCommunityPostLike}
-                onDelete={deleteCommunityPost}
-              />
-            ))}
-          </div>
-        )}
-      </PageShell>
+    <PageShell
+      title="Bendruomenė"
+      subtitle="Bendruomenės naujienos ir įrašai"
+      bodyStyle={{ padding: '20px 24px 28px' }}
+    >
+      <InlineCompose onSubmit={handleSubmit} />
 
-      <ComposeDialog open={dialogOpen} onClose={() => setDialogOpen(false)} onSubmit={handleSubmit} />
-    </>
+      {posts.length === 0 ? (
+        <EmptyState icon={Users} title="Čia dar nėra įrašų" subtitle="Būkite pirmas — pasidalinkite naujiena su kaimynais." />
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {posts.map(post => (
+            <CommunityPostCard
+              key={post.id}
+              post={post}
+              currentUserId={userId}
+              currentUnitId={unit?.id}
+              currentEstateId={estateId}
+              onLike={toggleCommunityPostLike}
+              onDelete={deleteCommunityPost}
+            />
+          ))}
+        </div>
+      )}
+    </PageShell>
   );
 }

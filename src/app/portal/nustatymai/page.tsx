@@ -25,7 +25,7 @@ export default function NustatymaiPage() {
   const inputStyle: React.CSSProperties = { width: '100%', padding: '12px 16px', fontSize: 14, background: 'var(--color-surface-raised)', border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500, boxSizing: 'border-box', color: 'var(--foreground)' };
 
   return (
-    <PageShell title="Nustatymai" bodyStyle={{ padding: '28px', maxWidth: 680 }}>
+    <PageShell title="Nustatymai" bodyStyle={{ padding: '28px' }}>
       {/* Personal info */}
       <div style={{ paddingBottom: 28 }}>
         <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 600, marginBottom: 18, color: 'var(--color-midnight-ink)' }}>Asmeninė informacija</h2>

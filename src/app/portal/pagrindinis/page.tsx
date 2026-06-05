@@ -9,7 +9,7 @@ import { useStore } from '@/lib/store';
 
 const EVENT_TYPES = {
   waste:    { label: 'Šiukšlių išvežimas',        color: '#3b82f6', bg: 'rgba(59,130,246,0.10)' },
-  lawn:     { label: 'Žolės pjovimas',             color: '#76c03d', bg: 'rgba(118,192,61,0.10)' },
+  lawn:     { label: 'Žolės pjovimas',             color: 'var(--color-accent)', bg: 'var(--color-accent-tint)' },
   elevator: { label: 'Lifto priežiūra',            color: '#f59e0b', bg: 'rgba(245,158,11,0.10)' },
   water:    { label: 'Vandens atjungimas',          color: '#ef4444', bg: 'rgba(239,68,68,0.10)' },
   meeting:  { label: 'Bendruomenės susirinkimas',  color: '#8b5cf6', bg: 'rgba(139,92,246,0.10)' },

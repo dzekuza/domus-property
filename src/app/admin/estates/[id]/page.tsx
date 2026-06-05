@@ -27,11 +27,12 @@ export default function EstateDetailPage({ params }: { params: Promise<{ id: str
 
   const sold = estUnits.filter(u => u.status === 'sold').length;
 
-  const tabStyle = (active: boolean): React.CSSProperties => ({
-    padding: '12px 16px', fontSize: 14, fontWeight: 500, cursor: 'pointer', border: 'none', background: 'none',
-    borderBottom: `2px solid ${active ? 'var(--color-electric-violet)' : 'transparent'}`,
-    color: active ? 'var(--color-midnight-ink)' : 'var(--color-muted-ash-2)',
-    marginBottom: -1,
+  const pillStyle = (active: boolean): React.CSSProperties => ({
+    padding: '6px 14px', borderRadius: 'var(--radius-pill)', fontSize: 13, fontWeight: 500, cursor: 'pointer', whiteSpace: 'nowrap',
+    background: active ? 'var(--color-accent)' : 'rgba(255,255,255,0.07)',
+    color: active ? '#fff' : 'var(--color-muted-ash)',
+    border: active ? '1px solid transparent' : '1px solid var(--color-ghost-border)',
+    transition: 'background 0.15s, color 0.15s',
   });
 
   return (
@@ -46,17 +47,17 @@ export default function EstateDetailPage({ params }: { params: Promise<{ id: str
         </>
       }
     >
-      {/* Tab bar */}
-      <div style={{ display: 'flex', borderBottom: '1px solid var(--color-ghost-border)', paddingLeft: 28, paddingRight: 28 }}>
+      {/* Pills nav */}
+      <div className="hide-scrollbar" style={{ display: 'flex', gap: 6, padding: '16px 28px 8px', overflowX: 'auto' }}>
         {tabs.map(t => (
-          <button key={t} style={tabStyle(tab === t)} onClick={() => setTab(t)}>
+          <button key={t} style={pillStyle(tab === t)} onClick={() => setTab(t)}>
             {t} {t === 'Butai' ? `(${estUnits.length})` : t === 'Nuotraukos' ? `(${estate.photoUrls.length})` : `(${estContacts.length})`}
           </button>
         ))}
       </div>
 
       {/* Tab content */}
-      <div style={{ padding: '20px 28px' }}>
+      <div>
         {/* Butai */}
         {tab === 'Butai' && (
           <div style={{ borderRadius: 12, overflow: 'hidden' }}>

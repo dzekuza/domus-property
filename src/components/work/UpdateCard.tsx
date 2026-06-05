@@ -96,8 +96,8 @@ export default function UpdateCard({ update, selectable = false, selected = fals
 
   const isManager = update.authorRole === 'work_manager';
   const roleLabel = isManager ? 'Vadovas' : 'Darbininkas';
-  const roleBg = isManager ? '#e8f5ee' : '#fdf3df';
-  const roleColor = isManager ? '#166534' : '#854d0e';
+  const roleBg = isManager ? 'var(--color-success-tint)' : 'var(--color-warning-tint)';
+  const roleColor = isManager ? 'var(--color-success)' : 'var(--color-warning)';
 
   return (
     <>
@@ -110,7 +110,7 @@ export default function UpdateCard({ update, selectable = false, selected = fals
       <div
         style={{
           display: 'flex', gap: 0, padding: '14px',
-          background: selected ? 'rgba(232,119,60,0.12)' : 'rgba(0,0,0,0.03)',
+          background: selected ? 'var(--color-cta-tint)' : 'var(--color-surface-raised)',
           borderRadius: 12,
           border: selected ? '1.5px solid var(--color-accent)' : '1.5px solid var(--color-ghost-border)',
           cursor: selectable ? 'pointer' : 'default',

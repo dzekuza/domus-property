@@ -14,7 +14,7 @@ import type { ScheduleEventType } from '@/lib/types';
 const EVENT_TYPES: ScheduleEventType[] = ['Žolės pjovimas', 'Valymas', 'Remontas', 'Apžiūra', 'Kita'];
 
 const TYPE_META: Record<ScheduleEventType, { icon: React.FC<{ size?: number; strokeWidth?: number; style?: React.CSSProperties }>, color: string, bg: string }> = {
-  'Žolės pjovimas': { icon: Scissors,   color: 'var(--color-success)',         bg: 'rgba(118,192,61,0.12)' },
+  'Žolės pjovimas': { icon: Scissors,   color: 'var(--color-success)',         bg: 'var(--color-accent-tint)' },
   'Valymas':        { icon: Sparkles,   color: 'var(--color-electric-violet)', bg: 'var(--color-purple-tint-md)' },
   'Remontas':       { icon: Wrench,     color: 'var(--color-warning)',         bg: 'rgba(184,110,0,0.12)' },
   'Apžiūra':        { icon: Eye,        color: 'var(--color-muted-ash)',       bg: 'var(--color-surface-hover)' },
@@ -36,7 +36,7 @@ function isUpcoming(date: string) {
 const innerRow: React.CSSProperties = {
   display: 'flex', gap: 14, alignItems: 'center',
   padding: '14px 16px',
-  background: 'rgba(0,0,0,0.03)',
+  background: 'var(--color-surface-raised)',
   border: '1px solid var(--color-ghost-border)',
   borderRadius: 12,
 };
@@ -212,7 +212,7 @@ export default function AdminTvarkarastisPage() {
                           <div key={ev.id} style={{
                             display: 'flex', gap: 10, alignItems: 'flex-start',
                             padding: '8px 10px',
-                            background: 'rgba(0,0,0,0.03)',
+                            background: 'var(--color-surface-raised)',
                             border: '1px solid var(--color-ghost-border)',
                             borderRadius: 10,
                           }}>

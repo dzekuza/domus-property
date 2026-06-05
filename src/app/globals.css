@@ -56,8 +56,8 @@
   --color-paper-white: rgba(255, 255, 255, 0.68);
   --color-muted-ash: #4a4845;
   --color-muted-ash-2: #7a7774;
-  --color-ghost-border: rgba(200, 205, 220, 0.5);
-  --color-surface-raised: rgba(0, 0, 0, 0.04);
+  --color-ghost-border: #0000000a;
+  --color-surface-raised: #cfcfcf0a;
   --color-surface-hover: rgba(0, 0, 0, 0.06);
   --color-surface-active: rgba(0, 0, 0, 0.12);
 
@@ -69,6 +69,7 @@
   /* CTA / destructive orange */
   --color-cta: #ff601b;
   --color-cta-hover: #e8531a;
+  --color-cta-tint: rgba(255,96,27,0.12);
 
   /* Sidebar dark glass */
   --color-sidebar-bg: var(--glass-sidebar-bg);
@@ -193,7 +194,7 @@
   --color-midnight-ink: #1c1c1c;
   --color-muted-ash: #4a4845;
   --color-muted-ash-2: #7a7774;
-  --color-ghost-border: rgba(0, 0, 0, 0.08);
+  --color-ghost-border: #0000000a;
   --foreground: #1c1c1c;
   --muted-foreground: #7a7774;
 }

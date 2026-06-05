@@ -29,6 +29,7 @@ const adminNav = [
   { href: '/admin/contacts',     label: 'Kontaktai',    icon: Users },
   { href: '/admin/tvarkarastis', label: 'Tvarkaraštis', icon: Calendar },
   { href: '/admin/bendruomene',  label: 'Bendruomenė',  icon: MessageSquare },
+  { href: '/admin/darbai',       label: 'Remonto darbai', icon: HardHat },
   { href: '/admin/darbu-eiga',   label: 'Darbu eiga',   icon: ClipboardList },
 ];
 

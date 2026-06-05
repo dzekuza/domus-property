@@ -15,14 +15,28 @@ export default function AdminContactsPage() {
   const { contacts, upsertContact, deleteContact } = useStore();
   const [filter, setFilter] = useState<ContactCategory | 'Visi'>('Visi');
   const [showModal, setShowModal] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState({ fullName: '', org: '', phone: '', email: '', category: 'Kita' as ContactCategory });
 
   const filtered = filter === 'Visi' ? contacts : contacts.filter(c => c.category === filter);
 
-  function handleCreate(e: React.FormEvent) {
-    e.preventDefault();
-    upsertContact({ ...form, documents: [] });
+  function openCreate() {
+    setEditingId(null);
     setForm({ fullName: '', org: '', phone: '', email: '', category: 'Kita' });
+    setShowModal(true);
+  }
+
+  function openEdit(contact: typeof contacts[number]) {
+    setEditingId(contact.id);
+    setForm({ fullName: contact.fullName, org: contact.org, phone: contact.phone, email: contact.email, category: contact.category });
+    setShowModal(true);
+  }
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    upsertContact({ ...(editingId ? { id: editingId } : {}), ...form, documents: [] });
+    setForm({ fullName: '', org: '', phone: '', email: '', category: 'Kita' });
+    setEditingId(null);
     setShowModal(false);
   }
 
@@ -39,7 +53,7 @@ export default function AdminContactsPage() {
       <PageShell
         title="Kontaktai"
         subtitle={`${contacts.length} specialistų`}
-        actions={<Btn variant="primary" icon={<Plus size={15} />} onClick={() => setShowModal(true)}>Naujas kontaktas</Btn>}
+        actions={<Btn variant="primary" icon={<Plus size={15} />} onClick={openCreate}>Naujas kontaktas</Btn>}
       >
         {/* Category pills */}
         <div className="hide-scrollbar" style={{ display: 'flex', gap: 6, padding: '16px 20px 4px', overflowX: 'auto' }}>
@@ -88,7 +102,7 @@ export default function AdminContactsPage() {
                 </td>
                 <td>
                   <div style={{ display: 'flex', gap: 4 }}>
-                    <button style={{ border: 'none', background: 'none', cursor: 'pointer', color: 'var(--color-muted-ash-2)', padding: 6, display: 'flex', borderRadius: 6 }}><Pencil size={14} /></button>
+                    <button onClick={() => openEdit(contact)} style={{ border: 'none', background: 'none', cursor: 'pointer', color: 'var(--color-muted-ash-2)', padding: 6, display: 'flex', borderRadius: 6 }}><Pencil size={14} /></button>
                     <button onClick={() => deleteContact(contact.id)} style={{ border: 'none', background: 'none', cursor: 'pointer', color: 'var(--color-danger)', padding: 6, display: 'flex', borderRadius: 6 }}><Trash2 size={14} /></button>
                   </div>
                 </td>
@@ -100,8 +114,8 @@ export default function AdminContactsPage() {
 
       <Dialog open={showModal} onOpenChange={setShowModal}>
         <DialogContent>
-          <DialogHeader><DialogTitle>Naujas kontaktas</DialogTitle></DialogHeader>
-          <form onSubmit={handleCreate} style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 8 }}>
+          <DialogHeader><DialogTitle>{editingId ? 'Redaguoti kontaktą' : 'Naujas kontaktas'}</DialogTitle></DialogHeader>
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 8 }}>
             <div>
               <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6 }}>Kategorija</label>
               <Select value={form.category} onValueChange={v => setForm(f => ({ ...f, category: v as ContactCategory }))}>
@@ -126,7 +140,7 @@ export default function AdminContactsPage() {
                 <input type={field.type ?? 'text'} value={(form as Record<string, string>)[field.key]} onChange={e => setForm(f => ({ ...f, [field.key]: e.target.value }))} placeholder={field.placeholder} required style={{ width: '100%', padding: '10px 14px', fontSize: 14, border: '1px solid var(--color-ghost-border)', borderRadius: 'var(--radius-input)', outline: 'none', fontFamily: 'inherit', fontWeight: 500, boxSizing: 'border-box' }} />
               </div>
             ))}
-            <Btn variant="primary" type="submit" style={{ justifyContent: 'center', marginTop: 4 }}>Sukurti kontaktą</Btn>
+            <Btn variant="primary" type="submit" style={{ justifyContent: 'center', marginTop: 4 }}>{editingId ? 'Išsaugoti' : 'Sukurti kontaktą'}</Btn>
           </form>
         </DialogContent>
       </Dialog>
