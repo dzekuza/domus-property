@@ -91,22 +91,29 @@ export default function DefektaiPage() {
               const isOpen = openCard === defect.id;
               return (
                 <div key={defect.id} style={innerItem}>
-                  <button onClick={() => setOpenCard(isOpen ? null : defect.id)} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 14, padding: '16px 20px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left' }}>
+                  <button
+                    onClick={() => setOpenCard(isOpen ? null : defect.id)}
+                    aria-expanded={isOpen}
+                    aria-controls={`defect-body-${defect.id}`}
+                    style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 14, padding: '16px 20px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left' }}
+                  >
                     <div style={{ flex: 1 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 3 }}>
                         <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', fontWeight: 500 }}>{defect.id}</span>
-                        <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }}>·</span>
+                        <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }} aria-hidden="true">·</span>
                         <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }}>{defect.room}</span>
                       </div>
                       <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>{defect.title}</p>
                       <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', marginTop: 2 }}>Pateikta {formatRelative(defect.createdAt)} · {defect.messages.length} žinutės</p>
                     </div>
                     <StatusPill type="defect" value={defect.status} />
-                    {isOpen ? <ChevronUp size={16} style={{ color: 'var(--color-muted-ash-2)' }} /> : <ChevronDown size={16} style={{ color: 'var(--color-muted-ash-2)' }} />}
+                    {isOpen
+                      ? <ChevronUp size={16} style={{ color: 'var(--color-muted-ash-2)' }} aria-hidden="true" />
+                      : <ChevronDown size={16} style={{ color: 'var(--color-muted-ash-2)' }} aria-hidden="true" />}
                   </button>
 
                   {isOpen && (
-                    <div className="fade-in" style={{ borderTop: '1px solid var(--color-ghost-border)', padding: '16px 20px' }}>
+                    <div id={`defect-body-${defect.id}`} className="fade-in" style={{ borderTop: '1px solid var(--color-ghost-border)', padding: '16px 20px' }}>
                       {defect.messages.map(msg => {
                         const author = users.find(u => u.id === msg.authorUserId);
                         const isAdmin = author?.role === 'admin';

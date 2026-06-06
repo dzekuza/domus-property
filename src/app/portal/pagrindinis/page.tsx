@@ -33,7 +33,7 @@ const UPCOMING_EVENTS: Array<{ date: string; type: EventType; note?: string }> =
 const MESSAGES = [
   { id: 1, from: 'Administratorius', avatar: 'A', avatarBg: 'rgba(0,0,0,0.08)',
     text: 'Primename apie bendrijos susirinkimą birželio 15 d. 18:00 val.', time: 'Šiandien 09:14', unread: true },
-  { id: 2, from: 'Miteda', avatar: 'M', avatarBg: 'var(--color-accent)',
+  { id: 2, from: 'Miteda', avatar: 'M', avatarBg: '#3a7015',
     text: 'Jūsų butas įregistruotas. Raktų perdavimas planuojamas birželio 30 d.', time: 'Vakar 14:30', unread: false },
   { id: 3, from: 'Administratorius', avatar: 'A', avatarBg: 'rgba(0,0,0,0.08)',
     text: 'Birželio 12 d. 9:00–14:00 bus atjungtas karštas vanduo.', time: 'Pirmad.', unread: false },
@@ -98,9 +98,9 @@ export default function PagrindiniasPage() {
         {/* Bulletin Board */}
         <div style={innerSection}>
           <div style={{ padding: '14px 18px 12px', borderBottom: '1px solid var(--color-ghost-border)' }}>
-            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 600, color: 'var(--color-midnight-ink)', marginBottom: 2 }}>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 600, color: 'var(--color-midnight-ink)', marginBottom: 2 }}>
               Skelbimų lenta
-            </h3>
+            </h2>
             <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }}>Aktualūs pranešimai ir skelbimai</p>
           </div>
           <div className="bulletin-grid" style={{ padding: '14px 16px 16px' }}>
@@ -135,9 +135,9 @@ export default function PagrindiniasPage() {
         {myUpdates.length > 0 && (
           <div style={innerSection}>
             <div style={{ padding: '14px 18px 12px', borderBottom: '1px solid var(--color-ghost-border)' }}>
-              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 600, color: 'var(--color-midnight-ink)', marginBottom: 2 }}>
+              <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 600, color: 'var(--color-midnight-ink)', marginBottom: 2 }}>
                 Darbu eiga
-              </h3>
+              </h2>
               <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }}>Naujausi statybos ir remonto atnaujinimai</p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -187,21 +187,21 @@ export default function PagrindiniasPage() {
           <div style={innerSection}>
             <div style={{ padding: '14px 18px 12px', borderBottom: '1px solid var(--color-ghost-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div>
-                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 600, color: 'var(--color-midnight-ink)', marginBottom: 2 }}>
+                <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 600, color: 'var(--color-midnight-ink)', marginBottom: 2 }}>
                   Artimiausi įvykiai
-                </h3>
+                </h2>
                 <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }}>Namo veiklos kalendorius</p>
               </div>
             </div>
             <ScrollArea style={{ height: 348 }}>
-              <div style={{ padding: '4px 0 12px' }}>
+              <ul role="list" style={{ padding: '4px 0 12px', listStyle: 'none', margin: 0 }}>
                 {UPCOMING_EVENTS.map((ev) => {
                   const { color, textColor, bg, label } = EVENT_TYPES[ev.type];
                   const days = daysFromNow(ev.date);
                   const soon = days >= 0 && days <= 7;
                   const d    = new Date(ev.date);
                   return (
-                    <div
+                    <li
                       key={`${ev.date}-${ev.type}`}
                       style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '10px 18px', borderBottom: '1px solid var(--color-ghost-border)' }}
                     >
@@ -209,11 +209,11 @@ export default function PagrindiniasPage() {
                         <div style={{ fontSize: 20, fontFamily: 'var(--font-display)', fontWeight: 700, lineHeight: 1, color: soon ? textColor : 'var(--color-midnight-ink)' }}>
                           {d.getDate()}
                         </div>
-                        <div style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', textTransform: 'uppercase', letterSpacing: '0.04em', marginTop: 2 }}>
+                        <div style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', textTransform: 'uppercase', letterSpacing: '0.04em', marginTop: 2 }}>
                           {d.toLocaleDateString('lt-LT', { month: 'short' })}
                         </div>
                       </div>
-                      <div style={{ width: 3, height: 38, borderRadius: 2, background: color, flexShrink: 0 }} />
+                      <div style={{ width: 3, height: 38, borderRadius: 2, background: color, flexShrink: 0 }} aria-hidden="true" />
                       <div style={{ flex: 1, minWidth: 0 }}>
                         <p style={{ fontSize: 14, fontWeight: 500, color: 'var(--color-midnight-ink)' }}>{label}</p>
                         {ev.note && (
@@ -221,14 +221,14 @@ export default function PagrindiniasPage() {
                         )}
                       </div>
                       {soon && (
-                        <span style={{ fontSize: 11, fontWeight: 600, color: textColor, background: bg, padding: '2px 9px', borderRadius: 100, flexShrink: 0, whiteSpace: 'nowrap' }}>
+                        <span style={{ fontSize: 12, fontWeight: 600, color: textColor, background: bg, padding: '2px 9px', borderRadius: 100, flexShrink: 0, whiteSpace: 'nowrap' }}>
                           {days === 0 ? 'Šiandien' : `${days}d.`}
                         </span>
                       )}
-                    </div>
+                    </li>
                   );
                 })}
-              </div>
+              </ul>
             </ScrollArea>
           </div>
 
@@ -238,14 +238,16 @@ export default function PagrindiniasPage() {
             {/* Messages */}
             <div style={innerSection}>
               <div style={{ padding: '13px 18px', borderBottom: '1px solid var(--color-ghost-border)', display: 'flex', alignItems: 'center', gap: 8 }}>
-                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 14, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>
+                <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 14, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>
                   Gautos žinutės
-                </h3>
-                {MESSAGES.some(m => m.unread) && (
-                  <span style={{ fontSize: 11, fontWeight: 700, color: '#fff', background: 'var(--color-danger)', padding: '1px 7px', borderRadius: 100 }}>
-                    {MESSAGES.filter(m => m.unread).length}
-                  </span>
-                )}
+                </h2>
+                <span aria-live="polite" aria-atomic="true">
+                  {MESSAGES.some(m => m.unread) && (
+                    <span style={{ fontSize: 11, fontWeight: 700, color: '#fff', background: 'var(--color-danger)', padding: '1px 7px', borderRadius: 100 }}>
+                      {MESSAGES.filter(m => m.unread).length}
+                    </span>
+                  )}
+                </span>
               </div>
               {MESSAGES.map((msg, i) => (
                 <div
@@ -266,7 +268,7 @@ export default function PagrindiniasPage() {
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 2, gap: 6 }}>
                       <span style={{ fontSize: 13, fontWeight: msg.unread ? 700 : 500, color: 'var(--color-midnight-ink)' }}>{msg.from}</span>
-                      <span style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', flexShrink: 0 }}>{msg.time}</span>
+                      <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', flexShrink: 0 }}>{msg.time}</span>
                     </div>
                     <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                       {msg.text}
@@ -282,27 +284,21 @@ export default function PagrindiniasPage() {
             {/* Important Info */}
             <div style={innerSection}>
               <div style={{ padding: '13px 18px', borderBottom: '1px solid var(--color-ghost-border)' }}>
-                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 14, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>
+                <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 14, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>
                   Svarbi informacija
-                </h3>
+                </h2>
               </div>
               <div style={{ padding: '6px 0' }}>
                 {IMPORTANT_INFO.map(({ icon: Icon, label, value, copy: canCopy }) => {
                   const isCopied = copied === label;
-                  return (
-                    <div
-                      key={label}
-                      onClick={canCopy ? () => copy(value, label) : undefined}
-                      title={canCopy ? 'Spustelėkite norėdami nukopijuoti' : undefined}
-                      style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '9px 18px', cursor: canCopy ? 'pointer' : 'default', transition: 'background 0.12s' }}
-                      onMouseEnter={e => canCopy && ((e.currentTarget as HTMLDivElement).style.background = 'var(--color-surface-raised)')}
-                      onMouseLeave={e => ((e.currentTarget as HTMLDivElement).style.background = 'transparent')}
-                    >
+                  const sharedStyle: React.CSSProperties = { display: 'flex', alignItems: 'center', gap: 12, padding: '9px 18px', width: '100%', background: 'transparent', border: 'none', textAlign: 'left', transition: 'background 0.12s' };
+                  const inner = (
+                    <>
                       <div style={{ width: 30, height: 30, borderRadius: 8, background: 'var(--color-surface-hover)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                        <Icon size={13} style={{ color: 'var(--color-muted-ash-2)' }} />
+                        <Icon size={13} style={{ color: 'var(--color-muted-ash-2)' }} aria-hidden="true" />
                       </div>
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <p style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', marginBottom: 1 }}>{label}</p>
+                        <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', marginBottom: 1 }}>{label}</p>
                         <p style={{
                           fontSize: 13, fontWeight: 600,
                           color: isCopied ? 'var(--color-accent)' : 'var(--color-midnight-ink)',
@@ -313,11 +309,28 @@ export default function PagrindiniasPage() {
                         </p>
                       </div>
                       {canCopy && !isCopied && (
-                        <Copy size={13} style={{ color: 'var(--color-muted-ash-2)', flexShrink: 0 }} />
+                        <Copy size={13} style={{ color: 'var(--color-muted-ash-2)', flexShrink: 0 }} aria-hidden="true" />
                       )}
                       {isCopied && (
-                        <Check size={13} style={{ color: 'var(--color-accent)', flexShrink: 0 }} />
+                        <Check size={13} style={{ color: 'var(--color-accent)', flexShrink: 0 }} aria-hidden="true" />
                       )}
+                    </>
+                  );
+                  return canCopy ? (
+                    <button
+                      key={label}
+                      type="button"
+                      onClick={() => copy(value, label)}
+                      aria-label={`Nukopijuoti: ${label} — ${value}`}
+                      style={{ ...sharedStyle, cursor: 'pointer' }}
+                      onMouseEnter={e => { e.currentTarget.style.background = 'var(--color-surface-raised)'; }}
+                      onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; }}
+                    >
+                      {inner}
+                    </button>
+                  ) : (
+                    <div key={label} style={{ ...sharedStyle, cursor: 'default' }}>
+                      {inner}
                     </div>
                   );
                 })}

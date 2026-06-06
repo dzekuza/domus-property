@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { lt } from 'date-fns/locale/lt';
 import { Plus, Trash2, Calendar, Clock, Scissors, Sparkles, Wrench, Eye, HelpCircle } from 'lucide-react';
 import { useStore } from '@/lib/store';
 import PageShell from '@/components/layout/PageShell';
@@ -9,7 +10,7 @@ import { Calendar as CalendarPicker } from '@/components/ui/calendar';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { formatDate } from '@/lib/fmt';
-import type { ScheduleEventType } from '@/lib/types';
+import type { ScheduleEvent, ScheduleEventType } from '@/lib/types';
 
 const EVENT_TYPES: ScheduleEventType[] = ['Žolės pjovimas', 'Valymas', 'Remontas', 'Apžiūra', 'Kita'];
 
@@ -34,12 +35,52 @@ function isUpcoming(date: string) {
 }
 
 const innerRow: React.CSSProperties = {
-  display: 'flex', gap: 14, alignItems: 'center',
+  display: 'flex', gap: 14, alignItems: 'flex-start',
   padding: '14px 16px',
   background: 'var(--color-surface-raised)',
   border: '1px solid var(--color-ghost-border)',
   borderRadius: 12,
 };
+
+function EventList({ events, estates, emptyLabel, onDelete }: {
+  events: ScheduleEvent[];
+  estates: { id: string; name: string }[];
+  emptyLabel: string;
+  onDelete: (id: string) => void;
+}) {
+  if (events.length === 0) return <p style={{ fontSize: 13, color: 'var(--color-muted-ash-2)', padding: '12px 0' }}>{emptyLabel}</p>;
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      {events.map(event => {
+        const meta = TYPE_META[event.type];
+        const Icon = meta.icon;
+        const estateName = estates.find(e => e.id === event.estateId)?.name;
+        return (
+          <div key={event.id} style={innerRow}>
+            <div style={{ width: 40, height: 40, borderRadius: 8, background: meta.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <Icon size={18} strokeWidth={1.5} style={{ color: meta.color }} />
+            </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap', marginBottom: 2 }}>
+                <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>{event.title}</p>
+                <span style={{ fontSize: 11, background: 'var(--color-surface-hover)', color: 'var(--color-muted-ash-2)', padding: '2px 8px', borderRadius: 100, flexShrink: 0 }}>{event.type}</span>
+              </div>
+              <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+                <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', display: 'flex', alignItems: 'center', gap: 4 }}><Calendar size={12} aria-hidden="true" />{formatDate(event.date)}</span>
+                {event.time && <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', display: 'flex', alignItems: 'center', gap: 4 }}><Clock size={12} aria-hidden="true" />{event.time}</span>}
+                {estateName && <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }}>{estateName}</span>}
+              </div>
+              {event.description && <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', marginTop: 3 }}>{event.description}</p>}
+            </div>
+            <button onClick={() => onDelete(event.id)} aria-label={`Ištrinti: ${event.title}`} style={{ border: 'none', background: 'none', cursor: 'pointer', color: 'var(--color-danger)', padding: 6, display: 'flex', borderRadius: 6, flexShrink: 0, marginTop: 2 }}>
+              <Trash2 size={15} />
+            </button>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 export default function AdminTvarkarastisPage() {
   const { estates, scheduleEvents, createScheduleEvent, deleteScheduleEvent } = useStore();
@@ -89,41 +130,6 @@ export default function AdminTvarkarastisPage() {
     fontWeight: 500, boxSizing: 'border-box', color: 'var(--foreground)',
   };
 
-  function EventList({ events, emptyLabel }: { events: typeof filtered; emptyLabel: string }) {
-    if (events.length === 0) return <p style={{ fontSize: 13, color: 'var(--color-muted-ash-2)', padding: '12px 0' }}>{emptyLabel}</p>;
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        {events.map(event => {
-          const meta = TYPE_META[event.type];
-          const Icon = meta.icon;
-          const estateName = estates.find(e => e.id === event.estateId)?.name;
-          return (
-            <div key={event.id} style={innerRow}>
-              <div style={{ width: 40, height: 40, borderRadius: 8, background: meta.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                <Icon size={18} strokeWidth={1.5} style={{ color: meta.color }} />
-              </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 2 }}>
-                  <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>{event.title}</p>
-                  <span style={{ fontSize: 11, background: 'var(--color-surface-hover)', color: 'var(--color-muted-ash-2)', padding: '2px 8px', borderRadius: 100 }}>{event.type}</span>
-                </div>
-                <div style={{ display: 'flex', gap: 12 }}>
-                  <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', display: 'flex', alignItems: 'center', gap: 4 }}><Calendar size={12} />{formatDate(event.date)}</span>
-                  {event.time && <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', display: 'flex', alignItems: 'center', gap: 4 }}><Clock size={12} />{event.time}</span>}
-                  <span style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }}>{estateName}</span>
-                </div>
-                {event.description && <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)', marginTop: 3 }}>{event.description}</p>}
-              </div>
-              <button onClick={() => deleteScheduleEvent(event.id)} style={{ border: 'none', background: 'none', cursor: 'pointer', color: 'var(--color-danger)', padding: 6, display: 'flex', borderRadius: 6 }}>
-                <Trash2 size={15} />
-              </button>
-            </div>
-          );
-        })}
-      </div>
-    );
-  }
-
   return (
     <>
       <PageShell
@@ -147,31 +153,30 @@ export default function AdminTvarkarastisPage() {
         }
         bodyStyle={{ padding: '20px 24px 24px' }}
       >
-        <div style={{ display: 'flex', gap: 24, alignItems: 'flex-start' }}>
+        <div className="tvarkarastis-grid">
           {/* ── Left: event lists ─────────────────────────────────────────── */}
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{ marginBottom: 28 }}>
               <p style={{ fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.07em', color: 'var(--color-muted-ash-2)', marginBottom: 10 }}>
                 Planuojami ({upcoming.length})
               </p>
-              <EventList events={upcoming} emptyLabel="Planuojamų įvykių nėra." />
+              <EventList events={upcoming} estates={estates} emptyLabel="Planuojamų įvykių nėra." onDelete={deleteScheduleEvent} />
             </div>
 
             <div>
               <p style={{ fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.07em', color: 'var(--color-muted-ash-2)', marginBottom: 10 }}>
                 Praėję ({past.length})
               </p>
-              <EventList events={past} emptyLabel="Praėjusių įvykių nėra." />
+              <EventList events={past} estates={estates} emptyLabel="Praėjusių įvykių nėra." onDelete={deleteScheduleEvent} />
             </div>
           </div>
 
           {/* ── Right: calendar sidebar ───────────────────────────────────── */}
-          <div style={{ width: 300, flexShrink: 0 }}>
+          <div className="tvarkarastis-calendar" style={{ width: 300, flexShrink: 0 }}>
             <div style={{
               border: '1px solid var(--color-ghost-border)',
               borderRadius: 16,
               background: 'var(--color-surface-raised)',
-              overflow: 'hidden',
             }}>
               {/* Calendar header */}
               <div style={{
@@ -184,17 +189,20 @@ export default function AdminTvarkarastisPage() {
               </div>
 
               {/* Calendar */}
-              <CalendarPicker
-                mode="single"
-                selected={selectedDate}
-                onSelect={setSelectedDate}
-                modifiers={{ hasEvent: (date) => {
-                  const ds = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-                  return eventDates.has(ds);
-                }}}
-                modifiersClassNames={{ hasEvent: 'has-event' }}
-                className="[--cell-size:2.25rem] w-full"
-              />
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <CalendarPicker
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={setSelectedDate}
+                  locale={lt}
+                  modifiers={{ hasEvent: (date) => {
+                    const ds = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+                    return eventDates.has(ds);
+                  }}}
+                  modifiersClassNames={{ hasEvent: 'has-event' }}
+                  className="[--cell-size:2.25rem] w-full max-w-[340px]"
+                />
+              </div>
 
               {/* Selected day events */}
               {selectedDate && (

@@ -85,7 +85,7 @@ export default function PageShell({
   }, []);
 
   return (
-    <div ref={cardRef} className="glass" style={{ padding: 0, overflow: 'hidden', borderRadius: 'var(--radius-card)' }}>
+    <div ref={cardRef} className="glass" style={{ padding: 0, borderRadius: 'var(--radius-card)' }}>
       {/* Header region */}
       <div className="page-header" style={{ padding: '24px 28px', position: 'relative' }}>
         {breadcrumbs && breadcrumbs.length > 0 && (

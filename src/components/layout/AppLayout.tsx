@@ -13,6 +13,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="app-wrapper">
+      <a href="#main-content" className="skip-link">Pereiti į pagrindinį turinį</a>
       {/* Mobile top bar — only shown when sidebar is present */}
       {!hideSidebar && (
         <div className="mobile-topbar">
@@ -38,7 +39,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </>
       )}
 
-      <main className="app-main">
+      <main id="main-content" className="app-main">
         {children}
       </main>
     </div>

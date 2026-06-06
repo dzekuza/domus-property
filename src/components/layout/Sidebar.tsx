@@ -59,6 +59,7 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
 
   return (
     <aside
+      aria-label="Navigacija"
       className={`app-sidebar${isOpen ? ' open' : ''}`}
       style={{
         width: collapsed ? 60 : 256,
@@ -84,7 +85,7 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
           <>
             <img src="/darkmite.svg" alt="Miteda" style={{ height: 26, width: 'auto', flexShrink: 0 }} />
             <span style={{
-              fontSize: 10, fontWeight: 600,
+              fontSize: 12, fontWeight: 600,
               background: 'var(--color-teal-tint)',
               color: 'var(--color-sidebar-fg-active)',
               padding: '2px 8px',
@@ -140,7 +141,7 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
       {!collapsed && (
         <div style={{
           padding: '4px 16px 6px',
-          fontSize: 10,
+          fontSize: 12,
           letterSpacing: '0.08em',
           textTransform: 'uppercase',
           color: 'var(--color-muted-ash-2)',
@@ -162,8 +163,9 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
               title={collapsed ? label : undefined}
               style={collapsed ? { justifyContent: 'center', padding: '10px 0' } : undefined}
               onClick={onClose}
+              aria-current={active ? 'page' : undefined}
             >
-              <Icon size={17} strokeWidth={active ? 2 : 1.75} style={{ flexShrink: 0, opacity: active ? 1 : 0.65 }} />
+              <Icon size={17} strokeWidth={active ? 2 : 1.75} style={{ flexShrink: 0, opacity: active ? 1 : 0.65 }} aria-hidden="true" />
               {!collapsed && label}
             </Link>
           );
@@ -173,11 +175,11 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
       {/* Footer links */}
       <div style={{ padding: '10px 6px 6px', borderTop: '1px solid var(--color-sidebar-border)' }}>
         <Link href="#" className="nav-item" title={collapsed ? 'Pagalba' : undefined} style={collapsed ? { justifyContent: 'center', padding: '10px 0' } : { marginBottom: 2 }}>
-          <HelpCircle size={17} strokeWidth={1.75} style={{ opacity: 0.6, flexShrink: 0 }} />
+          <HelpCircle size={17} strokeWidth={1.75} style={{ opacity: 0.6, flexShrink: 0 }} aria-hidden="true" />
           {!collapsed && 'Pagalba'}
         </Link>
         <button onClick={handleSignOut} className="nav-item" title={collapsed ? 'Atsijungti' : undefined} style={{ color: '#b91c1c', ...(collapsed ? { justifyContent: 'center', padding: '10px 0' } : {}) }}>
-          <LogOut size={17} strokeWidth={1.75} style={{ flexShrink: 0 }} />
+          <LogOut size={17} strokeWidth={1.75} style={{ flexShrink: 0 }} aria-hidden="true" />
           {!collapsed && 'Atsijungti'}
         </button>
       </div>
@@ -193,7 +195,7 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
       }}>
         <div style={{
           width: 34, height: 34, borderRadius: '50%',
-          background: 'var(--color-accent)',
+          background: '#3a7015',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontSize: 12, fontWeight: 700, color: '#fff',
           flexShrink: 0,

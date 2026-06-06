@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { lt } from 'date-fns/locale/lt';
 import { Calendar, Clock, Scissors, Sparkles, Wrench, Eye, HelpCircle } from 'lucide-react';
 import { useStore } from '@/lib/store';
 import PageShell from '@/components/layout/PageShell';
@@ -77,7 +78,7 @@ export default function TvarkarastisPage() {
 
   return (
     <PageShell title="Tvarkaraštis" subtitle="Planuojami darbai ir lankymosi datos jūsų valdoje." bodyStyle={{ padding: '20px 24px 28px' }}>
-      <div style={{ display: 'flex', gap: 24, alignItems: 'flex-start' }}>
+      <div className="tvarkarastis-grid">
         {/* ── Left: event list ─────────────────────────────────────────── */}
         <div style={{ flex: 1, minWidth: 0 }}>
           {events.length === 0 ? (
@@ -146,12 +147,11 @@ export default function TvarkarastisPage() {
         </div>
 
         {/* ── Right: calendar sidebar ───────────────────────────────────── */}
-        <div style={{ width: 300, flexShrink: 0 }}>
+        <div className="tvarkarastis-calendar" style={{ width: 300, flexShrink: 0 }}>
           <div style={{
             border: '1px solid var(--color-ghost-border)',
             borderRadius: 16,
             background: 'var(--color-surface-raised)',
-            overflow: 'hidden',
           }}>
             {/* Calendar header */}
             <div style={{
@@ -164,17 +164,20 @@ export default function TvarkarastisPage() {
             </div>
 
             {/* Calendar */}
-            <CalendarPicker
-              mode="single"
-              selected={selectedDate}
-              onSelect={setSelectedDate}
-              modifiers={{ hasEvent: (date) => {
-                const ds = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-                return eventDates.has(ds);
-              }}}
-              modifiersClassNames={{ hasEvent: 'has-event' }}
-              className="[--cell-size:2.25rem] w-full"
-            />
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <CalendarPicker
+                mode="single"
+                selected={selectedDate}
+                onSelect={setSelectedDate}
+                locale={lt}
+                modifiers={{ hasEvent: (date) => {
+                  const ds = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+                  return eventDates.has(ds);
+                }}}
+                modifiersClassNames={{ hasEvent: 'has-event' }}
+                className="[--cell-size:2.25rem] w-full max-w-[340px]"
+              />
+            </div>
 
             {/* Selected day events */}
             {selectedDate && (
