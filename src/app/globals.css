@@ -530,10 +530,24 @@
 }
 
 /* ── PageHeader ───────────────────────────────────────────────── */
+.page-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--foreground);
+  margin: 0;
+}
+.page-subtitle {
+  font-size: 13px;
+  color: var(--muted-foreground);
+  margin-top: 5px;
+  font-weight: 400;
+}
 .page-header-row {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 16px;
   align-items: start;
 }
 .page-header-actions {

@@ -8,6 +8,7 @@ export interface User {
   phone?: string;
   unitId?: string;
   avatarBg?: string;
+  avatarUrl?: string;
   engagementId?: string;
 }
 

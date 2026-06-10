@@ -87,9 +87,9 @@ export default function PageShell({
   return (
     <div ref={cardRef} className="glass" style={{ padding: 0, borderRadius: 'var(--radius-card)' }}>
       {/* Header region */}
-      <div className="page-header" style={{ padding: '24px 28px', position: 'relative' }}>
+      <div className="page-header" style={{ padding: '18px 24px', position: 'relative' }}>
         {breadcrumbs && breadcrumbs.length > 0 && (
-          <div data-ps-breadcrumbs style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 10 }}>
+          <div data-ps-breadcrumbs style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 8 }}>
             {breadcrumbs.map((bc, i) => (
               <span key={i} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
                 {i > 0 && <ChevronRight size={12} style={{ color: 'var(--color-muted-ash-2)' }} />}
@@ -103,42 +103,30 @@ export default function PageShell({
         )}
 
         <div className="page-header-row">
-          <h1 data-ps-title style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 26,
-            fontWeight: 600,
-            letterSpacing: '-0.03em',
-            lineHeight: 1.15,
-            color: 'var(--foreground)',
-            margin: 0,
-          }}>
-            {title}
-          </h1>
-          {subtitle && (
-            <p data-ps-subtitle style={{ fontSize: 13, color: 'var(--muted-foreground)', marginTop: 5, fontWeight: 400 }}>
-              {subtitle}
-            </p>
-          )}
-          {(statusBadge || meta) && (
-            <div data-ps-meta style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 8, flexWrap: 'wrap' }}>
-              {statusBadge && (
-                <span style={{
-                  fontSize: 11, fontWeight: 700, padding: '3px 12px', borderRadius: 100,
-                  background: statusBadge.active ? 'rgba(118,192,61,0.2)' : 'rgba(0,0,0,0.08)',
-                  color: statusBadge.active ? '#8dd452' : 'var(--color-muted-ash)',
-                  letterSpacing: '0.03em',
-                }}>
-                  {statusBadge.label}
-                </span>
-              )}
-              {meta?.map(({ label, value }) => (
-                <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                  <span style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{label}</span>
-                  <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--color-muted-ash)' }}>{value}</span>
-                </div>
-              ))}
-            </div>
-          )}
+          <div>
+            <h1 data-ps-title className="page-title">{title}</h1>
+            {subtitle && <p data-ps-subtitle className="page-subtitle">{subtitle}</p>}
+            {(statusBadge || meta) && (
+              <div data-ps-meta style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 8, flexWrap: 'wrap' }}>
+                {statusBadge && (
+                  <span style={{
+                    fontSize: 11, fontWeight: 700, padding: '3px 12px', borderRadius: 100,
+                    background: statusBadge.active ? 'rgba(118,192,61,0.2)' : 'rgba(0,0,0,0.08)',
+                    color: statusBadge.active ? '#8dd452' : 'var(--color-muted-ash)',
+                    letterSpacing: '0.03em',
+                  }}>
+                    {statusBadge.label}
+                  </span>
+                )}
+                {meta?.map(({ label, value }) => (
+                  <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                    <span style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{label}</span>
+                    <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--color-muted-ash)' }}>{value}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
           {actions && <div data-ps-actions className="page-header-actions">{actions}</div>}
         </div>
       </div>
