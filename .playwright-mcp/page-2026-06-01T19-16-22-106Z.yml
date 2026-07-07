@@ -1,0 +1,211 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
+    - img [ref=e8]
+  - alert [ref=e11]
+  - generic [ref=e345]:
+    - complementary [ref=e346]:
+      - generic [ref=e347]:
+        - img "Miteda" [ref=e348]
+        - generic [ref=e349]: Savininkas
+        - button "Suskleisti" [ref=e350] [cursor=pointer]:
+          - generic [ref=e351]:
+            - img [ref=e353]
+            - img [ref=e357]
+      - generic [ref=e360]: Mano butas
+      - navigation [ref=e361]:
+        - link "Pagrindinis" [ref=e362] [cursor=pointer]:
+          - /url: /portal/pagrindinis
+          - img [ref=e363]
+          - text: Pagrindinis
+        - link "Defektai" [ref=e366] [cursor=pointer]:
+          - /url: /portal/defektai
+          - img [ref=e367]
+          - text: Defektai
+        - link "Nuotraukos" [ref=e369] [cursor=pointer]:
+          - /url: /portal/nuotraukos
+          - img [ref=e370]
+          - text: Nuotraukos
+        - link "Paslaugų sutartys" [ref=e374] [cursor=pointer]:
+          - /url: /portal/sutartys
+          - img [ref=e375]
+          - text: Paslaugų sutartys
+        - link "Kontaktai" [ref=e378] [cursor=pointer]:
+          - /url: /portal/kontaktai
+          - img [ref=e379]
+          - text: Kontaktai
+        - link "Tvarkaraštis" [ref=e391] [cursor=pointer]:
+          - /url: /portal/tvarkarastis
+          - img [ref=e392]
+          - text: Tvarkaraštis
+        - link "Bendruomenė" [ref=e394] [cursor=pointer]:
+          - /url: /portal/bendruomene
+          - img [ref=e395]
+          - text: Bendruomenė
+        - link "Remonto darbai" [ref=e397] [cursor=pointer]:
+          - /url: /portal/darbai
+          - img [ref=e398]
+          - text: Remonto darbai
+        - link "Nustatymai" [ref=e403] [cursor=pointer]:
+          - /url: /portal/nustatymai
+          - img [ref=e404]
+          - text: Nustatymai
+      - generic [ref=e407]:
+        - link "Pagalba" [ref=e408] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e409]
+          - text: Pagalba
+        - button "Atsijungti" [ref=e412] [cursor=pointer]:
+          - img [ref=e413]
+          - text: Atsijungti
+      - generic [ref=e416]:
+        - generic [ref=e417]: AK
+        - generic [ref=e418]:
+          - generic [ref=e419]: Andrius Kazlauskas
+          - generic [ref=e420]: andrius@mail.lt
+    - main [ref=e421]:
+      - generic [ref=e422]:
+        - generic [ref=e425]:
+          - heading "Pagrindinis" [level=1] [ref=e426]
+          - paragraph [ref=e427]: Kalnų Terasos · Butas B-12
+        - generic [ref=e428]:
+          - generic [ref=e429]:
+            - generic [ref=e430]:
+              - heading "Skelbimų lenta" [level=3] [ref=e431]
+              - paragraph [ref=e432]: Aktualūs pranešimai ir skelbimai
+            - generic [ref=e433]:
+              - generic [ref=e434]:
+                - generic [ref=e435]:
+                  - paragraph [ref=e436]: Vandens atjungimas birželio 12 d.
+                  - generic [ref=e437]: Svarbu
+                - paragraph [ref=e438]: Nuo 9:00 iki 14:00 bus atjungtas karštas vanduo techninės priežiūros tikslais.
+                - paragraph [ref=e439]: 2026-06-01
+              - generic [ref=e440]:
+                - paragraph [ref=e442]: Stovėjimo aikštelės taisyklės
+                - paragraph [ref=e443]: Kiekvienas savininkas turi vieną žymėtą vietą. Prašome laikytis tvarkos.
+                - paragraph [ref=e444]: 2026-05-28
+              - generic [ref=e445]:
+                - paragraph [ref=e447]: Penktadienio laiptinės valymas
+                - paragraph [ref=e448]: Kiekvieną penktadienį atliekamas laiptinės valymas 8:00–10:00.
+                - paragraph [ref=e449]: 2026-05-25
+          - generic [ref=e450]:
+            - generic [ref=e451]:
+              - generic [ref=e453]:
+                - heading "Artimiausi įvykiai" [level=3] [ref=e454]
+                - paragraph [ref=e455]: Namo veiklos kalendorius
+              - generic [ref=e456]:
+                - generic [ref=e459]: Šiukšlių išvežimas
+                - generic [ref=e462]: Žolės pjovimas
+                - generic [ref=e465]: Lifto priežiūra
+                - generic [ref=e468]: Vandens atjungimas
+                - generic [ref=e471]: Bendruomenės susirinkimas
+                - generic [ref=e474]: Teritorijos valymas
+                - generic [ref=e477]: Stogo darbai
+              - generic [ref=e479]:
+                - generic [ref=e480]:
+                  - generic [ref=e481]:
+                    - generic [ref=e482]: "3"
+                    - generic [ref=e483]: "06"
+                  - paragraph [ref=e486]: Šiukšlių išvežimas
+                  - generic [ref=e487]: 2d.
+                - generic [ref=e488]:
+                  - generic [ref=e489]:
+                    - generic [ref=e490]: "5"
+                    - generic [ref=e491]: "06"
+                  - paragraph [ref=e494]: Žolės pjovimas
+                  - generic [ref=e495]: 4d.
+                - generic [ref=e496]:
+                  - generic [ref=e497]:
+                    - generic [ref=e498]: "10"
+                    - generic [ref=e499]: "06"
+                  - paragraph [ref=e502]: Lifto priežiūra
+                - generic [ref=e503]:
+                  - generic [ref=e504]:
+                    - generic [ref=e505]: "12"
+                    - generic [ref=e506]: "06"
+                  - generic [ref=e508]:
+                    - paragraph [ref=e509]: Vandens atjungimas
+                    - paragraph [ref=e510]: 9:00 – 14:00
+                - generic [ref=e511]:
+                  - generic [ref=e512]:
+                    - generic [ref=e513]: "15"
+                    - generic [ref=e514]: "06"
+                  - generic [ref=e516]:
+                    - paragraph [ref=e517]: Bendruomenės susirinkimas
+                    - paragraph [ref=e518]: 18:00, Laiptinė A
+                - generic [ref=e519]:
+                  - generic [ref=e520]:
+                    - generic [ref=e521]: "18"
+                    - generic [ref=e522]: "06"
+                  - paragraph [ref=e525]: Teritorijos valymas
+                - generic [ref=e526]:
+                  - generic [ref=e527]:
+                    - generic [ref=e528]: "22"
+                    - generic [ref=e529]: "06"
+                  - paragraph [ref=e532]: Stogo darbai
+                - generic [ref=e533]:
+                  - generic [ref=e534]:
+                    - generic [ref=e535]: "1"
+                    - generic [ref=e536]: "07"
+                  - paragraph [ref=e539]: Šiukšlių išvežimas
+                - generic [ref=e540]:
+                  - generic [ref=e541]:
+                    - generic [ref=e542]: "8"
+                    - generic [ref=e543]: "07"
+                  - paragraph [ref=e546]: Žolės pjovimas
+            - generic [ref=e549]:
+              - generic [ref=e550]:
+                - generic [ref=e551]:
+                  - heading "Gautos žinutės" [level=3] [ref=e552]
+                  - generic [ref=e553]: "1"
+                - generic [ref=e554] [cursor=pointer]:
+                  - generic [ref=e555]: A
+                  - generic [ref=e556]:
+                    - generic [ref=e557]:
+                      - generic [ref=e558]: Administratorius
+                      - generic [ref=e559]: Šiandien 09:14
+                    - paragraph [ref=e560]: Primename apie bendrijos susirinkimą birželio 15 d. 18:00 val.
+                - generic [ref=e562] [cursor=pointer]:
+                  - generic [ref=e563]: M
+                  - generic [ref=e564]:
+                    - generic [ref=e565]:
+                      - generic [ref=e566]: Miteda
+                      - generic [ref=e567]: Vakar 14:30
+                    - paragraph [ref=e568]: Jūsų butas įregistruotas. Raktų perdavimas planuojamas birželio 30 d.
+                - generic [ref=e569] [cursor=pointer]:
+                  - generic [ref=e570]: A
+                  - generic [ref=e571]:
+                    - generic [ref=e572]:
+                      - generic [ref=e573]: Administratorius
+                      - generic [ref=e574]: Pirmad.
+                    - paragraph [ref=e575]: Birželio 12 d. 9:00–14:00 bus atjungtas karštas vanduo.
+              - generic [ref=e576]:
+                - heading "🚨 Svarbi informacija" [level=3] [ref=e578]
+                - generic [ref=e579]:
+                  - generic "Spustelėkite norėdami nukopijuoti" [ref=e580] [cursor=pointer]:
+                    - img [ref=e582]
+                    - generic [ref=e585]:
+                      - paragraph [ref=e586]: Laiptinės kodas
+                      - paragraph [ref=e587]: 1234#
+                    - img [ref=e588]
+                  - generic "Spustelėkite norėdami nukopijuoti" [ref=e591] [cursor=pointer]:
+                    - img [ref=e593]
+                    - generic [ref=e597]:
+                      - paragraph [ref=e598]: Vartų kodas
+                      - paragraph [ref=e599]: 5678#
+                    - img [ref=e600]
+                  - generic "Spustelėkite norėdami nukopijuoti" [ref=e603] [cursor=pointer]:
+                    - img [ref=e605]
+                    - generic [ref=e609]:
+                      - paragraph [ref=e610]: WiFi (bendros erdvės)
+                      - paragraph [ref=e611]: KalnuTerasos · kalnu2024
+                    - img [ref=e612]
+                  - generic [ref=e615]:
+                    - img [ref=e617]
+                    - generic [ref=e620]:
+                      - paragraph [ref=e621]: Avarinis numeris
+                      - paragraph [ref=e622]: +370 600 12345
+                  - generic [ref=e623]:
+                    - img [ref=e625]
+                    - generic [ref=e627]:
+                      - paragraph [ref=e628]: Administratorius
+                      - paragraph [ref=e629]: +370 699 87654

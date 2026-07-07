@@ -1,0 +1,118 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
+    - img [ref=e8]
+  - alert [ref=e11]
+  - generic [ref=e12]:
+    - generic [ref=e13]:
+      - button "Atidaryti meniu" [ref=e14] [cursor=pointer]:
+        - img [ref=e15]
+      - img "Miteda" [ref=e16]
+    - complementary [ref=e17]:
+      - generic [ref=e18]:
+        - img "Miteda" [ref=e19]
+        - generic [ref=e20]: Savininkas
+        - button "Suskleisti" [ref=e21] [cursor=pointer]:
+          - generic [ref=e22]:
+            - img [ref=e24]
+            - img [ref=e28]
+        - button "Uždaryti meniu" [ref=e31] [cursor=pointer]:
+          - img [ref=e32]
+      - generic [ref=e35]: Mano butas
+      - navigation [ref=e36]:
+        - link "Pagrindinis" [ref=e37] [cursor=pointer]:
+          - /url: /portal/pagrindinis
+          - img [ref=e38]
+          - text: Pagrindinis
+        - link "Defektai" [ref=e41] [cursor=pointer]:
+          - /url: /portal/defektai
+          - img [ref=e42]
+          - text: Defektai
+        - link "Nuotraukos" [ref=e44] [cursor=pointer]:
+          - /url: /portal/nuotraukos
+          - img [ref=e45]
+          - text: Nuotraukos
+        - link "Paslaugų sutartys" [ref=e49] [cursor=pointer]:
+          - /url: /portal/sutartys
+          - img [ref=e50]
+          - text: Paslaugų sutartys
+        - link "Kontaktai" [ref=e53] [cursor=pointer]:
+          - /url: /portal/kontaktai
+          - img [ref=e54]
+          - text: Kontaktai
+        - link "Tvarkaraštis" [ref=e66] [cursor=pointer]:
+          - /url: /portal/tvarkarastis
+          - img [ref=e67]
+          - text: Tvarkaraštis
+        - link "Skelbimų lenta" [ref=e69] [cursor=pointer]:
+          - /url: /portal/skelbimai
+          - img [ref=e70]
+          - text: Skelbimų lenta
+        - link "Bendruomenė" [ref=e73] [cursor=pointer]:
+          - /url: /portal/bendruomene
+          - img [ref=e74]
+          - text: Bendruomenė
+        - link "Remonto darbai" [ref=e76] [cursor=pointer]:
+          - /url: /portal/darbai
+          - img [ref=e77]
+          - text: Remonto darbai
+        - link "Nustatymai" [ref=e82] [cursor=pointer]:
+          - /url: /portal/nustatymai
+          - img [ref=e83]
+          - text: Nustatymai
+      - generic [ref=e86]:
+        - link "Pagalba" [ref=e87] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e88]
+          - text: Pagalba
+        - button "Atsijungti" [ref=e91] [cursor=pointer]:
+          - img [ref=e92]
+          - text: Atsijungti
+      - generic [ref=e95]:
+        - generic [ref=e96]: AK
+        - generic [ref=e97]:
+          - generic [ref=e98]: Andrius Kazlauskas
+          - generic [ref=e99]: andrius@mail.lt
+    - main [ref=e100]:
+      - generic [ref=e101]:
+        - heading "Paslaugų sutartys" [level=1] [ref=e105]
+        - generic [ref=e106]:
+          - img [ref=e107]
+          - paragraph [ref=e109]: 2 sutartys laukia jūsų veiksmų
+          - button "Pradėti" [ref=e110] [cursor=pointer]
+        - generic [ref=e111]:
+          - generic [ref=e112]:
+            - generic [ref=e113]:
+              - img [ref=e115]
+              - generic [ref=e117]: Aktyvuota
+            - paragraph [ref=e118]: Elektra
+            - paragraph [ref=e119]: ESO
+            - generic [ref=e121]:
+              - generic [ref=e122]: "Aktyvuota: 2025-02-15"
+              - button "Sutartis" [ref=e123] [cursor=pointer]
+          - generic [ref=e124]:
+            - generic [ref=e125]:
+              - img [ref=e127]
+              - generic [ref=e130]: Aktyvuota
+            - paragraph [ref=e131]: Vandentiekis
+            - paragraph [ref=e132]: Vilniaus vandenys
+            - generic [ref=e134]:
+              - generic [ref=e135]: "Aktyvuota: 2025-02-15"
+              - button "Sutartis" [ref=e136] [cursor=pointer]
+          - generic [ref=e137]:
+            - generic [ref=e138]:
+              - img [ref=e140]
+              - generic [ref=e142]: Vykdoma
+            - paragraph [ref=e143]: Šildymas
+            - paragraph [ref=e144]: Vilniaus šilumos tinklai
+            - generic [ref=e146]:
+              - generic [ref=e147]: Dar neaktyvuota
+              - button "Patvirtinti" [ref=e148] [cursor=pointer]
+          - generic [ref=e149]:
+            - generic [ref=e150]:
+              - img [ref=e152]
+              - generic [ref=e155]: Laukiama
+            - paragraph [ref=e156]: Atliekos
+            - paragraph [ref=e157]: Ecoservice
+            - generic [ref=e159]:
+              - generic [ref=e160]: Dar neaktyvuota
+              - button "Pasirašyti" [ref=e161] [cursor=pointer]

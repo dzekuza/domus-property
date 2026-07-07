@@ -1,0 +1,167 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
+    - img [ref=e8]
+  - alert [ref=e11]
+  - generic [ref=e12]:
+    - generic [ref=e13]:
+      - button "Atidaryti meniu" [ref=e14] [cursor=pointer]:
+        - img [ref=e15]
+      - img "Miteda" [ref=e16]
+    - complementary [ref=e17]:
+      - generic [ref=e18]:
+        - img "Miteda" [ref=e19]
+        - generic [ref=e20]: Admin
+        - button "Suskleisti" [ref=e21] [cursor=pointer]:
+          - generic [ref=e22]:
+            - img [ref=e24]
+            - img [ref=e28]
+        - button "Uždaryti meniu" [ref=e31] [cursor=pointer]:
+          - img [ref=e32]
+      - generic [ref=e35]: Valdymas
+      - navigation [ref=e36]:
+        - link "Objektai" [ref=e37] [cursor=pointer]:
+          - /url: /admin/estates
+          - img [ref=e38]
+          - text: Objektai
+        - link "Defektai" [ref=e42] [cursor=pointer]:
+          - /url: /admin/defects
+          - img [ref=e43]
+          - text: Defektai
+        - link "Kontaktai" [ref=e52] [cursor=pointer]:
+          - /url: /admin/contacts
+          - img [ref=e53]
+          - text: Kontaktai
+        - link "Tvarkaraštis" [ref=e58] [cursor=pointer]:
+          - /url: /admin/tvarkarastis
+          - img [ref=e59]
+          - text: Tvarkaraštis
+      - generic [ref=e61]:
+        - link "Pagalba" [ref=e62] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e63]
+          - text: Pagalba
+        - button "Atsijungti" [ref=e66] [cursor=pointer]:
+          - img [ref=e67]
+          - text: Atsijungti
+      - generic [ref=e70]:
+        - generic [ref=e71]: TD
+        - generic [ref=e72]:
+          - generic [ref=e73]: Tomas Domus
+          - generic [ref=e74]: tomas@domus.lt
+    - main [ref=e75]:
+      - generic [ref=e76]:
+        - generic [ref=e78]:
+          - generic [ref=e79]:
+            - heading "Defektai" [level=1] [ref=e80]
+            - paragraph [ref=e81]: 7 pranešimų iš viso
+          - button "Eksportuoti" [ref=e83] [cursor=pointer]:
+            - img [ref=e84]
+            - text: Eksportuoti
+        - generic [ref=e87]:
+          - combobox [ref=e88]:
+            - generic [ref=e89]: all
+            - img: ▼
+          - textbox [ref=e90]: all
+          - combobox [ref=e91]:
+            - generic [ref=e92]: all
+            - img: ▼
+          - textbox [ref=e93]: all
+          - generic [ref=e94]:
+            - generic [ref=e95]: "Atviri: 3"
+            - generic [ref=e96]: "Vykdomi: 2"
+            - generic [ref=e97]: "Išspręsti: 1"
+            - generic [ref=e98]: "Atmesti: 1"
+        - table [ref=e101]:
+          - rowgroup [ref=e102]:
+            - row "ID Pranešimas Objektas / Butas Savininkas Data Būsena" [ref=e103]:
+              - columnheader "ID" [ref=e104]
+              - columnheader "Pranešimas" [ref=e105]
+              - columnheader "Objektas / Butas" [ref=e106]
+              - columnheader "Savininkas" [ref=e107]
+              - columnheader "Data" [ref=e108]
+              - columnheader "Būsena" [ref=e109]
+          - rowgroup [ref=e110]:
+            - row "D-198 Vonios kambaryje nutekėjimas Vonia Kalnų Terasos Butas B-12 Andrius Kazlauskas 2025-03-10 Vykdomas" [ref=e111]:
+              - cell "D-198" [ref=e112]
+              - cell "Vonios kambaryje nutekėjimas Vonia" [ref=e113]:
+                - paragraph [ref=e114]: Vonios kambaryje nutekėjimas
+                - paragraph [ref=e115]: Vonia
+              - cell "Kalnų Terasos Butas B-12" [ref=e116]:
+                - paragraph [ref=e117]: Kalnų Terasos
+                - paragraph [ref=e118]: Butas B-12
+              - cell "Andrius Kazlauskas" [ref=e119]
+              - cell "2025-03-10" [ref=e120]
+              - cell "Vykdomas" [ref=e121]:
+                - generic [ref=e122]: Vykdomas
+            - row "D-199 Langų jungtys nesandarios Svetainė Kalnų Terasos Butas B-12 Andrius Kazlauskas 2025-04-02 Atviras" [ref=e123]:
+              - cell "D-199" [ref=e124] [cursor=pointer]
+              - cell "Langų jungtys nesandarios Svetainė" [ref=e125] [cursor=pointer]:
+                - paragraph [ref=e126]: Langų jungtys nesandarios
+                - paragraph [ref=e127]: Svetainė
+              - cell "Kalnų Terasos Butas B-12" [ref=e128] [cursor=pointer]:
+                - paragraph [ref=e129]: Kalnų Terasos
+                - paragraph [ref=e130]: Butas B-12
+              - cell "Andrius Kazlauskas" [ref=e131] [cursor=pointer]
+              - cell "2025-04-02" [ref=e132] [cursor=pointer]
+              - cell "Atviras" [ref=e133] [cursor=pointer]:
+                - generic [ref=e134]: Atviras
+            - row "D-200 Dažų burbulai virtuvėje Virtuvė Kalnų Terasos Butas A-04 Laura Petraitienė 2025-02-14 Išspręstas" [ref=e135]:
+              - cell "D-200" [ref=e136]
+              - cell "Dažų burbulai virtuvėje Virtuvė" [ref=e137]:
+                - paragraph [ref=e138]: Dažų burbulai virtuvėje
+                - paragraph [ref=e139]: Virtuvė
+              - cell "Kalnų Terasos Butas A-04" [ref=e140]:
+                - paragraph [ref=e141]: Kalnų Terasos
+                - paragraph [ref=e142]: Butas A-04
+              - cell "Laura Petraitienė" [ref=e143]
+              - cell "2025-02-14" [ref=e144]
+              - cell "Išspręstas" [ref=e145]:
+                - generic [ref=e146]: Išspręstas
+            - row "D-201 Grindų lenta girgžda Miegamasis Kalnų Terasos Butas B-12 Andrius Kazlauskas 2025-05-01 Atviras" [ref=e147]:
+              - cell "D-201" [ref=e148]
+              - cell "Grindų lenta girgžda Miegamasis" [ref=e149]:
+                - paragraph [ref=e150]: Grindų lenta girgžda
+                - paragraph [ref=e151]: Miegamasis
+              - cell "Kalnų Terasos Butas B-12" [ref=e152]:
+                - paragraph [ref=e153]: Kalnų Terasos
+                - paragraph [ref=e154]: Butas B-12
+              - cell "Andrius Kazlauskas" [ref=e155]
+              - cell "2025-05-01" [ref=e156]
+              - cell "Atviras" [ref=e157]:
+                - generic [ref=e158]: Atviras
+            - row "D-202 Elektros jungiklis neveikia Koridorius Kalnų Terasos Butas C-07 Andrius Kazlauskas 2025-01-20 Atmestas" [ref=e159]:
+              - cell "D-202" [ref=e160]
+              - cell "Elektros jungiklis neveikia Koridorius" [ref=e161]:
+                - paragraph [ref=e162]: Elektros jungiklis neveikia
+                - paragraph [ref=e163]: Koridorius
+              - cell "Kalnų Terasos Butas C-07" [ref=e164]:
+                - paragraph [ref=e165]: Kalnų Terasos
+                - paragraph [ref=e166]: Butas C-07
+              - cell "Andrius Kazlauskas" [ref=e167]
+              - cell "2025-01-20" [ref=e168]
+              - cell "Atmestas" [ref=e169]:
+                - generic [ref=e170]: Atmestas
+            - row "D-203 Balkono durys neužsidaro Balkonas Pajūrio Namai Butas A-01 Laura Petraitienė 2025-05-10 Vykdomas" [ref=e171]:
+              - cell "D-203" [ref=e172]
+              - cell "Balkono durys neužsidaro Balkonas" [ref=e173]:
+                - paragraph [ref=e174]: Balkono durys neužsidaro
+                - paragraph [ref=e175]: Balkonas
+              - cell "Pajūrio Namai Butas A-01" [ref=e176]:
+                - paragraph [ref=e177]: Pajūrio Namai
+                - paragraph [ref=e178]: Butas A-01
+              - cell "Laura Petraitienė" [ref=e179]
+              - cell "2025-05-10" [ref=e180]
+              - cell "Vykdomas" [ref=e181]:
+                - generic [ref=e182]: Vykdomas
+            - row "D-204 Vonios plytelė įtrūkusi Vonia Kalnų Terasos Butas B-12 Andrius Kazlauskas 2025-05-20 Atviras" [ref=e183]:
+              - cell "D-204" [ref=e184]
+              - cell "Vonios plytelė įtrūkusi Vonia" [ref=e185]:
+                - paragraph [ref=e186]: Vonios plytelė įtrūkusi
+                - paragraph [ref=e187]: Vonia
+              - cell "Kalnų Terasos Butas B-12" [ref=e188]:
+                - paragraph [ref=e189]: Kalnų Terasos
+                - paragraph [ref=e190]: Butas B-12
+              - cell "Andrius Kazlauskas" [ref=e191]
+              - cell "2025-05-20" [ref=e192]
+              - cell "Atviras" [ref=e193]:
+                - generic [ref=e194]: Atviras

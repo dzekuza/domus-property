@@ -2,8 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Lock, Car, Wifi, Bell, Phone, Copy, Check, Building2 } from 'lucide-react';
-import PageShell from '@/components/layout/PageShell';
+import { Lock, Car, Wifi, Bell, Phone, Copy, Check, Building2, ArrowUpRight } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useStore } from '@/lib/store';
 
@@ -42,13 +41,13 @@ const MESSAGES = [
 const BULLETINS = [
   { id: 1, title: 'Vandens atjungimas birželio 12 d.',
     body: 'Nuo 9:00 iki 14:00 bus atjungtas karštas vanduo techninės priežiūros tikslais.',
-    date: '2026-06-01', priority: 'high' as const },
+    date: '2026-06-01', priority: 'high' as const, category: 'Svarbu' },
   { id: 2, title: 'Stovėjimo aikštelės taisyklės',
     body: 'Kiekvienas savininkas turi vieną žymėtą vietą. Prašome laikytis tvarkos.',
-    date: '2026-05-28', priority: 'normal' as const },
+    date: '2026-05-28', priority: 'normal' as const, category: 'Taisyklės' },
   { id: 3, title: 'Penktadienio laiptinės valymas',
     body: 'Kiekvieną penktadienį atliekamas laiptinės valymas 8:00–10:00.',
-    date: '2026-05-25', priority: 'normal' as const },
+    date: '2026-05-25', priority: 'normal' as const, category: 'Valymas' },
 ];
 
 const IMPORTANT_INFO = [
@@ -64,12 +63,6 @@ function daysFromNow(dateStr: string) {
   return Math.floor((new Date(dateStr).getTime() - now.getTime()) / 86_400_000);
 }
 
-const innerSection: React.CSSProperties = {
-  background: 'var(--color-surface-raised)',
-  border: '1px solid var(--color-ghost-border)',
-  borderRadius: 14,
-  overflow: 'hidden',
-};
 
 export default function PagrindiniasPage() {
   const router = useRouter();
@@ -88,52 +81,59 @@ export default function PagrindiniasPage() {
   }
 
   return (
-    <PageShell
-      title="Pagrindinis"
-      subtitle={unit ? `${estate?.name ?? ''} · Butas ${unit.number}` : 'Sveiki sugrįžę'}
-      bodyStyle={{ padding: '16px 24px 24px' }}
-    >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+      {/* Page header */}
+      <div>
+        <h1 className="page-title">Pagrindinis</h1>
+        <p className="page-subtitle">{unit ? `${estate?.name ?? ''} · Butas ${unit.number}` : 'Sveiki sugrįžę'}</p>
+      </div>
 
         {/* Bulletin Board */}
-        <div style={innerSection}>
-          <div style={{ padding: '14px 18px 12px', borderBottom: '1px solid var(--color-ghost-border)' }}>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 600, color: 'var(--color-midnight-ink)', marginBottom: 2 }}>
-              Skelbimų lenta
-            </h2>
-            <p style={{ fontSize: 12, color: 'var(--color-muted-ash-2)' }}>Aktualūs pranešimai ir skelbimai</p>
-          </div>
-          <div className="bulletin-grid" style={{ padding: '14px 16px 16px' }}>
+        <div className="bulletin-grid">
             {BULLETINS.map((b) => (
               <div
                 key={b.id}
                 style={{
                   padding: 16,
-                  background: b.priority === 'high' ? 'rgba(255,96,27,0.10)' : 'rgba(0,0,0,0.03)',
-                  borderRadius: 10,
-                  border: `1px solid ${b.priority === 'high' ? 'rgba(255,96,27,0.28)' : 'var(--color-ghost-border)'}`,
+                  background: b.priority === 'high' ? 'rgba(255,96,27,0.07)' : 'rgba(3,3,2,0.03)',
+                  borderRadius: 14,
+                  border: `1px solid ${b.priority === 'high' ? 'rgba(255,96,27,0.18)' : 'rgba(3,3,2,0.07)'}`,
+                  display: 'flex',
+                  flexDirection: 'column' as const,
+                  gap: 10,
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 10, marginBottom: 6 }}>
-                  <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-midnight-ink)', lineHeight: 1.35 }}>{b.title}</p>
-                  {b.priority === 'high' && (
-                    <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--color-danger)', background: 'var(--color-danger-tint)', padding: '2px 8px', borderRadius: 100, flexShrink: 0, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                      Svarbu
-                    </span>
-                  )}
+                {/* Category pill */}
+                <span style={{
+                  alignSelf: 'flex-start',
+                  fontSize: 12,
+                  fontWeight: 500,
+                  color: b.priority === 'high' ? 'var(--color-cta)' : 'var(--color-gray-700)',
+                  background: b.priority === 'high' ? 'rgba(255,96,27,0.12)' : 'rgba(3,3,2,0.06)',
+                  padding: '3px 10px',
+                  borderRadius: 100,
+                }}>
+                  {b.category}
+                </span>
+                {/* Title + body */}
+                <div>
+                  <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-midnight-ink)', lineHeight: 1.4, marginBottom: 6 }}>{b.title}</p>
+                  <p style={{ fontSize: 13, color: 'var(--color-gray-700)', lineHeight: 1.55 }}>{b.body}</p>
                 </div>
-                <p style={{ fontSize: 13, color: 'var(--color-muted-ash)', lineHeight: 1.55 }}>{b.body}</p>
-                <p style={{ fontSize: 11, color: 'var(--color-muted-ash-2)', marginTop: 10 }}>
-                  {new Date(b.date).toLocaleDateString('lt-LT')}
-                </p>
+                {/* Date + arrow */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto' }}>
+                  <p style={{ fontSize: 12, color: 'var(--color-gray-600)' }}>
+                    {new Date(b.date).toLocaleDateString('lt-LT', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  </p>
+                  <ArrowUpRight size={14} style={{ color: 'var(--color-gray-600)', flexShrink: 0 }} />
+                </div>
               </div>
             ))}
-          </div>
         </div>
 
         {/* Darbu eiga updates */}
         {myUpdates.length > 0 && (
-          <div style={innerSection}>
+          <div className="glass" style={{ overflow: 'hidden' }}>
             <div style={{ padding: '14px 18px 12px', borderBottom: '1px solid var(--color-ghost-border)' }}>
               <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 600, color: 'var(--color-midnight-ink)', marginBottom: 2 }}>
                 Darbu eiga
@@ -184,7 +184,7 @@ export default function PagrindiniasPage() {
         <div className="home-grid">
 
           {/* Calendar / Agenda */}
-          <div style={innerSection}>
+          <div className="glass" style={{ overflow: 'hidden' }}>
             <div style={{ padding: '14px 18px 12px', borderBottom: '1px solid var(--color-ghost-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div>
                 <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 600, color: 'var(--color-midnight-ink)', marginBottom: 2 }}>
@@ -236,7 +236,7 @@ export default function PagrindiniasPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
 
             {/* Messages */}
-            <div style={innerSection}>
+            <div className="glass" style={{ overflow: 'hidden' }}>
               <div style={{ padding: '13px 18px', borderBottom: '1px solid var(--color-ghost-border)', display: 'flex', alignItems: 'center', gap: 8 }}>
                 <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 14, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>
                   Gautos žinutės
@@ -282,7 +282,7 @@ export default function PagrindiniasPage() {
             </div>
 
             {/* Important Info */}
-            <div style={innerSection}>
+            <div className="glass" style={{ overflow: 'hidden' }}>
               <div style={{ padding: '13px 18px', borderBottom: '1px solid var(--color-ghost-border)' }}>
                 <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 14, fontWeight: 600, color: 'var(--color-midnight-ink)' }}>
                   Svarbi informacija
@@ -340,7 +340,6 @@ export default function PagrindiniasPage() {
           </div>
         </div>
 
-      </div>
-    </PageShell>
+    </div>
   );
 }

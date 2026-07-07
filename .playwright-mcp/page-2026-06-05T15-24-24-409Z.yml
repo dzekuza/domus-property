@@ -1,0 +1,52 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - img "ELPEKAS" [ref=e5]
+    - generic [ref=e6]:
+      - generic [ref=e7]:
+        - heading "Sveiki!" [level=1] [ref=e8]
+        - paragraph [ref=e9]: Įveskite savo el. pašto adresą ir slaptažodį, kad prisijungtumėte. Jungiantis pirmą kartą, naudokite Elpekas suteiktus prisijungimo duomenis.
+      - generic [ref=e10]:
+        - generic [ref=e11]:
+          - generic [ref=e12]:
+            - generic [ref=e13]: El. paštas
+            - textbox "El. paštas" [ref=e14]:
+              - /placeholder: your@gmail.com
+              - text: owner@test.com
+          - generic [ref=e15]:
+            - generic [ref=e16]: Slaptažodis
+            - textbox "Slaptažodis" [ref=e17]:
+              - /placeholder: ••••••••••••
+              - text: Admin123.
+        - generic [ref=e18]:
+          - button "Prisijungti" [ref=e19]
+          - link "Pamiršote slaptažodį?" [ref=e20] [cursor=pointer]:
+            - /url: /forgot-password
+        - generic [ref=e21]:
+          - paragraph [ref=e22]: Greitas prisijungimas
+          - generic [ref=e23]:
+            - button "Admin" [ref=e24]
+            - button "Owner" [active] [ref=e25]
+    - generic [ref=e26]:
+      - link "Elpekas Facebook" [ref=e27] [cursor=pointer]:
+        - /url: https://www.facebook.com/elpekas
+        - img [ref=e28]
+      - link "Elpekas Instagram" [ref=e30] [cursor=pointer]:
+        - /url: https://www.instagram.com/elpekas
+        - img [ref=e31]
+      - link "Elpekas LinkedIn" [ref=e34] [cursor=pointer]:
+        - /url: https://www.linkedin.com/company/elpekas
+        - img [ref=e35]
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e43] [cursor=pointer]:
+    - img [ref=e44]
+  - alert [ref=e47]
+  - generic [ref=e49]:
+    - generic [ref=e52]:
+      - button "Copy element" [ref=e54] [cursor=pointer]:
+        - img [ref=e56]
+      - button "Comment on element" [ref=e59] [cursor=pointer]:
+        - img [ref=e60]
+      - button "Style element" [ref=e63] [cursor=pointer]:
+        - img [ref=e64]
+    - button "Collapse toolbar" [expanded] [ref=e66] [cursor=pointer]:
+      - img [ref=e67]

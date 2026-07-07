@@ -1,0 +1,161 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
+    - img [ref=e8]
+  - alert [ref=e11]
+  - generic [ref=e12]:
+    - generic [ref=e13]:
+      - button "Atidaryti meniu" [ref=e14] [cursor=pointer]:
+        - img [ref=e15]
+      - img "Miteda" [ref=e16]
+    - complementary [ref=e17]:
+      - generic [ref=e18]:
+        - img "Miteda" [ref=e19]
+        - generic [ref=e20]: Savininkas
+        - button "Suskleisti" [ref=e21] [cursor=pointer]:
+          - generic [ref=e22]:
+            - img [ref=e24]
+            - img [ref=e28]
+        - button "Uždaryti meniu" [ref=e31] [cursor=pointer]:
+          - img [ref=e32]
+      - generic [ref=e35]: Mano butas
+      - navigation [ref=e36]:
+        - link "Pagrindinis" [ref=e37] [cursor=pointer]:
+          - /url: /portal/pagrindinis
+          - img [ref=e38]
+          - text: Pagrindinis
+        - link "Defektai" [ref=e41] [cursor=pointer]:
+          - /url: /portal/defektai
+          - img [ref=e42]
+          - text: Defektai
+        - link "Nuotraukos" [ref=e44] [cursor=pointer]:
+          - /url: /portal/nuotraukos
+          - img [ref=e45]
+          - text: Nuotraukos
+        - link "Paslaugų sutartys" [ref=e49] [cursor=pointer]:
+          - /url: /portal/sutartys
+          - img [ref=e50]
+          - text: Paslaugų sutartys
+        - link "Kontaktai" [ref=e53] [cursor=pointer]:
+          - /url: /portal/kontaktai
+          - img [ref=e54]
+          - text: Kontaktai
+        - link "Tvarkaraštis" [ref=e66] [cursor=pointer]:
+          - /url: /portal/tvarkarastis
+          - img [ref=e67]
+          - text: Tvarkaraštis
+        - link "Skelbimų lenta" [ref=e69] [cursor=pointer]:
+          - /url: /portal/skelbimai
+          - img [ref=e70]
+          - text: Skelbimų lenta
+        - link "Bendruomenė" [ref=e73] [cursor=pointer]:
+          - /url: /portal/bendruomene
+          - img [ref=e74]
+          - text: Bendruomenė
+        - link "Remonto darbai" [ref=e76] [cursor=pointer]:
+          - /url: /portal/darbai
+          - img [ref=e77]
+          - text: Remonto darbai
+        - link "Nustatymai" [ref=e82] [cursor=pointer]:
+          - /url: /portal/nustatymai
+          - img [ref=e83]
+          - text: Nustatymai
+      - generic [ref=e86]:
+        - link "Pagalba" [ref=e87] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e88]
+          - text: Pagalba
+        - button "Atsijungti" [ref=e91] [cursor=pointer]:
+          - img [ref=e92]
+          - text: Atsijungti
+      - generic [ref=e95]:
+        - generic [ref=e96]: AK
+        - generic [ref=e97]:
+          - generic [ref=e98]: Andrius Kazlauskas
+          - generic [ref=e99]: andrius@mail.lt
+    - main [ref=e100]:
+      - generic [ref=e101]:
+        - generic [ref=e104]:
+          - heading "Tvarkaraštis" [level=1] [ref=e105]
+          - paragraph [ref=e106]: Planuojami darbai ir lankymosi datos jūsų valdoje.
+        - generic [ref=e107]:
+          - generic [ref=e108]:
+            - paragraph [ref=e109]: 2026 m. gegužė
+            - generic [ref=e111]:
+              - img [ref=e113]
+              - generic [ref=e116]:
+                - generic [ref=e117]:
+                  - paragraph [ref=e118]: Vandentiekio patikrinimas
+                  - generic [ref=e119]: Atlikta
+                - paragraph [ref=e120]: Profilaktinis vandentiekio sistemos patikrinimas. Vanduo gali būti išjungtas 1–2 val.
+                - generic [ref=e121]:
+                  - generic [ref=e122]:
+                    - img [ref=e123]
+                    - text: 2026-05-15
+                  - generic [ref=e125]:
+                    - img [ref=e126]
+                    - text: 11:00
+          - generic [ref=e129]:
+            - paragraph [ref=e130]: 2026 m. birželis
+            - generic [ref=e131]:
+              - generic [ref=e132]:
+                - img [ref=e134]
+                - generic [ref=e140]:
+                  - paragraph [ref=e142]: Žolės pjovimas
+                  - paragraph [ref=e143]: Reguliarus žolės pjovimas visoje teritorijoje. Prašome nestatyti automobilių ant vejos.
+                  - generic [ref=e144]:
+                    - generic [ref=e145]:
+                      - img [ref=e146]
+                      - text: 2026-06-03
+                    - generic [ref=e148]:
+                      - img [ref=e149]
+                      - text: 09:00
+              - generic [ref=e152]:
+                - img [ref=e154]
+                - generic [ref=e157]:
+                  - paragraph [ref=e159]: Laiptinių valymas
+                  - paragraph [ref=e160]: Mėnesinis laiptinių ir bendrų patalpų valymas.
+                  - generic [ref=e161]:
+                    - generic [ref=e162]:
+                      - img [ref=e163]
+                      - text: 2026-06-10
+                    - generic [ref=e165]:
+                      - img [ref=e166]
+                      - text: 08:00
+              - generic [ref=e169]:
+                - img [ref=e171]
+                - generic [ref=e174]:
+                  - paragraph [ref=e176]: Lifto techninė apžiūra
+                  - paragraph [ref=e177]: Metinė lifto techninė apžiūra. Liftas bus išjungtas nuo 10:00 iki 14:00.
+                  - generic [ref=e178]:
+                    - generic [ref=e179]:
+                      - img [ref=e180]
+                      - text: 2026-06-15
+                    - generic [ref=e182]:
+                      - img [ref=e183]
+                      - text: 10:00
+              - generic [ref=e186]:
+                - img [ref=e188]
+                - generic [ref=e190]:
+                  - paragraph [ref=e192]: Stogo remonto darbai
+                  - paragraph [ref=e193]: Planuojami stogo remonto darbai. Tikimasi triukšmo.
+                  - generic [ref=e194]:
+                    - generic [ref=e195]:
+                      - img [ref=e196]
+                      - text: 2026-06-22
+                    - generic [ref=e198]:
+                      - img [ref=e199]
+                      - text: 07:30
+          - generic [ref=e202]:
+            - paragraph [ref=e203]: 2026 m. liepa
+            - generic [ref=e205]:
+              - img [ref=e207]
+              - generic [ref=e213]:
+                - paragraph [ref=e215]: Žolės pjovimas
+                - paragraph [ref=e216]: Eilinis žolės pjovimas.
+                - generic [ref=e217]:
+                  - generic [ref=e218]:
+                    - img [ref=e219]
+                    - text: 2026-07-01
+                  - generic [ref=e221]:
+                    - img [ref=e222]
+                    - text: 09:00

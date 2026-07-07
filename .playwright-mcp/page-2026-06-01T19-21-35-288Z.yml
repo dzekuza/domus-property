@@ -1,0 +1,143 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
+    - img [ref=e8]
+  - alert [ref=e11]
+  - generic [ref=e12]:
+    - complementary [ref=e13]:
+      - generic [ref=e14]:
+        - img "Miteda" [ref=e15]
+        - generic [ref=e16]: Savininkas
+        - button "Suskleisti" [ref=e17] [cursor=pointer]:
+          - generic [ref=e18]:
+            - img [ref=e20]
+            - img [ref=e24]
+      - generic [ref=e27]: Mano butas
+      - navigation [ref=e28]:
+        - link "Pagrindinis" [ref=e29] [cursor=pointer]:
+          - /url: /portal/pagrindinis
+          - img [ref=e30]
+          - text: Pagrindinis
+        - link "Defektai" [ref=e33] [cursor=pointer]:
+          - /url: /portal/defektai
+          - img [ref=e34]
+          - text: Defektai
+        - link "Nuotraukos" [ref=e36] [cursor=pointer]:
+          - /url: /portal/nuotraukos
+          - img [ref=e37]
+          - text: Nuotraukos
+        - link "Paslaugų sutartys" [ref=e41] [cursor=pointer]:
+          - /url: /portal/sutartys
+          - img [ref=e42]
+          - text: Paslaugų sutartys
+        - link "Kontaktai" [ref=e45] [cursor=pointer]:
+          - /url: /portal/kontaktai
+          - img [ref=e46]
+          - text: Kontaktai
+        - link "Tvarkaraštis" [ref=e58] [cursor=pointer]:
+          - /url: /portal/tvarkarastis
+          - img [ref=e59]
+          - text: Tvarkaraštis
+        - link "Skelbimų lenta" [ref=e61] [cursor=pointer]:
+          - /url: /portal/skelbimai
+          - img [ref=e62]
+          - text: Skelbimų lenta
+        - link "Bendruomenė" [ref=e65] [cursor=pointer]:
+          - /url: /portal/bendruomene
+          - img [ref=e66]
+          - text: Bendruomenė
+        - link "Remonto darbai" [ref=e68] [cursor=pointer]:
+          - /url: /portal/darbai
+          - img [ref=e69]
+          - text: Remonto darbai
+        - link "Nustatymai" [ref=e74] [cursor=pointer]:
+          - /url: /portal/nustatymai
+          - img [ref=e75]
+          - text: Nustatymai
+      - generic [ref=e78]:
+        - link "Pagalba" [ref=e79] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e80]
+          - text: Pagalba
+        - button "Atsijungti" [ref=e83] [cursor=pointer]:
+          - img [ref=e84]
+          - text: Atsijungti
+      - generic [ref=e87]:
+        - generic [ref=e88]: AK
+        - generic [ref=e89]:
+          - generic [ref=e90]: Andrius Kazlauskas
+          - generic [ref=e91]: andrius@mail.lt
+    - main [ref=e92]:
+      - generic [ref=e93]:
+        - generic [ref=e95]:
+          - generic [ref=e96]:
+            - heading "Skelbimų lenta" [level=1] [ref=e97]
+            - paragraph [ref=e98]: Gyventojų skelbimai ir pranešimai
+          - button "Rašyti skelbimą" [ref=e100] [cursor=pointer]:
+            - img [ref=e101]
+            - text: Rašyti skelbimą
+        - generic [ref=e102]:
+          - button "Visi" [ref=e103] [cursor=pointer]
+          - button "🏷️ Parduodu1" [ref=e104] [cursor=pointer]
+          - button "🔍 Ieškau1" [ref=e105] [cursor=pointer]
+          - button "ℹ️ Informacija1" [ref=e106] [cursor=pointer]
+          - button "🔎 Prarasta1" [ref=e107] [cursor=pointer]
+        - generic [ref=e108]:
+          - generic [ref=e109]:
+            - generic [ref=e110]:
+              - generic [ref=e111]: 🏷️ Parduodu
+              - button "Ištrinti skelbimą" [ref=e112] [cursor=pointer]:
+                - img [ref=e113]
+            - paragraph [ref=e116]: Parduodu naują dušo kabina
+            - paragraph [ref=e117]: Parduodu naują, nenaudotą dušo kabiną 90×90 cm. Pirktа tik prieš mėnesį, pakeitėme planus. Kaina 280 €.
+            - generic [ref=e118]:
+              - img [ref=e119]
+              - generic [ref=e121]: +370 612 34567
+            - generic [ref=e122]:
+              - generic [ref=e123]:
+                - generic [ref=e124]: A
+                - generic [ref=e125]:
+                  - text: Andrius Kazlauskas
+                  - generic [ref=e126]: · Butas B-12
+              - generic [ref=e127]: prieš 2 d.
+          - generic [ref=e128]:
+            - generic [ref=e130]: 🔍 Ieškau
+            - paragraph [ref=e131]: Ieškau gero elektriko
+            - paragraph [ref=e132]: Reikia įrengti papildomą rozetę virtuvėje. Jei kas žino patikimo elektriko — prašau pasidalinti kontaktu.
+            - generic [ref=e133]:
+              - img [ref=e134]
+              - generic [ref=e137]: laura@mail.lt
+            - generic [ref=e138]:
+              - generic [ref=e139]:
+                - generic [ref=e140]: L
+                - generic [ref=e141]:
+                  - text: Laura Jankauskienė
+                  - generic [ref=e142]: · Butas A-05
+              - generic [ref=e143]: prieš 3 d.
+          - generic [ref=e144]:
+            - generic [ref=e145]:
+              - generic [ref=e146]: ℹ️ Informacija
+              - button "Ištrinti skelbimą" [ref=e147] [cursor=pointer]:
+                - img [ref=e148]
+            - paragraph [ref=e151]: Rūsyje paliktas dviratis
+            - paragraph [ref=e152]: Rūsio koridoriuje, prie B laiptinės, stovi nežinomas dviratis jau kelias savaites. Gal kas atpažįsta?
+            - generic [ref=e153]:
+              - generic [ref=e154]:
+                - generic [ref=e155]: A
+                - generic [ref=e156]:
+                  - text: Andrius Kazlauskas
+                  - generic [ref=e157]: · Butas B-12
+              - generic [ref=e158]: prieš 5 d.
+          - generic [ref=e159]:
+            - generic [ref=e161]: 🔎 Prarasta
+            - paragraph [ref=e162]: Pamestas raktas
+            - paragraph [ref=e163]: Praradau namo raktą su mėlynu raktų pakabuку. Jei radote — prašau susisiekti.
+            - generic [ref=e164]:
+              - img [ref=e165]
+              - generic [ref=e167]: +370 698 76543
+            - generic [ref=e168]:
+              - generic [ref=e169]:
+                - generic [ref=e170]: L
+                - generic [ref=e171]:
+                  - text: Laura Jankauskienė
+                  - generic [ref=e172]: · Butas A-05
+              - generic [ref=e173]: prieš 6 d.

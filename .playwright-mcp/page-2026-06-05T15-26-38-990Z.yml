@@ -1,0 +1,188 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
+    - img [ref=e8]
+  - alert [ref=e11]
+  - generic [ref=e12]:
+    - generic [ref=e13]:
+      - button "Atidaryti meniu" [ref=e14] [cursor=pointer]:
+        - img [ref=e15]
+      - img "Miteda" [ref=e16]
+    - complementary [ref=e17]:
+      - generic [ref=e18]:
+        - img "Miteda" [ref=e19]
+        - generic [ref=e20]: Admin
+        - button "Suskleisti" [ref=e21] [cursor=pointer]:
+          - generic [ref=e22]:
+            - img [ref=e24]
+            - img [ref=e28]
+        - button "Uždaryti meniu" [ref=e31] [cursor=pointer]:
+          - img [ref=e32]
+      - generic [ref=e35]: Valdymas
+      - navigation [ref=e36]:
+        - link "Objektai" [ref=e37] [cursor=pointer]:
+          - /url: /admin/estates
+          - img [ref=e38]
+          - text: Objektai
+        - link "Defektai" [ref=e42] [cursor=pointer]:
+          - /url: /admin/defects
+          - img [ref=e43]
+          - text: Defektai
+        - link "Kontaktai" [ref=e52] [cursor=pointer]:
+          - /url: /admin/contacts
+          - img [ref=e53]
+          - text: Kontaktai
+        - link "Tvarkaraštis" [ref=e58] [cursor=pointer]:
+          - /url: /admin/tvarkarastis
+          - img [ref=e59]
+          - text: Tvarkaraštis
+      - generic [ref=e61]:
+        - link "Pagalba" [ref=e62] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e63]
+          - text: Pagalba
+        - button "Atsijungti" [ref=e66] [cursor=pointer]:
+          - img [ref=e67]
+          - text: Atsijungti
+      - generic [ref=e70]:
+        - generic [ref=e71]: TD
+        - generic [ref=e72]:
+          - generic [ref=e73]: Tomas Domus
+          - generic [ref=e74]: tomas@domus.lt
+    - main [ref=e75]:
+      - generic [ref=e76]:
+        - generic [ref=e78]:
+          - generic [ref=e79]:
+            - heading "Tvarkaraštis" [level=1] [ref=e80]
+            - paragraph [ref=e81]: 7 įvykių iš viso
+          - generic [ref=e82]:
+            - combobox [ref=e83]:
+              - generic [ref=e84]: all
+              - img: ▼
+            - textbox [ref=e85]: all
+            - button "Naujas įvykis" [ref=e86] [cursor=pointer]:
+              - img [ref=e87]
+              - text: Naujas įvykis
+        - generic [ref=e88]:
+          - paragraph [ref=e89]: Planuojami (5)
+          - generic [ref=e90]:
+            - generic [ref=e91]:
+              - img [ref=e93]
+              - generic [ref=e99]:
+                - generic [ref=e100]:
+                  - paragraph [ref=e101]: Žolės pjovimas
+                  - generic [ref=e102]: Žolės pjovimas
+                - generic [ref=e103]:
+                  - generic [ref=e104]:
+                    - img [ref=e105]
+                    - text: 2026-06-05
+                  - generic [ref=e107]:
+                    - img [ref=e108]
+                    - text: 09:00
+                  - generic [ref=e111]: Pajūrio Namai
+              - button [ref=e112] [cursor=pointer]:
+                - img [ref=e113]
+            - generic [ref=e116]:
+              - img [ref=e118]
+              - generic [ref=e121]:
+                - generic [ref=e122]:
+                  - paragraph [ref=e123]: Laiptinių valymas
+                  - generic [ref=e124]: Valymas
+                - generic [ref=e125]:
+                  - generic [ref=e126]:
+                    - img [ref=e127]
+                    - text: 2026-06-10
+                  - generic [ref=e129]:
+                    - img [ref=e130]
+                    - text: 08:00
+                  - generic [ref=e133]: Kalnų Terasos
+                - paragraph [ref=e134]: Mėnesinis laiptinių ir bendrų patalpų valymas.
+              - button [ref=e135] [cursor=pointer]:
+                - img [ref=e136]
+            - generic [ref=e139]:
+              - img [ref=e141]
+              - generic [ref=e144]:
+                - generic [ref=e145]:
+                  - paragraph [ref=e146]: Lifto techninė apžiūra
+                  - generic [ref=e147]: Apžiūra
+                - generic [ref=e148]:
+                  - generic [ref=e149]:
+                    - img [ref=e150]
+                    - text: 2026-06-15
+                  - generic [ref=e152]:
+                    - img [ref=e153]
+                    - text: 10:00
+                  - generic [ref=e156]: Kalnų Terasos
+                - paragraph [ref=e157]: Metinė lifto techninė apžiūra. Liftas bus išjungtas nuo 10:00 iki 14:00.
+              - button [ref=e158] [cursor=pointer]:
+                - img [ref=e159]
+            - generic [ref=e162]:
+              - img [ref=e164]
+              - generic [ref=e166]:
+                - generic [ref=e167]:
+                  - paragraph [ref=e168]: Stogo remonto darbai
+                  - generic [ref=e169]: Remontas
+                - generic [ref=e170]:
+                  - generic [ref=e171]:
+                    - img [ref=e172]
+                    - text: 2026-06-22
+                  - generic [ref=e174]:
+                    - img [ref=e175]
+                    - text: 07:30
+                  - generic [ref=e178]: Kalnų Terasos
+                - paragraph [ref=e179]: Planuojami stogo remonto darbai. Tikimasi triukšmo.
+              - button [ref=e180] [cursor=pointer]:
+                - img [ref=e181]
+            - generic [ref=e184]:
+              - img [ref=e186]
+              - generic [ref=e192]:
+                - generic [ref=e193]:
+                  - paragraph [ref=e194]: Žolės pjovimas
+                  - generic [ref=e195]: Žolės pjovimas
+                - generic [ref=e196]:
+                  - generic [ref=e197]:
+                    - img [ref=e198]
+                    - text: 2026-07-01
+                  - generic [ref=e200]:
+                    - img [ref=e201]
+                    - text: 09:00
+                  - generic [ref=e204]: Kalnų Terasos
+                - paragraph [ref=e205]: Eilinis žolės pjovimas.
+              - button [ref=e206] [cursor=pointer]:
+                - img [ref=e207]
+        - generic [ref=e210]:
+          - paragraph [ref=e211]: Praėję (2)
+          - generic [ref=e212]:
+            - generic [ref=e213]:
+              - img [ref=e215]
+              - generic [ref=e218]:
+                - generic [ref=e219]:
+                  - paragraph [ref=e220]: Vandentiekio patikrinimas
+                  - generic [ref=e221]: Apžiūra
+                - generic [ref=e222]:
+                  - generic [ref=e223]:
+                    - img [ref=e224]
+                    - text: 2026-05-15
+                  - generic [ref=e226]:
+                    - img [ref=e227]
+                    - text: 11:00
+                  - generic [ref=e230]: Kalnų Terasos
+                - paragraph [ref=e231]: Profilaktinis vandentiekio sistemos patikrinimas. Vanduo gali būti išjungtas 1–2 val.
+              - button [ref=e232] [cursor=pointer]:
+                - img [ref=e233]
+            - generic [ref=e236]:
+              - img [ref=e238]
+              - generic [ref=e244]:
+                - generic [ref=e245]:
+                  - paragraph [ref=e246]: Žolės pjovimas
+                  - generic [ref=e247]: Žolės pjovimas
+                - generic [ref=e248]:
+                  - generic [ref=e249]:
+                    - img [ref=e250]
+                    - text: 2026-06-03
+                  - generic [ref=e252]:
+                    - img [ref=e253]
+                    - text: 09:00
+                  - generic [ref=e256]: Kalnų Terasos
+                - paragraph [ref=e257]: Reguliarus žolės pjovimas visoje teritorijoje. Prašome nestatyti automobilių ant vejos.
+              - button [ref=e258] [cursor=pointer]:
+                - img [ref=e259]

@@ -1,0 +1,128 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
+    - img [ref=e8]
+  - alert [ref=e11]
+  - generic [ref=e12]:
+    - generic [ref=e13]:
+      - button "Atidaryti meniu" [ref=e14] [cursor=pointer]:
+        - img [ref=e15]
+      - img "Miteda" [ref=e16]
+    - complementary [ref=e17]:
+      - generic [ref=e18]:
+        - img "Miteda" [ref=e19]
+        - generic [ref=e20]: Savininkas
+        - button "Suskleisti" [ref=e21] [cursor=pointer]:
+          - generic [ref=e22]:
+            - img [ref=e24]
+            - img [ref=e28]
+        - button "Uždaryti meniu" [ref=e31] [cursor=pointer]:
+          - img [ref=e32]
+      - generic [ref=e35]: Mano butas
+      - navigation [ref=e36]:
+        - link "Pagrindinis" [ref=e37] [cursor=pointer]:
+          - /url: /portal/pagrindinis
+          - img [ref=e38]
+          - text: Pagrindinis
+        - link "Defektai" [ref=e41] [cursor=pointer]:
+          - /url: /portal/defektai
+          - img [ref=e42]
+          - text: Defektai
+        - link "Nuotraukos" [ref=e44] [cursor=pointer]:
+          - /url: /portal/nuotraukos
+          - img [ref=e45]
+          - text: Nuotraukos
+        - link "Paslaugų sutartys" [ref=e49] [cursor=pointer]:
+          - /url: /portal/sutartys
+          - img [ref=e50]
+          - text: Paslaugų sutartys
+        - link "Kontaktai" [ref=e53] [cursor=pointer]:
+          - /url: /portal/kontaktai
+          - img [ref=e54]
+          - text: Kontaktai
+        - link "Tvarkaraštis" [ref=e66] [cursor=pointer]:
+          - /url: /portal/tvarkarastis
+          - img [ref=e67]
+          - text: Tvarkaraštis
+        - link "Skelbimų lenta" [ref=e69] [cursor=pointer]:
+          - /url: /portal/skelbimai
+          - img [ref=e70]
+          - text: Skelbimų lenta
+        - link "Bendruomenė" [ref=e73] [cursor=pointer]:
+          - /url: /portal/bendruomene
+          - img [ref=e74]
+          - text: Bendruomenė
+        - link "Remonto darbai" [ref=e76] [cursor=pointer]:
+          - /url: /portal/darbai
+          - img [ref=e77]
+          - text: Remonto darbai
+        - link "Nustatymai" [ref=e82] [cursor=pointer]:
+          - /url: /portal/nustatymai
+          - img [ref=e83]
+          - text: Nustatymai
+      - generic [ref=e86]:
+        - link "Pagalba" [ref=e87] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e88]
+          - text: Pagalba
+        - button "Atsijungti" [ref=e91] [cursor=pointer]:
+          - img [ref=e92]
+          - text: Atsijungti
+      - generic [ref=e95]:
+        - generic [ref=e96]: AK
+        - generic [ref=e97]:
+          - generic [ref=e98]: Andrius Kazlauskas
+          - generic [ref=e99]: andrius@mail.lt
+    - main [ref=e100]:
+      - generic [ref=e101]:
+        - generic [ref=e103]:
+          - heading "Defektai" [level=1] [ref=e105]
+          - button "Naujas pranešimas" [ref=e107] [cursor=pointer]:
+            - img [ref=e108]
+            - text: Naujas pranešimas
+        - generic [ref=e110]:
+          - generic [ref=e111]:
+            - button "Visi (4)" [ref=e112] [cursor=pointer]
+            - button "Atviri (3)" [ref=e113] [cursor=pointer]
+            - button "Vykdomi (1)" [ref=e114] [cursor=pointer]
+            - button "Išspręsti (0)" [ref=e115] [cursor=pointer]
+          - generic [ref=e116]:
+            - button "D-198 · Vonia Vonios kambaryje nutekėjimas Pateikta 2025-03-10 · 2 žinutės Vykdomas" [ref=e118] [cursor=pointer]:
+              - generic [ref=e119]:
+                - generic [ref=e120]:
+                  - generic [ref=e121]: D-198
+                  - generic [ref=e122]: ·
+                  - generic [ref=e123]: Vonia
+                - paragraph [ref=e124]: Vonios kambaryje nutekėjimas
+                - paragraph [ref=e125]: Pateikta 2025-03-10 · 2 žinutės
+              - generic [ref=e126]: Vykdomas
+              - img [ref=e127]
+            - button "D-199 · Svetainė Langų jungtys nesandarios Pateikta 2025-04-02 · 1 žinutės Atviras" [ref=e130] [cursor=pointer]:
+              - generic [ref=e131]:
+                - generic [ref=e132]:
+                  - generic [ref=e133]: D-199
+                  - generic [ref=e134]: ·
+                  - generic [ref=e135]: Svetainė
+                - paragraph [ref=e136]: Langų jungtys nesandarios
+                - paragraph [ref=e137]: Pateikta 2025-04-02 · 1 žinutės
+              - generic [ref=e138]: Atviras
+              - img [ref=e139]
+            - button "D-201 · Miegamasis Grindų lenta girgžda Pateikta 2025-05-01 · 1 žinutės Atviras" [ref=e142] [cursor=pointer]:
+              - generic [ref=e143]:
+                - generic [ref=e144]:
+                  - generic [ref=e145]: D-201
+                  - generic [ref=e146]: ·
+                  - generic [ref=e147]: Miegamasis
+                - paragraph [ref=e148]: Grindų lenta girgžda
+                - paragraph [ref=e149]: Pateikta 2025-05-01 · 1 žinutės
+              - generic [ref=e150]: Atviras
+              - img [ref=e151]
+            - button "D-204 · Vonia Vonios plytelė įtrūkusi Pateikta 2025-05-20 · 1 žinutės Atviras" [ref=e154] [cursor=pointer]:
+              - generic [ref=e155]:
+                - generic [ref=e156]:
+                  - generic [ref=e157]: D-204
+                  - generic [ref=e158]: ·
+                  - generic [ref=e159]: Vonia
+                - paragraph [ref=e160]: Vonios plytelė įtrūkusi
+                - paragraph [ref=e161]: Pateikta 2025-05-20 · 1 žinutės
+              - generic [ref=e162]: Atviras
+              - img [ref=e163]

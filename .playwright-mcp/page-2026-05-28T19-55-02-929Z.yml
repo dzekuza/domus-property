@@ -1,0 +1,36 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
+    - img [ref=e8]
+  - alert [ref=e11]
+  - generic [ref=e13]:
+    - generic [ref=e14]:
+      - img [ref=e16]
+      - generic [ref=e20]: Domus
+    - generic [ref=e21]:
+      - generic [ref=e22]:
+        - button "Savininkas" [ref=e23] [cursor=pointer]
+        - button "Administratorius" [ref=e24] [cursor=pointer]
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - generic [ref=e27]: El. paštas
+          - textbox "andrius@mail.lt" [ref=e28]
+        - generic [ref=e29]:
+          - generic [ref=e30]: Slaptažodis
+          - textbox "demo" [ref=e31]
+        - button "Prisijungti" [ref=e32] [cursor=pointer]
+    - generic [ref=e33]:
+      - paragraph [ref=e34]: Greitas prisijungimas
+      - button "AK Andrius Kazlauskas Savininkas andrius@mail.lt" [ref=e35] [cursor=pointer]:
+        - generic [ref=e36]:
+          - generic [ref=e37]: AK
+          - generic [ref=e38]:
+            - generic [ref=e39]: Andrius Kazlauskas
+            - generic [ref=e40]: Savininkas
+        - generic [ref=e41]: andrius@mail.lt
+      - button "TD Tomas Domus Administratorius tomas@domus.lt" [ref=e42] [cursor=pointer]:
+        - generic [ref=e43]:
+          - generic [ref=e44]: TD
+          - generic [ref=e45]:
+            - generic [ref=e46]: Tomas Domus
+            - generic [ref=e47]: Administratorius
+        - generic [ref=e48]: tomas@domus.lt

@@ -1,0 +1,34 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - img [ref=e6]
+      - generic [ref=e10]: Domus
+    - generic [ref=e11]:
+      - generic [ref=e12]:
+        - button "Savininkas" [ref=e13] [cursor=pointer]
+        - button "Administratorius" [ref=e14] [cursor=pointer]
+      - generic [ref=e15]:
+        - generic [ref=e16]:
+          - generic [ref=e17]: El. paštas
+          - textbox "andrius@mail.lt" [ref=e18]
+        - generic [ref=e19]:
+          - generic [ref=e20]: Slaptažodis
+          - textbox "demo" [ref=e21]
+        - button "Prisijungti" [ref=e22] [cursor=pointer]
+    - generic [ref=e23]:
+      - paragraph [ref=e24]: Greitas prisijungimas
+      - button "AK Andrius Kazlauskas Savininkas andrius@mail.lt" [ref=e25] [cursor=pointer]:
+        - generic [ref=e26]:
+          - generic [ref=e27]: AK
+          - generic [ref=e28]:
+            - generic [ref=e29]: Andrius Kazlauskas
+            - generic [ref=e30]: Savininkas
+        - generic [ref=e31]: andrius@mail.lt
+      - button "TD Tomas Domus Administratorius tomas@domus.lt" [ref=e32] [cursor=pointer]:
+        - generic [ref=e33]:
+          - generic [ref=e34]: TD
+          - generic [ref=e35]:
+            - generic [ref=e36]: Tomas Domus
+            - generic [ref=e37]: Administratorius
+        - generic [ref=e38]: tomas@domus.lt
+  - alert [ref=e39]

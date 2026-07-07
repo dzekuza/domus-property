@@ -67,9 +67,8 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
         position: 'sticky',
         top: 10,
         margin: '10px 0 10px 10px',
-        background: 'var(--glass-sidebar-bg)',
-        backdropFilter: 'var(--glass-sidebar-blur)',
-        border: '1px solid var(--color-sidebar-border)',
+        background: 'var(--color-sidebar-bg)',
+        border: 'none',
         borderRadius: 18,
         display: 'flex',
         flexDirection: 'column',
@@ -83,7 +82,7 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
       {collapsed ? (
         <div className="sidebar-logo-row" style={{ padding: '14px 8px 10px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
           <img
-            src="/darkmite.svg"
+            src="/logomit.svg"
             alt="Miteda"
             style={{ width: 32, height: 32, objectFit: 'cover', objectPosition: 'left center', flexShrink: 0 }}
           />
@@ -99,7 +98,7 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
       ) : (
         <div className="sidebar-logo-row" style={{ padding: '16px 12px 14px', display: 'flex', alignItems: 'center', minHeight: 56, gap: 8 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: 1, minWidth: 0, overflow: 'hidden' }}>
-            <img src="/darkmite.svg" alt="Miteda" style={{ height: 26, width: 'auto', flexShrink: 0 }} />
+            <img src="/logomit.svg" alt="Miteda" style={{ height: 26, width: 'auto', flexShrink: 0 }} />
             <span style={{
               fontSize: 12, fontWeight: 600,
               background: 'var(--color-teal-tint)',

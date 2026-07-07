@@ -1,0 +1,16 @@
+[      70ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[      86ms] [LOG] [HMR] connected @ http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[     226ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3003/portal/darbai:0
+[   93111ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[   93191ms] [LOG] [Fast Refresh] done in 183ms @ http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[   93396ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[   93475ms] [LOG] [Fast Refresh] done in 181ms @ http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  141765ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  142642ms] [LOG] [Fast Refresh] done in 942ms @ http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  142731ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3003/portal/darbai:0
+[  143602ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  143640ms] [LOG] [Fast Refresh] done in 138ms @ http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  143742ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  144217ms] [LOG] [Fast Refresh] done in 575ms @ http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  144379ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  144553ms] [LOG] [Fast Refresh] done in 274ms @ http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477

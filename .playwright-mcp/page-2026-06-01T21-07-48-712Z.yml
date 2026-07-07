@@ -1,0 +1,119 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
+    - img [ref=e8]
+  - alert [ref=e11]
+  - generic [ref=e12]:
+    - generic [ref=e13]:
+      - button "Atidaryti meniu" [ref=e14] [cursor=pointer]:
+        - img [ref=e15]
+      - img "Miteda" [ref=e16]
+    - complementary [ref=e17]:
+      - generic [ref=e18]:
+        - img "Miteda" [ref=e19]
+        - generic [ref=e20]: Savininkas
+        - button "Suskleisti" [ref=e21] [cursor=pointer]:
+          - generic [ref=e22]:
+            - img [ref=e24]
+            - img [ref=e28]
+        - button "Uždaryti meniu" [ref=e31] [cursor=pointer]:
+          - img [ref=e32]
+      - generic [ref=e35]: Mano butas
+      - navigation [ref=e36]:
+        - link "Pagrindinis" [ref=e37] [cursor=pointer]:
+          - /url: /portal/pagrindinis
+          - img [ref=e38]
+          - text: Pagrindinis
+        - link "Defektai" [ref=e41] [cursor=pointer]:
+          - /url: /portal/defektai
+          - img [ref=e42]
+          - text: Defektai
+        - link "Nuotraukos" [ref=e44] [cursor=pointer]:
+          - /url: /portal/nuotraukos
+          - img [ref=e45]
+          - text: Nuotraukos
+        - link "Paslaugų sutartys" [ref=e49] [cursor=pointer]:
+          - /url: /portal/sutartys
+          - img [ref=e50]
+          - text: Paslaugų sutartys
+        - link "Kontaktai" [ref=e53] [cursor=pointer]:
+          - /url: /portal/kontaktai
+          - img [ref=e54]
+          - text: Kontaktai
+        - link "Tvarkaraštis" [ref=e66] [cursor=pointer]:
+          - /url: /portal/tvarkarastis
+          - img [ref=e67]
+          - text: Tvarkaraštis
+        - link "Skelbimų lenta" [ref=e69] [cursor=pointer]:
+          - /url: /portal/skelbimai
+          - img [ref=e70]
+          - text: Skelbimų lenta
+        - link "Bendruomenė" [ref=e73] [cursor=pointer]:
+          - /url: /portal/bendruomene
+          - img [ref=e74]
+          - text: Bendruomenė
+        - link "Remonto darbai" [ref=e76] [cursor=pointer]:
+          - /url: /portal/darbai
+          - img [ref=e77]
+          - text: Remonto darbai
+        - link "Nustatymai" [ref=e82] [cursor=pointer]:
+          - /url: /portal/nustatymai
+          - img [ref=e83]
+          - text: Nustatymai
+      - generic [ref=e86]:
+        - link "Pagalba" [ref=e87] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e88]
+          - text: Pagalba
+        - button "Atsijungti" [ref=e91] [cursor=pointer]:
+          - img [ref=e92]
+          - text: Atsijungti
+      - generic [ref=e95]:
+        - generic [ref=e96]: AK
+        - generic [ref=e97]:
+          - generic [ref=e98]: Andrius Kazlauskas
+          - generic [ref=e99]: andrius@mail.lt
+    - main [ref=e100]:
+      - generic [ref=e101]:
+        - generic [ref=e104]:
+          - heading "Bendruomenė" [level=1] [ref=e105]
+          - paragraph [ref=e106]: Kalnų Terasos · Gyventojų pokalbiai
+        - generic [ref=e107]:
+          - generic [ref=e108]:
+            - generic [ref=e109]:
+              - generic [ref=e111]: TD
+              - generic [ref=e112]:
+                - generic [ref=e113]:
+                  - generic [ref=e114]: Tomas Domus
+                  - generic [ref=e115]: Administracija
+                - generic [ref=e116]: Sveiki, gyventojai! Primename, kad birželio 3 d. bus pjaunama žolė. Prašome nestatyti automobilių ant vejos.
+                - generic [ref=e117]: 2026-05-20
+            - generic [ref=e120]:
+              - generic [ref=e122]: Jūs
+              - generic [ref=e123]: Ačiū už informaciją! Ar žinote, kada planuojama tvarkyti vaikų žaidimų aikštelę?
+              - generic [ref=e124]: 2026-05-20
+            - generic [ref=e125]:
+              - generic [ref=e127]: TD
+              - generic [ref=e128]:
+                - generic [ref=e129]:
+                  - generic [ref=e130]: Tomas Domus
+                  - generic [ref=e131]: Administracija
+                - generic [ref=e132]: Žaidimų aikštelės atnaujinimas planuojamas rugpjūčio mėnesį. Detalesnė informacija bus paskelbta vėliau.
+                - generic [ref=e133]: 2026-05-20
+            - generic [ref=e134]:
+              - generic [ref=e136]: LP
+              - generic [ref=e137]:
+                - generic [ref=e139]: Laura Petraitienė
+                - generic [ref=e140]: Labas! Ar kas nors žino, ar yra galimybė gauti papildomą rūsio dėžę?
+                - generic [ref=e141]: 2026-05-21
+            - generic [ref=e142]:
+              - generic [ref=e144]: TD
+              - generic [ref=e145]:
+                - generic [ref=e146]:
+                  - generic [ref=e147]: Tomas Domus
+                  - generic [ref=e148]: Administracija
+                - generic [ref=e149]: Laura, prašome kreiptis į administraciją el. paštu — peržiūrėsime galimybes.
+                - generic [ref=e150]: 2026-05-21
+          - generic [ref=e151]:
+            - textbox "Rašykite žinutę…" [ref=e152]
+            - button [disabled] [ref=e153]:
+              - img [ref=e154]

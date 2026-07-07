@@ -1,0 +1,136 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
+    - img [ref=e8]
+  - alert [ref=e11]
+  - generic [ref=e60]:
+    - generic [ref=e61]:
+      - button "Atidaryti meniu" [ref=e62] [cursor=pointer]:
+        - img [ref=e63]
+      - img "Miteda" [ref=e64]
+    - complementary [ref=e65]:
+      - generic [ref=e66]:
+        - img "Miteda" [ref=e67]
+        - generic [ref=e68]: Admin
+        - button "Suskleisti" [ref=e69] [cursor=pointer]:
+          - generic [ref=e70]:
+            - img [ref=e72]
+            - img [ref=e76]
+        - button "Uždaryti meniu" [ref=e79] [cursor=pointer]:
+          - img [ref=e80]
+      - generic [ref=e83]: Valdymas
+      - navigation [ref=e84]:
+        - link "Objektai" [ref=e85] [cursor=pointer]:
+          - /url: /admin/estates
+          - img [ref=e86]
+          - text: Objektai
+        - link "Defektai" [ref=e90] [cursor=pointer]:
+          - /url: /admin/defects
+          - img [ref=e91]
+          - text: Defektai
+        - link "Kontaktai" [ref=e100] [cursor=pointer]:
+          - /url: /admin/contacts
+          - img [ref=e101]
+          - text: Kontaktai
+        - link "Tvarkaraštis" [ref=e106] [cursor=pointer]:
+          - /url: /admin/tvarkarastis
+          - img [ref=e107]
+          - text: Tvarkaraštis
+      - generic [ref=e109]:
+        - link "Pagalba" [ref=e110] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e111]
+          - text: Pagalba
+        - button "Atsijungti" [ref=e114] [cursor=pointer]:
+          - img [ref=e115]
+          - text: Atsijungti
+      - generic [ref=e118]:
+        - generic [ref=e119]: TD
+        - generic [ref=e120]:
+          - generic [ref=e121]: Tomas Domus
+          - generic [ref=e122]: tomas@domus.lt
+    - main [ref=e123]:
+      - generic [ref=e124]:
+        - generic [ref=e126]:
+          - heading "Objektai" [level=1] [ref=e128]
+          - generic [ref=e129]:
+            - generic [ref=e130]:
+              - img [ref=e131]
+              - textbox "Ieškoti objektų…" [ref=e134]
+            - button "Naujas objektas" [ref=e135] [cursor=pointer]:
+              - img [ref=e136]
+              - text: Naujas objektas
+        - table [ref=e139]:
+          - rowgroup [ref=e140]:
+            - row "Objektas Adresas Butai Parduota Būsena" [ref=e141]:
+              - columnheader "Objektas" [ref=e142]
+              - columnheader "Adresas" [ref=e143]
+              - columnheader "Butai" [ref=e144]
+              - columnheader "Parduota" [ref=e145]
+              - columnheader "Būsena" [ref=e146]
+          - rowgroup [ref=e147]:
+            - row "Kalnų Terasos e1 Vilniaus g. 24, Vilnius 48 2/4 Pardavimas" [ref=e148]:
+              - cell "Kalnų Terasos e1" [ref=e149]:
+                - generic [ref=e151]:
+                  - paragraph [ref=e152]: Kalnų Terasos
+                  - paragraph [ref=e153]: e1
+              - cell "Vilniaus g. 24, Vilnius" [ref=e154]
+              - cell "48" [ref=e155]
+              - cell "2/4" [ref=e156]:
+                - generic [ref=e158]: 2/4
+              - cell "Pardavimas" [ref=e161]:
+                - generic [ref=e162]: Pardavimas
+            - row "Pajūrio Namai e2 Klaipėdos g. 5, Klaipėda 32 0/1 Statoma" [ref=e163]:
+              - cell "Pajūrio Namai e2" [ref=e164]:
+                - generic [ref=e166]:
+                  - paragraph [ref=e167]: Pajūrio Namai
+                  - paragraph [ref=e168]: e2
+              - cell "Klaipėdos g. 5, Klaipėda" [ref=e169]
+              - cell "32" [ref=e170]
+              - cell "0/1" [ref=e171]:
+                - generic [ref=e173]: 0/1
+              - cell "Statoma" [ref=e175]:
+                - generic [ref=e176]: Statoma
+            - row "Švyturys e3 Palangos g. 12, Kaunas 24 0/24 Baigta" [ref=e177]:
+              - cell "Švyturys e3" [ref=e178] [cursor=pointer]:
+                - generic [ref=e180]:
+                  - paragraph [ref=e181]: Švyturys
+                  - paragraph [ref=e182]: e3
+              - cell "Palangos g. 12, Kaunas" [ref=e183] [cursor=pointer]
+              - cell "24" [ref=e184] [cursor=pointer]
+              - cell "0/24" [ref=e185] [cursor=pointer]:
+                - generic [ref=e187]: 0/24
+              - cell "Baigta" [ref=e189] [cursor=pointer]:
+                - generic [ref=e190]: Baigta
+            - row "Auksakalniai Loftai e4 Gedimino pr. 45, Vilnius 18 0/18 Pardavimas" [ref=e191]:
+              - cell "Auksakalniai Loftai e4" [ref=e192]:
+                - generic [ref=e194]:
+                  - paragraph [ref=e195]: Auksakalniai Loftai
+                  - paragraph [ref=e196]: e4
+              - cell "Gedimino pr. 45, Vilnius" [ref=e197]
+              - cell "18" [ref=e198]
+              - cell "0/18" [ref=e199]:
+                - generic [ref=e201]: 0/18
+              - cell "Pardavimas" [ref=e203]:
+                - generic [ref=e204]: Pardavimas
+            - row "Baltijos Vartai e5 Laisvės al. 88, Kaunas 60 0/60 Statoma" [ref=e205]:
+              - cell "Baltijos Vartai e5" [ref=e206]:
+                - generic [ref=e208]:
+                  - paragraph [ref=e209]: Baltijos Vartai
+                  - paragraph [ref=e210]: e5
+              - cell "Laisvės al. 88, Kaunas" [ref=e211]
+              - cell "60" [ref=e212]
+              - cell "0/60" [ref=e213]:
+                - generic [ref=e215]: 0/60
+              - cell "Statoma" [ref=e217]:
+                - generic [ref=e218]: Statoma
+            - row "Pušyno Slėnis e6 Žvejų g. 3, Neringa 12 0/12 Baigta" [ref=e219]:
+              - cell "Pušyno Slėnis e6" [ref=e220]:
+                - generic [ref=e222]:
+                  - paragraph [ref=e223]: Pušyno Slėnis
+                  - paragraph [ref=e224]: e6
+              - cell "Žvejų g. 3, Neringa" [ref=e225]
+              - cell "12" [ref=e226]
+              - cell "0/12" [ref=e227]:
+                - generic [ref=e229]: 0/12
+              - cell "Baigta" [ref=e231]:
+                - generic [ref=e232]: Baigta

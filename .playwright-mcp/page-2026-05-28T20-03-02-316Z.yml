@@ -1,0 +1,133 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e39] [cursor=pointer]:
+    - img [ref=e40]
+  - alert [ref=e43]
+  - generic [ref=e44]:
+    - complementary [ref=e45]:
+      - generic [ref=e46]:
+        - img "Domus" [ref=e47]
+        - generic [ref=e48]: Savininkas
+      - generic [ref=e49]: Mano butas
+      - navigation [ref=e50]:
+        - link "Pagrindinis" [ref=e51] [cursor=pointer]:
+          - /url: /portal/pagrindinis
+          - img [ref=e52]
+          - text: Pagrindinis
+        - link "Defektai" [ref=e55] [cursor=pointer]:
+          - /url: /portal/defektai
+          - img [ref=e56]
+          - text: Defektai
+        - link "Nuotraukos" [ref=e58] [cursor=pointer]:
+          - /url: /portal/nuotraukos
+          - img [ref=e59]
+          - text: Nuotraukos
+        - link "Paslaugų sutartys" [ref=e63] [cursor=pointer]:
+          - /url: /portal/sutartys
+          - img [ref=e64]
+          - text: Paslaugų sutartys
+        - link "Kontaktai" [ref=e67] [cursor=pointer]:
+          - /url: /portal/kontaktai
+          - img [ref=e68]
+          - text: Kontaktai
+        - link "Tvarkaraštis" [ref=e80] [cursor=pointer]:
+          - /url: /portal/tvarkarastis
+          - img [ref=e81]
+          - text: Tvarkaraštis
+        - link "Bendruomenė" [ref=e83] [cursor=pointer]:
+          - /url: /portal/bendruomene
+          - img [ref=e84]
+          - text: Bendruomenė
+        - link "Nustatymai" [ref=e86] [cursor=pointer]:
+          - /url: /portal/nustatymai
+          - img [ref=e87]
+          - text: Nustatymai
+      - generic [ref=e90]:
+        - link "Pagalba" [ref=e91] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e92]
+          - text: Pagalba
+        - button "Atsijungti" [ref=e95] [cursor=pointer]:
+          - img [ref=e96]
+          - text: Atsijungti
+      - generic [ref=e99]:
+        - generic [ref=e100]: AK
+        - generic [ref=e101]:
+          - generic [ref=e102]: Andrius Kazlauskas
+          - generic [ref=e103]: andrius@mail.lt
+    - main [ref=e104]:
+      - generic [ref=e105]:
+        - generic [ref=e108]:
+          - heading "Pirkimo eiga" [level=1] [ref=e109]
+          - paragraph [ref=e110]: Visi jūsų pirkimo proceso žingsniai vienoje vietoje.
+        - generic [ref=e112]:
+          - img "Kalnų Terasos" [ref=e113]
+          - generic [ref=e114]:
+            - generic [ref=e115]:
+              - paragraph [ref=e116]: Kalnų Terasos
+              - heading "Butas B-12" [level=2] [ref=e117]
+              - paragraph [ref=e118]:
+                - text: "Planuojamas raktų perdavimas:"
+                - strong [ref=e119]: 2025-06-30
+            - generic [ref=e121]:
+              - generic [ref=e122]: Pirkimo eiga
+              - generic [ref=e123]: 4 / 6
+        - generic [ref=e126]:
+          - button "Preliminari sutartis Pasirašyta preliminari pirkimo-pardavimo sutartis Atlikta" [ref=e128] [cursor=pointer]:
+            - img [ref=e130]
+            - generic [ref=e132]:
+              - paragraph [ref=e133]: Preliminari sutartis
+              - paragraph [ref=e134]: Pasirašyta preliminari pirkimo-pardavimo sutartis
+            - generic [ref=e135]:
+              - img [ref=e136]
+              - text: Atlikta
+            - img [ref=e138]
+          - button "Notarinė sutartis Notariškai patvirtinta pirkimo-pardavimo sutartis Atlikta" [ref=e141] [cursor=pointer]:
+            - img [ref=e143]
+            - generic [ref=e145]:
+              - paragraph [ref=e146]: Notarinė sutartis
+              - paragraph [ref=e147]: Notariškai patvirtinta pirkimo-pardavimo sutartis
+            - generic [ref=e148]:
+              - img [ref=e149]
+              - text: Atlikta
+            - img [ref=e151]
+          - button "Registrų centro išrašas Nuosavybės teisės įregistruotos Registrų centre Atlikta" [ref=e154] [cursor=pointer]:
+            - img [ref=e156]
+            - generic [ref=e158]:
+              - paragraph [ref=e159]: Registrų centro išrašas
+              - paragraph [ref=e160]: Nuosavybės teisės įregistruotos Registrų centre
+            - generic [ref=e161]:
+              - img [ref=e162]
+              - text: Atlikta
+            - img [ref=e164]
+          - button "Mokėjimo kvitas Galutinis mokėjimas atliktas ir patvirtintas Atlikta" [ref=e167] [cursor=pointer]:
+            - img [ref=e169]
+            - generic [ref=e171]:
+              - paragraph [ref=e172]: Mokėjimo kvitas
+              - paragraph [ref=e173]: Galutinis mokėjimas atliktas ir patvirtintas
+            - generic [ref=e174]:
+              - img [ref=e175]
+              - text: Atlikta
+            - img [ref=e177]
+          - generic [ref=e179]:
+            - button "5 Buto priėmimo-perdavimo aktas Butas perduotas savininkui, aktas pasirašytas Vykdoma" [ref=e180] [cursor=pointer]:
+              - generic [ref=e181]: "5"
+              - generic [ref=e182]:
+                - paragraph [ref=e183]: Buto priėmimo-perdavimo aktas
+                - paragraph [ref=e184]: Butas perduotas savininkui, aktas pasirašytas
+              - generic [ref=e185]: Vykdoma
+              - img [ref=e186]
+            - generic [ref=e188]:
+              - paragraph [ref=e189]: Dokumentai bus paskelbti artimiausiu metu.
+              - generic [ref=e190]:
+                - img [ref=e191]
+                - paragraph [ref=e194]: Įkelkite pasirašytą priėmimo-perdavimo aktą (PDF)
+                - button "Įkelti" [ref=e195] [cursor=pointer]:
+                  - img [ref=e196]
+                  - text: Įkelti
+          - button "6 Raktų perdavimas Raktai ir prieigos dokumentai perduoti Laukiama" [ref=e200] [cursor=pointer]:
+            - generic [ref=e201]: "6"
+            - generic [ref=e202]:
+              - paragraph [ref=e203]: Raktų perdavimas
+              - paragraph [ref=e204]: Raktai ir prieigos dokumentai perduoti
+            - generic [ref=e205]: Laukiama
+            - img [ref=e206]

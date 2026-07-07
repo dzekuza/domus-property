@@ -1,0 +1,128 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
+    - img [ref=e8]
+  - alert [ref=e11]
+  - generic [ref=e12]:
+    - generic [ref=e13]:
+      - button "Atidaryti meniu" [ref=e14] [cursor=pointer]:
+        - img [ref=e15]
+      - img "Miteda" [ref=e16]
+    - complementary [ref=e17]:
+      - generic [ref=e18]:
+        - img "Miteda" [ref=e19]
+        - generic [ref=e20]: Savininkas
+        - button "Suskleisti" [ref=e21] [cursor=pointer]:
+          - generic [ref=e22]:
+            - img [ref=e24]
+            - img [ref=e28]
+        - button "Uždaryti meniu" [ref=e31] [cursor=pointer]:
+          - img [ref=e32]
+      - generic [ref=e35]: Mano butas
+      - navigation [ref=e36]:
+        - link "Pagrindinis" [ref=e37] [cursor=pointer]:
+          - /url: /portal/pagrindinis
+          - img [ref=e38]
+          - text: Pagrindinis
+        - link "Defektai" [ref=e41] [cursor=pointer]:
+          - /url: /portal/defektai
+          - img [ref=e42]
+          - text: Defektai
+        - link "Nuotraukos" [ref=e44] [cursor=pointer]:
+          - /url: /portal/nuotraukos
+          - img [ref=e45]
+          - text: Nuotraukos
+        - link "Paslaugų sutartys" [ref=e49] [cursor=pointer]:
+          - /url: /portal/sutartys
+          - img [ref=e50]
+          - text: Paslaugų sutartys
+        - link "Kontaktai" [ref=e53] [cursor=pointer]:
+          - /url: /portal/kontaktai
+          - img [ref=e54]
+          - text: Kontaktai
+        - link "Tvarkaraštis" [ref=e66] [cursor=pointer]:
+          - /url: /portal/tvarkarastis
+          - img [ref=e67]
+          - text: Tvarkaraštis
+        - link "Skelbimų lenta" [ref=e69] [cursor=pointer]:
+          - /url: /portal/skelbimai
+          - img [ref=e70]
+          - text: Skelbimų lenta
+        - link "Bendruomenė" [ref=e73] [cursor=pointer]:
+          - /url: /portal/bendruomene
+          - img [ref=e74]
+          - text: Bendruomenė
+        - link "Remonto darbai" [ref=e76] [cursor=pointer]:
+          - /url: /portal/darbai
+          - img [ref=e77]
+          - text: Remonto darbai
+        - link "Nustatymai" [ref=e82] [cursor=pointer]:
+          - /url: /portal/nustatymai
+          - img [ref=e83]
+          - text: Nustatymai
+      - generic [ref=e86]:
+        - link "Pagalba" [ref=e87] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e88]
+          - text: Pagalba
+        - button "Atsijungti" [ref=e91] [cursor=pointer]:
+          - img [ref=e92]
+          - text: Atsijungti
+      - generic [ref=e95]:
+        - generic [ref=e96]: AK
+        - generic [ref=e97]:
+          - generic [ref=e98]: Andrius Kazlauskas
+          - generic [ref=e99]: andrius@mail.lt
+    - main [ref=e100]:
+      - generic [ref=e101]:
+        - generic [ref=e104]:
+          - heading "Kontaktai" [level=1] [ref=e105]
+          - paragraph [ref=e106]: Specialistai, atsakingi už jūsų projektą.
+        - generic [ref=e107]:
+          - generic [ref=e108]:
+            - generic [ref=e109]:
+              - generic [ref=e110]: VŠ
+              - generic [ref=e111]:
+                - paragraph [ref=e112]: Langai ir durys
+                - paragraph [ref=e113]: Vytautas Šilas
+                - paragraph [ref=e114]: WinDoor UAB
+            - generic [ref=e115]:
+              - link "+370 600 11111" [ref=e116] [cursor=pointer]:
+                - /url: tel:+370 600 11111
+                - img [ref=e117]
+                - text: +370 600 11111
+              - link "vytautas@windoor.lt" [ref=e119] [cursor=pointer]:
+                - /url: mailto:vytautas@windoor.lt
+                - img [ref=e120]
+                - text: vytautas@windoor.lt
+          - generic [ref=e123]:
+            - generic [ref=e124]:
+              - generic [ref=e125]: JP
+              - generic [ref=e126]:
+                - paragraph [ref=e127]: Vandentiekis
+                - paragraph [ref=e128]: Jonas Puodžius
+                - paragraph [ref=e129]: AquaFix
+            - generic [ref=e130]:
+              - link "+370 600 22222" [ref=e131] [cursor=pointer]:
+                - /url: tel:+370 600 22222
+                - img [ref=e132]
+                - text: +370 600 22222
+              - link "jonas@aquafix.lt" [ref=e134] [cursor=pointer]:
+                - /url: mailto:jonas@aquafix.lt
+                - img [ref=e135]
+                - text: jonas@aquafix.lt
+          - generic [ref=e138]:
+            - generic [ref=e139]:
+              - generic [ref=e140]: RE
+              - generic [ref=e141]:
+                - paragraph [ref=e142]: Elektra
+                - paragraph [ref=e143]: Rimas Elektra
+                - paragraph [ref=e144]: ElecPro
+            - generic [ref=e145]:
+              - link "+370 600 33333" [ref=e146] [cursor=pointer]:
+                - /url: tel:+370 600 33333
+                - img [ref=e147]
+                - text: +370 600 33333
+              - link "rimas@elecpro.lt" [ref=e149] [cursor=pointer]:
+                - /url: mailto:rimas@elecpro.lt
+                - img [ref=e150]
+                - text: rimas@elecpro.lt

@@ -1,0 +1,198 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
+    - img [ref=e8]
+  - alert [ref=e11]
+  - generic [ref=e12]:
+    - generic [ref=e13]:
+      - button "Atidaryti meniu" [ref=e14] [cursor=pointer]:
+        - img [ref=e15]
+      - img "Miteda" [ref=e16]
+    - complementary [ref=e17]:
+      - generic [ref=e18]:
+        - img "Miteda" [ref=e19]
+        - generic [ref=e20]: Savininkas
+        - button "Suskleisti" [ref=e21] [cursor=pointer]:
+          - generic [ref=e22]:
+            - img [ref=e24]
+            - img [ref=e28]
+        - button "Uždaryti meniu" [ref=e31] [cursor=pointer]:
+          - img [ref=e32]
+      - generic [ref=e35]: Mano butas
+      - navigation [ref=e36]:
+        - link "Pagrindinis" [ref=e37] [cursor=pointer]:
+          - /url: /portal/pagrindinis
+          - img [ref=e38]
+          - text: Pagrindinis
+        - link "Defektai" [ref=e41] [cursor=pointer]:
+          - /url: /portal/defektai
+          - img [ref=e42]
+          - text: Defektai
+        - link "Nuotraukos" [ref=e44] [cursor=pointer]:
+          - /url: /portal/nuotraukos
+          - img [ref=e45]
+          - text: Nuotraukos
+        - link "Paslaugų sutartys" [ref=e49] [cursor=pointer]:
+          - /url: /portal/sutartys
+          - img [ref=e50]
+          - text: Paslaugų sutartys
+        - link "Kontaktai" [ref=e53] [cursor=pointer]:
+          - /url: /portal/kontaktai
+          - img [ref=e54]
+          - text: Kontaktai
+        - link "Tvarkaraštis" [ref=e66] [cursor=pointer]:
+          - /url: /portal/tvarkarastis
+          - img [ref=e67]
+          - text: Tvarkaraštis
+        - link "Skelbimų lenta" [ref=e69] [cursor=pointer]:
+          - /url: /portal/skelbimai
+          - img [ref=e70]
+          - text: Skelbimų lenta
+        - link "Bendruomenė" [ref=e73] [cursor=pointer]:
+          - /url: /portal/bendruomene
+          - img [ref=e74]
+          - text: Bendruomenė
+        - link "Remonto darbai" [ref=e76] [cursor=pointer]:
+          - /url: /portal/darbai
+          - img [ref=e77]
+          - text: Remonto darbai
+        - link "Nustatymai" [ref=e82] [cursor=pointer]:
+          - /url: /portal/nustatymai
+          - img [ref=e83]
+          - text: Nustatymai
+      - generic [ref=e86]:
+        - link "Pagalba" [ref=e87] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e88]
+          - text: Pagalba
+        - button "Atsijungti" [ref=e91] [cursor=pointer]:
+          - img [ref=e92]
+          - text: Atsijungti
+      - generic [ref=e95]:
+        - generic [ref=e96]: AK
+        - generic [ref=e97]:
+          - generic [ref=e98]: Andrius Kazlauskas
+          - generic [ref=e99]: andrius@mail.lt
+    - main [ref=e100]:
+      - generic [ref=e101]:
+        - generic [ref=e103]:
+          - generic [ref=e104]:
+            - heading "Remonto darbai" [level=1] [ref=e105]
+            - paragraph [ref=e106]: Trumpalaikiai darbai jūsų bute — vadovai ir darbininkai.
+          - button "Nauja grupė" [ref=e108] [cursor=pointer]:
+            - img [ref=e109]
+            - text: Nauja grupė
+        - generic [ref=e112]:
+          - generic [ref=e113]:
+            - generic [ref=e114]:
+              - generic [ref=e115]:
+                - generic [ref=e116]: JP
+                - generic [ref=e117]:
+                  - paragraph [ref=e118]: Jonas Petraitis
+                  - paragraph [ref=e119]: vadovas@domus.lt
+                - generic [ref=e120]: Aktyvus
+              - paragraph [ref=e121]: "Pradėta: 2026-05-15"
+              - button "Užbaigti darbą" [ref=e123] [cursor=pointer]:
+                - img [ref=e124]
+                - text: Užbaigti darbą
+            - generic [ref=e127]:
+              - paragraph [ref=e128]: Darbininkai (2)
+              - generic:
+                - generic:
+                  - generic:
+                    - textbox "Vardas Pavardė"
+                    - textbox "el.pastas@mail.lt"
+                  - generic:
+                    - combobox:
+                      - generic: Dažytojas
+                      - img: ▼
+                    - textbox: Dažytojas
+                    - generic:
+                      - textbox "Slaptažodis"
+                      - generic:
+                        - button "Generuoti slaptažodį":
+                          - img
+                        - button:
+                          - img
+                  - generic:
+                    - button "Pridėti" [disabled]
+                    - button "Atšaukti"
+              - generic [ref=e129]:
+                - generic [ref=e130]:
+                  - generic [ref=e131]: TK
+                  - generic [ref=e132]:
+                    - paragraph [ref=e133]: Tomas Kazlauskas
+                    - paragraph [ref=e134]: darbininkas@domus.lt
+                  - generic [ref=e135]: Dažytojas
+                  - button "Pašalinti" [ref=e136] [cursor=pointer]:
+                    - img [ref=e137]
+                - generic [ref=e140]:
+                  - generic [ref=e141]: RV
+                  - generic [ref=e142]:
+                    - paragraph [ref=e143]: Rasa Vaitkutė
+                    - paragraph [ref=e144]: rasa@domus.lt
+                  - generic [ref=e145]: Santechnikas
+                  - button "Pašalinti" [ref=e146] [cursor=pointer]:
+                    - img [ref=e147]
+              - button "Pridėti darbininką" [ref=e150] [cursor=pointer]:
+                - img [ref=e151]
+                - text: Pridėti darbininką
+            - generic [ref=e154]:
+              - generic [ref=e156]:
+                - img [ref=e157]
+                - paragraph [ref=e160]: Išlaidos
+              - paragraph [ref=e161]: Išlaidų dar nėra. Pridėkite sąskaitą teikiant ataskaitą.
+          - generic [ref=e162]:
+            - generic [ref=e164]:
+              - img [ref=e165]
+              - generic [ref=e168]: AI Santrauka
+              - button "Dienos" [ref=e169] [cursor=pointer]:
+                - img [ref=e170]
+                - text: Dienos
+              - button "Savaitės" [ref=e172] [cursor=pointer]:
+                - img [ref=e173]
+                - text: Savaitės
+            - generic [ref=e176]:
+              - generic [ref=e178]:
+                - generic [ref=e179]:
+                  - generic [ref=e180]: TK
+                  - generic [ref=e181]: Tomas Kazlauskas
+                  - generic [ref=e182]: Darbininkas
+                  - generic [ref=e183]: 2026-05-20
+                - paragraph [ref=e184]: Baigtas pirmojo aukšto gipskartonio montavimas. Rytoj pradedame dažyti sienas.
+                - button "Versti" [ref=e186] [cursor=pointer]:
+                  - img [ref=e187]
+                  - text: Versti
+                  - img [ref=e191]
+              - generic [ref=e194]:
+                - generic [ref=e195]:
+                  - generic [ref=e196]: RV
+                  - generic [ref=e197]: Rasa Vaitkutė
+                  - generic [ref=e198]: Darbininkas
+                  - generic [ref=e199]:
+                    - img [ref=e200]
+                    - text: Balso
+                  - generic [ref=e203]: 2026-05-22
+                - paragraph [ref=e204]: Įrengtas vonios kambarys — klozetai ir kriauklės pritvirtintos. Laukiame silikonavimo.
+                - generic [ref=e205]:
+                  - button "Transkripcija" [ref=e206] [cursor=pointer]:
+                    - generic [ref=e207]:
+                      - img [ref=e209]
+                      - img [ref=e212]
+                    - text: Transkripcija
+                  - generic:
+                    - generic: Įrengtas vonios kambarys — klozetai ir kriauklės pritvirtintos. Laukiame silikonavimo.
+                - button "Versti" [ref=e215] [cursor=pointer]:
+                  - img [ref=e216]
+                  - text: Versti
+                  - img [ref=e220]
+              - generic [ref=e223]:
+                - generic [ref=e224]:
+                  - generic [ref=e225]: JP
+                  - generic [ref=e226]: Jonas Petraitis
+                  - generic [ref=e227]: Vadovas
+                  - generic [ref=e228]: 2026-05-28
+                - paragraph [ref=e229]: Apžiūrėjau visus aukštus. Darbai vyksta pagal grafiką. Kitą savaitę planuojame baigti fasadą.
+                - button "Versti" [ref=e231] [cursor=pointer]:
+                  - img [ref=e232]
+                  - text: Versti
+                  - img [ref=e236]
